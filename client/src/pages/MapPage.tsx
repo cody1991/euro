@@ -127,11 +127,11 @@ const MapPage: React.FC = () => {
   const [itineraries, setItineraries] = useState<Itinerary[]>([]);
   const [selectedItinerary, setSelectedItinerary] = useState<Itinerary | null>(null);
   const [loading, setLoading] = useState(true);
-  const [mapCenter] = useState<[number, number]>([50.0, 10.0]); // 欧洲中心
+  const [mapCenter] = useState<[number, number]>([47.0, 9.50]); // 意大利中心偏南
   const [mapZoom] = useState(6);
 
   // 主要城市列表（显示大标签）
-  const majorCities = ['阿姆斯特丹', '巴黎', '尼斯', '米兰', '佛罗伦萨', '威尼斯', '罗马', '布达佩斯'];
+  const majorCities = ['武汉', '阿姆斯特丹', '巴黎', '尼斯', '米兰', '佛罗伦萨', '威尼斯', '罗马', '布达佩斯'];
 
   // 推荐的欧洲景点数据
   const recommendedAttractions: { [key: string]: Attraction[] } = {
@@ -1081,8 +1081,8 @@ const MapPage: React.FC = () => {
 
   const fetchItineraries = async () => {
     try {
-      // 直接获取ID为4的完整欧洲行程
-      const response = await itineraryAPI.getById(4);
+      // 直接获取ID为1的完整欧洲行程
+      const response = await itineraryAPI.getById(1);
       setItineraries([response.data]);
       setSelectedItinerary(response.data);
     } catch (error) {

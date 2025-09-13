@@ -15,8 +15,8 @@ const HomePage: React.FC = () => {
 
   const fetchItinerary = async () => {
     try {
-      // 获取最新的行程（ID为4的完整欧洲行程）
-      const response = await itineraryAPI.getById(4);
+      // 获取最新的行程（ID为1的完整欧洲行程）
+      const response = await itineraryAPI.getById(1);
       setItinerary(response.data);
     } catch (error) {
       console.error('获取行程失败:', error);
