@@ -176,6 +176,18 @@ initializeDatabase();
 
 // API 路由
 
+// 手动触发数据初始化
+app.post('/api/init-data', async (req, res) => {
+  try {
+    console.log('手动触发数据初始化...');
+    await initializeDatabase();
+    res.json({ message: '数据初始化完成' });
+  } catch (error) {
+    console.error('数据初始化失败:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // 数据库状态检查
 app.get('/api/health', async (req, res) => {
   try {
