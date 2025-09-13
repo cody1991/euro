@@ -228,7 +228,7 @@ const ItineraryPage: React.FC = () => {
                         <div className="attraction-actions">
                           <button
                             className="edit-btn"
-                            onClick={() => {/* TODO: Implement edit functionality */}}
+                            onClick={() => {/* TODO: Implement edit functionality */ }}
                           >
                             <Edit3 className="action-icon" />
                           </button>
