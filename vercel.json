@@ -9,14 +9,14 @@
       }
     },
     {
-      "src": "server/index-supabase.js",
+      "src": "server/index-supabase-rest.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/server/index-supabase.js"
+      "dest": "/server/index-supabase-rest.js"
     },
     {
       "src": "/(.*)",
