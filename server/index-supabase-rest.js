@@ -176,6 +176,45 @@ initializeDatabase();
 
 // API 路由
 
+// 测试Supabase连接
+app.get('/api/test-supabase', async (req, res) => {
+  try {
+    console.log('测试Supabase连接...');
+    console.log('SUPABASE_URL:', supabaseUrl);
+    console.log('SUPABASE_ANON_KEY:', supabaseKey ? '已设置' : '未设置');
+    
+    // 测试简单查询
+    const { data, error } = await supabase
+      .from('itineraries')
+      .select('count')
+      .limit(1);
+    
+    if (error) {
+      console.error('Supabase查询错误:', error);
+      return res.status(500).json({ 
+        error: error.message,
+        details: error,
+        supabase_url: supabaseUrl,
+        has_key: !!supabaseKey
+      });
+    }
+    
+    res.json({ 
+      message: 'Supabase连接成功',
+      supabase_url: supabaseUrl,
+      has_key: !!supabaseKey,
+      data: data
+    });
+  } catch (error) {
+    console.error('Supabase连接测试失败:', error);
+    res.status(500).json({ 
+      error: error.message,
+      supabase_url: supabaseUrl,
+      has_key: !!supabaseKey
+    });
+  }
+});
+
 // 手动触发数据初始化
 app.post('/api/init-data', async (req, res) => {
   try {
