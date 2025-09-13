@@ -134,6 +134,9 @@ const initializeDatabase = async () => {
       { name: '梵蒂冈', description: '天主教中心', city_id: cityMap['罗马'], latitude: 41.9022, longitude: 12.4539, visit_date: '2024-03-04', visit_time: '14:00', category: '宗教', rating: 4.8 }
     ];
 
+    console.log('准备插入景点数据，数量:', attractions.length);
+    console.log('景点数据示例:', attractions[0]);
+    
     const { data: insertedAttractions, error: attractionsError } = await supabase
       .from('attractions')
       .insert(attractions)
@@ -141,8 +144,9 @@ const initializeDatabase = async () => {
 
     if (attractionsError) {
       console.error('插入景点失败:', attractionsError);
+      console.error('错误详情:', JSON.stringify(attractionsError, null, 2));
     } else {
-      console.log('景点创建成功，数量:', insertedAttractions.length);
+      console.log('景点创建成功，数量:', insertedAttractions ? insertedAttractions.length : 0);
     }
 
     // 添加交通数据
@@ -162,6 +166,9 @@ const initializeDatabase = async () => {
       { from_city_id: cityMap['布达佩斯'], to_city_id: cityMap['武汉'], transport_type: '飞机', departure_time: '2024-03-08T08:00:00', arrival_time: '2024-03-08T20:00:00', duration: '12小时', cost: 1200, booking_reference: 'CA5678', itinerary_id: itinerary.id }
     ];
 
+    console.log('准备插入交通数据，数量:', transportation.length);
+    console.log('交通数据示例:', transportation[0]);
+    
     const { data: insertedTransportation, error: transportationError } = await supabase
       .from('transportation')
       .insert(transportation)
@@ -169,8 +176,9 @@ const initializeDatabase = async () => {
 
     if (transportationError) {
       console.error('插入交通失败:', transportationError);
+      console.error('错误详情:', JSON.stringify(transportationError, null, 2));
     } else {
-      console.log('交通创建成功，数量:', insertedTransportation.length);
+      console.log('交通创建成功，数量:', insertedTransportation ? insertedTransportation.length : 0);
     }
 
     console.log('Supabase REST API 数据初始化完成');
@@ -220,6 +228,63 @@ app.get('/api/test-supabase', async (req, res) => {
       supabase_url: supabaseUrl,
       has_key: !!supabaseKey
     });
+  }
+});
+
+// 测试插入单条景点数据
+app.post('/api/test-attraction', async (req, res) => {
+  try {
+    console.log('测试插入单条景点数据...');
+    
+    // 先获取一个城市ID
+    const { data: cities, error: citiesError } = await supabase
+      .from('cities')
+      .select('id, name')
+      .limit(1);
+    
+    if (citiesError) {
+      return res.status(500).json({ error: '获取城市失败', details: citiesError });
+    }
+    
+    if (!cities || cities.length === 0) {
+      return res.status(500).json({ error: '没有找到城市数据' });
+    }
+    
+    console.log('找到城市:', cities[0]);
+    
+    // 插入一条测试景点数据
+    const { data: attraction, error: attractionError } = await supabase
+      .from('attractions')
+      .insert([{
+        name: '测试景点',
+        description: '这是一个测试景点',
+        city_id: cities[0].id,
+        latitude: 48.8566,
+        longitude: 2.3522,
+        visit_date: '2024-02-13',
+        visit_time: '09:00',
+        category: '测试',
+        rating: 4.5
+      }])
+      .select();
+    
+    if (attractionError) {
+      console.error('插入测试景点失败:', attractionError);
+      return res.status(500).json({ 
+        error: '插入测试景点失败', 
+        details: attractionError,
+        city_id: cities[0].id
+      });
+    }
+    
+    res.json({ 
+      message: '测试景点插入成功',
+      attraction: attraction[0],
+      city: cities[0]
+    });
+  } catch (error) {
+    console.error('测试插入景点失败:', error);
+    res.status(500).json({ error: error.message });
   }
 });
 
