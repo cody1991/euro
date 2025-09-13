@@ -29,6 +29,35 @@ initializeDatabase();
 
 // API 路由
 
+// 数据库状态检查
+app.get('/api/health', async (req, res) => {
+  try {
+    // 测试数据库连接
+    const result = await pool.query('SELECT NOW() as current_time, version() as db_version');
+    const tableCounts = await pool.query(`
+      SELECT 
+        (SELECT COUNT(*) FROM itineraries) as itineraries_count,
+        (SELECT COUNT(*) FROM cities) as cities_count,
+        (SELECT COUNT(*) FROM attractions) as attractions_count,
+        (SELECT COUNT(*) FROM transportation) as transportation_count
+    `);
+    
+    res.json({
+      status: 'healthy',
+      database: 'connected',
+      current_time: result.rows[0].current_time,
+      db_version: result.rows[0].db_version,
+      table_counts: tableCounts.rows[0]
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      status: 'unhealthy',
+      database: 'disconnected',
+      error: error.message 
+    });
+  }
+});
+
 // 获取所有行程
 app.get('/api/itineraries', async (req, res) => {
   try {
@@ -57,14 +86,17 @@ app.post('/api/itineraries', async (req, res) => {
 app.get('/api/itineraries/:id', async (req, res) => {
   try {
     const itineraryId = req.params.id;
+    console.log(`[DEBUG] 获取行程ID: ${itineraryId}`);
 
     // 获取行程信息
     const itineraryResult = await pool.query('SELECT * FROM itineraries WHERE id = $1', [itineraryId]);
+    console.log(`[DEBUG] 行程查询结果: ${itineraryResult.rows.length} 条记录`);
     if (itineraryResult.rows.length === 0) {
       return res.status(404).json({ error: 'Itinerary not found' });
     }
 
     const itinerary = itineraryResult.rows[0];
+    console.log(`[DEBUG] 找到行程: ${itinerary.title}`);
 
     // 获取城市信息
     const citiesResult = await pool.query(
