@@ -28,59 +28,12 @@ const initializeDatabase = async () => {
       .select('id');
     
     if (checkError) {
-      console.log('创建表结构...');
-      // 这里需要手动在Supabase控制台创建表，或者使用SQL编辑器
-      console.log('请在Supabase控制台的SQL编辑器中运行以下SQL来创建表：');
-      console.log(`
-        -- 创建行程表
-        CREATE TABLE IF NOT EXISTS itineraries (
-          id SERIAL PRIMARY KEY,
-          title VARCHAR(255) NOT NULL,
-          start_date DATE NOT NULL,
-          end_date DATE NOT NULL,
-          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        );
-
-        -- 创建城市表
-        CREATE TABLE IF NOT EXISTS cities (
-          id SERIAL PRIMARY KEY,
-          name VARCHAR(255) NOT NULL,
-          country VARCHAR(255) NOT NULL,
-          latitude DECIMAL(10, 8),
-          longitude DECIMAL(11, 8),
-          arrival_date DATE,
-          departure_date DATE,
-          itinerary_id INTEGER REFERENCES itineraries(id)
-        );
-
-        -- 创建景点表
-        CREATE TABLE IF NOT EXISTS attractions (
-          id SERIAL PRIMARY KEY,
-          name VARCHAR(255) NOT NULL,
-          description TEXT,
-          city_id INTEGER REFERENCES cities(id),
-          latitude DECIMAL(10, 8),
-          longitude DECIMAL(11, 8),
-          visit_date DATE,
-          visit_time TIME,
-          category VARCHAR(100),
-          rating DECIMAL(3, 1)
-        );
-
-        -- 创建交通表
-        CREATE TABLE IF NOT EXISTS transportation (
-          id SERIAL PRIMARY KEY,
-          from_city_id INTEGER REFERENCES cities(id),
-          to_city_id INTEGER REFERENCES cities(id),
-          transport_type VARCHAR(50) NOT NULL,
-          departure_time TIMESTAMP,
-          arrival_time TIMESTAMP,
-          duration VARCHAR(50),
-          cost DECIMAL(10, 2),
-          booking_reference VARCHAR(100),
-          itinerary_id INTEGER REFERENCES itineraries(id)
-        );
-      `);
+      console.log('数据库连接错误:', checkError.message);
+      console.log('请检查：');
+      console.log('1. Supabase项目是否正常运行');
+      console.log('2. 环境变量 SUPABASE_URL 和 SUPABASE_ANON_KEY 是否正确设置');
+      console.log('3. 表结构是否已创建');
+      console.log('4. RLS策略是否已设置');
       return;
     }
 
