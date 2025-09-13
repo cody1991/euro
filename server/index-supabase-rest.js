@@ -133,32 +133,64 @@ const initializeDatabase = async () => {
 
     console.log('城市映射:', cityMap);
 
+    // 先清理现有景点数据，避免重复
+    console.log('清理现有景点数据...');
+    await supabase
+      .from('attractions')
+      .delete()
+      .neq('id', 0); // 删除所有景点数据
+
     // 添加景点数据
     const attractions = [
+      // 阿姆斯特丹景点
+      { name: '安妮之家', description: '安妮·弗兰克博物馆', city_id: cityMap['阿姆斯特丹'], latitude: 52.3751, longitude: 4.8840, visit_date: '2024-02-10', visit_time: '09:00', category: '历史', rating: 4.6 },
+      { name: '梵高博物馆', description: '梵高作品收藏', city_id: cityMap['阿姆斯特丹'], latitude: 52.3584, longitude: 4.8811, visit_date: '2024-02-10', visit_time: '14:00', category: '博物馆', rating: 4.8 },
+      { name: '运河游船', description: '阿姆斯特丹运河观光', city_id: cityMap['阿姆斯特丹'], latitude: 52.3676, longitude: 4.9041, visit_date: '2024-02-11', visit_time: '10:00', category: '体验', rating: 4.5 },
+      
       // 巴黎景点
       { name: '埃菲尔铁塔', description: '巴黎标志性建筑', city_id: cityMap['巴黎'], latitude: 48.8584, longitude: 2.2945, visit_date: '2024-02-13', visit_time: '09:00', category: '地标', rating: 4.8 },
       { name: '卢浮宫', description: '世界著名博物馆', city_id: cityMap['巴黎'], latitude: 48.8606, longitude: 2.3376, visit_date: '2024-02-14', visit_time: '10:00', category: '博物馆', rating: 4.9 },
       { name: '凯旋门', description: '拿破仑凯旋门', city_id: cityMap['巴黎'], latitude: 48.8738, longitude: 2.2950, visit_date: '2024-02-15', visit_time: '14:00', category: '地标', rating: 4.5 },
-
+      
       // 尼斯景点
       { name: '天使湾', description: '美丽的海湾', city_id: cityMap['尼斯'], latitude: 43.6959, longitude: 7.2644, visit_date: '2024-02-17', visit_time: '10:00', category: '自然', rating: 4.7 },
       { name: '尼斯老城', description: '历史悠久的城区', city_id: cityMap['尼斯'], latitude: 43.6961, longitude: 7.2759, visit_date: '2024-02-17', visit_time: '15:00', category: '历史', rating: 4.3 },
-
+      
+      // 马赛景点
+      { name: '马赛老港', description: '历史悠久的港口', city_id: cityMap['马赛'], latitude: 43.2947, longitude: 5.3741, visit_date: '2024-02-19', visit_time: '09:00', category: '历史', rating: 4.4 },
+      { name: '圣母加德大教堂', description: '马赛地标建筑', city_id: cityMap['马赛'], latitude: 43.2907, longitude: 5.3711, visit_date: '2024-02-19', visit_time: '14:00', category: '宗教', rating: 4.3 },
+      
+      // 阿维尼翁景点
+      { name: '教皇宫', description: '中世纪教皇宫殿', city_id: cityMap['阿维尼翁'], latitude: 43.9509, longitude: 4.8084, visit_date: '2024-02-21', visit_time: '09:00', category: '历史', rating: 4.5 },
+      { name: '阿维尼翁桥', description: '著名的断桥', city_id: cityMap['阿维尼翁'], latitude: 43.9519, longitude: 4.8081, visit_date: '2024-02-21', visit_time: '15:00', category: '历史', rating: 4.2 },
+      
+      // 阿尔勒景点
+      { name: '古罗马竞技场', description: '保存完好的古罗马建筑', city_id: cityMap['阿尔勒'], latitude: 43.6777, longitude: 4.6306, visit_date: '2024-02-23', visit_time: '09:00', category: '历史', rating: 4.6 },
+      { name: '梵高咖啡馆', description: '梵高画作中的咖啡馆', city_id: cityMap['阿尔勒'], latitude: 43.6766, longitude: 4.6278, visit_date: '2024-02-23', visit_time: '14:00', category: '文化', rating: 4.4 },
+      
+      // 圣特罗佩景点
+      { name: '圣特罗佩港口', description: '豪华游艇港口', city_id: cityMap['圣特罗佩'], latitude: 43.2671, longitude: 6.6392, visit_date: '2024-02-25', visit_time: '09:00', category: '体验', rating: 4.3 },
+      { name: '圣特罗佩海滩', description: '著名的海滩', city_id: cityMap['圣特罗佩'], latitude: 43.2644, longitude: 6.6369, visit_date: '2024-02-25', visit_time: '14:00', category: '自然', rating: 4.5 },
+      
       // 米兰景点
       { name: '米兰大教堂', description: '哥特式建筑杰作', city_id: cityMap['米兰'], latitude: 45.4642, longitude: 9.1900, visit_date: '2024-02-27', visit_time: '09:00', category: '宗教', rating: 4.8 },
       { name: '斯福尔扎城堡', description: '历史城堡', city_id: cityMap['米兰'], latitude: 45.4700, longitude: 9.1797, visit_date: '2024-02-27', visit_time: '14:00', category: '历史', rating: 4.2 },
-
+      
       // 佛罗伦萨景点
       { name: '圣母百花大教堂', description: '文艺复兴建筑', city_id: cityMap['佛罗伦萨'], latitude: 43.7731, longitude: 11.2560, visit_date: '2024-02-29', visit_time: '09:00', category: '宗教', rating: 4.9 },
       { name: '乌菲兹美术馆', description: '世界著名艺术馆', city_id: cityMap['佛罗伦萨'], latitude: 43.7685, longitude: 11.2559, visit_date: '2024-02-29', visit_time: '14:00', category: '博物馆', rating: 4.8 },
-
+      
       // 威尼斯景点
       { name: '圣马可广场', description: '威尼斯中心广场', city_id: cityMap['威尼斯'], latitude: 45.4342, longitude: 12.3388, visit_date: '2024-03-02', visit_time: '09:00', category: '地标', rating: 4.6 },
       { name: '大运河', description: '威尼斯主要水道', city_id: cityMap['威尼斯'], latitude: 45.4408, longitude: 12.3155, visit_date: '2024-03-02', visit_time: '15:00', category: '自然', rating: 4.5 },
-
+      
       // 罗马景点
       { name: '斗兽场', description: '古罗马竞技场', city_id: cityMap['罗马'], latitude: 41.8902, longitude: 12.4922, visit_date: '2024-03-04', visit_time: '09:00', category: '历史', rating: 4.9 },
-      { name: '梵蒂冈', description: '天主教中心', city_id: cityMap['罗马'], latitude: 41.9022, longitude: 12.4539, visit_date: '2024-03-04', visit_time: '14:00', category: '宗教', rating: 4.8 }
+      { name: '梵蒂冈', description: '天主教中心', city_id: cityMap['罗马'], latitude: 41.9022, longitude: 12.4539, visit_date: '2024-03-04', visit_time: '14:00', category: '宗教', rating: 4.8 },
+      
+      // 布达佩斯景点
+      { name: '布达城堡', description: '历史悠久的城堡', city_id: cityMap['布达佩斯'], latitude: 47.4965, longitude: 19.0398, visit_date: '2024-03-06', visit_time: '09:00', category: '历史', rating: 4.7 },
+      { name: '多瑙河游船', description: '多瑙河夜景游船', city_id: cityMap['布达佩斯'], latitude: 47.4979, longitude: 19.0402, visit_date: '2024-03-06', visit_time: '19:00', category: '体验', rating: 4.6 }
     ];
 
     console.log('准备插入景点数据，数量:', attractions.length);
@@ -175,6 +207,13 @@ const initializeDatabase = async () => {
     } else {
       console.log('景点创建成功，数量:', insertedAttractions ? insertedAttractions.length : 0);
     }
+
+    // 先清理现有交通数据，避免重复
+    console.log('清理现有交通数据...');
+    await supabase
+      .from('transportation')
+      .delete()
+      .neq('id', 0); // 删除所有交通数据
 
     // 添加交通数据
     const transportation = [
