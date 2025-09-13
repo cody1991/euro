@@ -98,32 +98,40 @@ const initializeDatabase = async () => {
 
     console.log('城市创建成功，数量:', insertedCities.length);
 
+    // 创建城市名称到ID的映射
+    const cityMap = {};
+    insertedCities.forEach(city => {
+      cityMap[city.name] = city.id;
+    });
+
+    console.log('城市映射:', cityMap);
+
     // 添加景点数据
     const attractions = [
       // 巴黎景点
-      { name: '埃菲尔铁塔', description: '巴黎标志性建筑', city_id: insertedCities[2].id, latitude: 48.8584, longitude: 2.2945, visit_date: '2024-02-13', visit_time: '09:00', category: '地标', rating: 4.8 },
-      { name: '卢浮宫', description: '世界著名博物馆', city_id: insertedCities[2].id, latitude: 48.8606, longitude: 2.3376, visit_date: '2024-02-14', visit_time: '10:00', category: '博物馆', rating: 4.9 },
-      { name: '凯旋门', description: '拿破仑凯旋门', city_id: insertedCities[2].id, latitude: 48.8738, longitude: 2.2950, visit_date: '2024-02-15', visit_time: '14:00', category: '地标', rating: 4.5 },
-
+      { name: '埃菲尔铁塔', description: '巴黎标志性建筑', city_id: cityMap['巴黎'], latitude: 48.8584, longitude: 2.2945, visit_date: '2024-02-13', visit_time: '09:00', category: '地标', rating: 4.8 },
+      { name: '卢浮宫', description: '世界著名博物馆', city_id: cityMap['巴黎'], latitude: 48.8606, longitude: 2.3376, visit_date: '2024-02-14', visit_time: '10:00', category: '博物馆', rating: 4.9 },
+      { name: '凯旋门', description: '拿破仑凯旋门', city_id: cityMap['巴黎'], latitude: 48.8738, longitude: 2.2950, visit_date: '2024-02-15', visit_time: '14:00', category: '地标', rating: 4.5 },
+      
       // 尼斯景点
-      { name: '天使湾', description: '美丽的海湾', city_id: insertedCities[3].id, latitude: 43.6959, longitude: 7.2644, visit_date: '2024-02-17', visit_time: '10:00', category: '自然', rating: 4.7 },
-      { name: '尼斯老城', description: '历史悠久的城区', city_id: insertedCities[3].id, latitude: 43.6961, longitude: 7.2759, visit_date: '2024-02-17', visit_time: '15:00', category: '历史', rating: 4.3 },
-
+      { name: '天使湾', description: '美丽的海湾', city_id: cityMap['尼斯'], latitude: 43.6959, longitude: 7.2644, visit_date: '2024-02-17', visit_time: '10:00', category: '自然', rating: 4.7 },
+      { name: '尼斯老城', description: '历史悠久的城区', city_id: cityMap['尼斯'], latitude: 43.6961, longitude: 7.2759, visit_date: '2024-02-17', visit_time: '15:00', category: '历史', rating: 4.3 },
+      
       // 米兰景点
-      { name: '米兰大教堂', description: '哥特式建筑杰作', city_id: insertedCities[8].id, latitude: 45.4642, longitude: 9.1900, visit_date: '2024-02-27', visit_time: '09:00', category: '宗教', rating: 4.8 },
-      { name: '斯福尔扎城堡', description: '历史城堡', city_id: insertedCities[8].id, latitude: 45.4700, longitude: 9.1797, visit_date: '2024-02-27', visit_time: '14:00', category: '历史', rating: 4.2 },
-
+      { name: '米兰大教堂', description: '哥特式建筑杰作', city_id: cityMap['米兰'], latitude: 45.4642, longitude: 9.1900, visit_date: '2024-02-27', visit_time: '09:00', category: '宗教', rating: 4.8 },
+      { name: '斯福尔扎城堡', description: '历史城堡', city_id: cityMap['米兰'], latitude: 45.4700, longitude: 9.1797, visit_date: '2024-02-27', visit_time: '14:00', category: '历史', rating: 4.2 },
+      
       // 佛罗伦萨景点
-      { name: '圣母百花大教堂', description: '文艺复兴建筑', city_id: insertedCities[9].id, latitude: 43.7731, longitude: 11.2560, visit_date: '2024-02-29', visit_time: '09:00', category: '宗教', rating: 4.9 },
-      { name: '乌菲兹美术馆', description: '世界著名艺术馆', city_id: insertedCities[9].id, latitude: 43.7685, longitude: 11.2559, visit_date: '2024-02-29', visit_time: '14:00', category: '博物馆', rating: 4.8 },
-
+      { name: '圣母百花大教堂', description: '文艺复兴建筑', city_id: cityMap['佛罗伦萨'], latitude: 43.7731, longitude: 11.2560, visit_date: '2024-02-29', visit_time: '09:00', category: '宗教', rating: 4.9 },
+      { name: '乌菲兹美术馆', description: '世界著名艺术馆', city_id: cityMap['佛罗伦萨'], latitude: 43.7685, longitude: 11.2559, visit_date: '2024-02-29', visit_time: '14:00', category: '博物馆', rating: 4.8 },
+      
       // 威尼斯景点
-      { name: '圣马可广场', description: '威尼斯中心广场', city_id: insertedCities[10].id, latitude: 45.4342, longitude: 12.3388, visit_date: '2024-03-02', visit_time: '09:00', category: '地标', rating: 4.6 },
-      { name: '大运河', description: '威尼斯主要水道', city_id: insertedCities[10].id, latitude: 45.4408, longitude: 12.3155, visit_date: '2024-03-02', visit_time: '15:00', category: '自然', rating: 4.5 },
-
+      { name: '圣马可广场', description: '威尼斯中心广场', city_id: cityMap['威尼斯'], latitude: 45.4342, longitude: 12.3388, visit_date: '2024-03-02', visit_time: '09:00', category: '地标', rating: 4.6 },
+      { name: '大运河', description: '威尼斯主要水道', city_id: cityMap['威尼斯'], latitude: 45.4408, longitude: 12.3155, visit_date: '2024-03-02', visit_time: '15:00', category: '自然', rating: 4.5 },
+      
       // 罗马景点
-      { name: '斗兽场', description: '古罗马竞技场', city_id: insertedCities[11].id, latitude: 41.8902, longitude: 12.4922, visit_date: '2024-03-04', visit_time: '09:00', category: '历史', rating: 4.9 },
-      { name: '梵蒂冈', description: '天主教中心', city_id: insertedCities[11].id, latitude: 41.9022, longitude: 12.4539, visit_date: '2024-03-04', visit_time: '14:00', category: '宗教', rating: 4.8 }
+      { name: '斗兽场', description: '古罗马竞技场', city_id: cityMap['罗马'], latitude: 41.8902, longitude: 12.4922, visit_date: '2024-03-04', visit_time: '09:00', category: '历史', rating: 4.9 },
+      { name: '梵蒂冈', description: '天主教中心', city_id: cityMap['罗马'], latitude: 41.9022, longitude: 12.4539, visit_date: '2024-03-04', visit_time: '14:00', category: '宗教', rating: 4.8 }
     ];
 
     const { data: insertedAttractions, error: attractionsError } = await supabase
@@ -139,19 +147,19 @@ const initializeDatabase = async () => {
 
     // 添加交通数据
     const transportation = [
-      { from_city_id: insertedCities[0].id, to_city_id: insertedCities[1].id, transport_type: '飞机', departure_time: '2024-02-09T08:00:00', arrival_time: '2024-02-09T14:00:00', duration: '6小时', cost: 800, booking_reference: 'CA1234', itinerary_id: itinerary.id },
-      { from_city_id: insertedCities[1].id, to_city_id: insertedCities[2].id, transport_type: '火车', departure_time: '2024-02-12T10:00:00', arrival_time: '2024-02-12T16:00:00', duration: '6小时', cost: 120, booking_reference: 'TGV456', itinerary_id: itinerary.id },
-      { from_city_id: insertedCities[2].id, to_city_id: insertedCities[3].id, transport_type: '飞机', departure_time: '2024-02-16T09:00:00', arrival_time: '2024-02-16T11:00:00', duration: '2小时', cost: 150, booking_reference: 'AF789', itinerary_id: itinerary.id },
-      { from_city_id: insertedCities[3].id, to_city_id: insertedCities[4].id, transport_type: '火车', departure_time: '2024-02-18T08:00:00', arrival_time: '2024-02-18T10:00:00', duration: '2小时', cost: 80, booking_reference: 'TER123', itinerary_id: itinerary.id },
-      { from_city_id: insertedCities[4].id, to_city_id: insertedCities[5].id, transport_type: '汽车', departure_time: '2024-02-20T09:00:00', arrival_time: '2024-02-20T11:00:00', duration: '2小时', cost: 60, booking_reference: 'RENTAL1', itinerary_id: itinerary.id },
-      { from_city_id: insertedCities[5].id, to_city_id: insertedCities[6].id, transport_type: '汽车', departure_time: '2024-02-22T10:00:00', arrival_time: '2024-02-22T11:00:00', duration: '1小时', cost: 40, booking_reference: 'RENTAL2', itinerary_id: itinerary.id },
-      { from_city_id: insertedCities[6].id, to_city_id: insertedCities[7].id, transport_type: '汽车', departure_time: '2024-02-24T09:00:00', arrival_time: '2024-02-24T11:00:00', duration: '2小时', cost: 50, booking_reference: 'RENTAL3', itinerary_id: itinerary.id },
-      { from_city_id: insertedCities[7].id, to_city_id: insertedCities[8].id, transport_type: '飞机', departure_time: '2024-02-26T08:00:00', arrival_time: '2024-02-26T10:00:00', duration: '2小时', cost: 200, booking_reference: 'AZ456', itinerary_id: itinerary.id },
-      { from_city_id: insertedCities[8].id, to_city_id: insertedCities[9].id, transport_type: '火车', departure_time: '2024-02-28T09:00:00', arrival_time: '2024-02-28T11:00:00', duration: '2小时', cost: 90, booking_reference: 'FRECCIAROSSA', itinerary_id: itinerary.id },
-      { from_city_id: insertedCities[9].id, to_city_id: insertedCities[10].id, transport_type: '火车', departure_time: '2024-03-01T08:00:00', arrival_time: '2024-03-01T12:00:00', duration: '4小时', cost: 110, booking_reference: 'ITALO789', itinerary_id: itinerary.id },
-      { from_city_id: insertedCities[10].id, to_city_id: insertedCities[11].id, transport_type: '火车', departure_time: '2024-03-03T09:00:00', arrival_time: '2024-03-03T13:00:00', duration: '4小时', cost: 100, booking_reference: 'FRECCIAROSSA2', itinerary_id: itinerary.id },
-      { from_city_id: insertedCities[11].id, to_city_id: insertedCities[12].id, transport_type: '飞机', departure_time: '2024-03-05T10:00:00', arrival_time: '2024-03-05T12:00:00', duration: '2小时', cost: 180, booking_reference: 'WIZZ123', itinerary_id: itinerary.id },
-      { from_city_id: insertedCities[12].id, to_city_id: insertedCities[13].id, transport_type: '飞机', departure_time: '2024-03-08T08:00:00', arrival_time: '2024-03-08T20:00:00', duration: '12小时', cost: 1200, booking_reference: 'CA5678', itinerary_id: itinerary.id }
+      { from_city_id: cityMap['武汉'], to_city_id: cityMap['阿姆斯特丹'], transport_type: '飞机', departure_time: '2024-02-09T08:00:00', arrival_time: '2024-02-09T14:00:00', duration: '6小时', cost: 800, booking_reference: 'CA1234', itinerary_id: itinerary.id },
+      { from_city_id: cityMap['阿姆斯特丹'], to_city_id: cityMap['巴黎'], transport_type: '火车', departure_time: '2024-02-12T10:00:00', arrival_time: '2024-02-12T16:00:00', duration: '6小时', cost: 120, booking_reference: 'TGV456', itinerary_id: itinerary.id },
+      { from_city_id: cityMap['巴黎'], to_city_id: cityMap['尼斯'], transport_type: '飞机', departure_time: '2024-02-16T09:00:00', arrival_time: '2024-02-16T11:00:00', duration: '2小时', cost: 150, booking_reference: 'AF789', itinerary_id: itinerary.id },
+      { from_city_id: cityMap['尼斯'], to_city_id: cityMap['马赛'], transport_type: '火车', departure_time: '2024-02-18T08:00:00', arrival_time: '2024-02-18T10:00:00', duration: '2小时', cost: 80, booking_reference: 'TER123', itinerary_id: itinerary.id },
+      { from_city_id: cityMap['马赛'], to_city_id: cityMap['阿维尼翁'], transport_type: '汽车', departure_time: '2024-02-20T09:00:00', arrival_time: '2024-02-20T11:00:00', duration: '2小时', cost: 60, booking_reference: 'RENTAL1', itinerary_id: itinerary.id },
+      { from_city_id: cityMap['阿维尼翁'], to_city_id: cityMap['阿尔勒'], transport_type: '汽车', departure_time: '2024-02-22T10:00:00', arrival_time: '2024-02-22T11:00:00', duration: '1小时', cost: 40, booking_reference: 'RENTAL2', itinerary_id: itinerary.id },
+      { from_city_id: cityMap['阿尔勒'], to_city_id: cityMap['圣特罗佩'], transport_type: '汽车', departure_time: '2024-02-24T09:00:00', arrival_time: '2024-02-24T11:00:00', duration: '2小时', cost: 50, booking_reference: 'RENTAL3', itinerary_id: itinerary.id },
+      { from_city_id: cityMap['圣特罗佩'], to_city_id: cityMap['米兰'], transport_type: '飞机', departure_time: '2024-02-26T08:00:00', arrival_time: '2024-02-26T10:00:00', duration: '2小时', cost: 200, booking_reference: 'AZ456', itinerary_id: itinerary.id },
+      { from_city_id: cityMap['米兰'], to_city_id: cityMap['佛罗伦萨'], transport_type: '火车', departure_time: '2024-02-28T09:00:00', arrival_time: '2024-02-28T11:00:00', duration: '2小时', cost: 90, booking_reference: 'FRECCIAROSSA', itinerary_id: itinerary.id },
+      { from_city_id: cityMap['佛罗伦萨'], to_city_id: cityMap['威尼斯'], transport_type: '火车', departure_time: '2024-03-01T08:00:00', arrival_time: '2024-03-01T12:00:00', duration: '4小时', cost: 110, booking_reference: 'ITALO789', itinerary_id: itinerary.id },
+      { from_city_id: cityMap['威尼斯'], to_city_id: cityMap['罗马'], transport_type: '火车', departure_time: '2024-03-03T09:00:00', arrival_time: '2024-03-03T13:00:00', duration: '4小时', cost: 100, booking_reference: 'FRECCIAROSSA2', itinerary_id: itinerary.id },
+      { from_city_id: cityMap['罗马'], to_city_id: cityMap['布达佩斯'], transport_type: '飞机', departure_time: '2024-03-05T10:00:00', arrival_time: '2024-03-05T12:00:00', duration: '2小时', cost: 180, booking_reference: 'WIZZ123', itinerary_id: itinerary.id },
+      { from_city_id: cityMap['布达佩斯'], to_city_id: cityMap['武汉'], transport_type: '飞机', departure_time: '2024-03-08T08:00:00', arrival_time: '2024-03-08T20:00:00', duration: '12小时', cost: 1200, booking_reference: 'CA5678', itinerary_id: itinerary.id }
     ];
 
     const { data: insertedTransportation, error: transportationError } = await supabase
