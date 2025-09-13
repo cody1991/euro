@@ -38,29 +38,38 @@ const initializeDatabase = async () => {
     }
 
     if (existingItineraries && existingItineraries.length > 0) {
-      console.log('数据已存在，跳过初始化');
-      return;
+      console.log('检测到已有行程数据，但继续初始化景点和交通数据...');
+      // 不直接返回，继续执行景点和交通数据初始化
     }
 
-    // 插入行程
-    const { data: itinerary, error: itineraryError } = await supabase
-      .from('itineraries')
-      .insert([
-        {
-          title: '20天欧洲深度游',
-          start_date: '2024-02-09',
-          end_date: '2024-03-08'
-        }
-      ])
-      .select()
-      .single();
+    // 获取或创建行程
+    let itinerary;
+    if (existingItineraries && existingItineraries.length > 0) {
+      // 使用现有行程
+      itinerary = existingItineraries[0];
+      console.log('使用现有行程，ID:', itinerary.id);
+    } else {
+      // 创建新行程
+      const { data: newItinerary, error: itineraryError } = await supabase
+        .from('itineraries')
+        .insert([
+          {
+            title: '20天欧洲深度游',
+            start_date: '2024-02-09',
+            end_date: '2024-03-08'
+          }
+        ])
+        .select()
+        .single();
 
-    if (itineraryError) {
-      console.error('插入行程失败:', itineraryError);
-      return;
+      if (itineraryError) {
+        console.error('插入行程失败:', itineraryError);
+        return;
+      }
+
+      itinerary = newItinerary;
+      console.log('行程创建成功，ID:', itinerary.id);
     }
-
-    console.log('行程创建成功，ID:', itinerary.id);
 
     // 城市数据
     const cities = [
@@ -80,23 +89,41 @@ const initializeDatabase = async () => {
       { name: '武汉', country: '中国', latitude: 30.5928, longitude: 114.3055, arrival_date: '2024-03-08', departure_date: '2024-03-08' }
     ];
 
-    // 插入城市
-    const citiesWithItineraryId = cities.map(city => ({
-      ...city,
-      itinerary_id: itinerary.id
-    }));
-
-    const { data: insertedCities, error: citiesError } = await supabase
+    // 检查城市是否已存在
+    const { data: existingCities, error: citiesCheckError } = await supabase
       .from('cities')
-      .insert(citiesWithItineraryId)
-      .select();
+      .select('id, name')
+      .eq('itinerary_id', itinerary.id);
 
-    if (citiesError) {
-      console.error('插入城市失败:', citiesError);
+    let insertedCities;
+    if (citiesCheckError) {
+      console.error('检查城市失败:', citiesCheckError);
       return;
     }
 
-    console.log('城市创建成功，数量:', insertedCities.length);
+    if (existingCities && existingCities.length > 0) {
+      console.log('城市已存在，使用现有城市数据，数量:', existingCities.length);
+      insertedCities = existingCities;
+    } else {
+      // 插入城市
+      const citiesWithItineraryId = cities.map(city => ({
+        ...city,
+        itinerary_id: itinerary.id
+      }));
+
+      const { data: newCities, error: citiesError } = await supabase
+        .from('cities')
+        .insert(citiesWithItineraryId)
+        .select();
+
+      if (citiesError) {
+        console.error('插入城市失败:', citiesError);
+        return;
+      }
+
+      insertedCities = newCities;
+      console.log('城市创建成功，数量:', insertedCities.length);
+    }
 
     // 创建城市名称到ID的映射
     const cityMap = {};
@@ -136,7 +163,7 @@ const initializeDatabase = async () => {
 
     console.log('准备插入景点数据，数量:', attractions.length);
     console.log('景点数据示例:', attractions[0]);
-    
+
     const { data: insertedAttractions, error: attractionsError } = await supabase
       .from('attractions')
       .insert(attractions)
@@ -168,7 +195,7 @@ const initializeDatabase = async () => {
 
     console.log('准备插入交通数据，数量:', transportation.length);
     console.log('交通数据示例:', transportation[0]);
-    
+
     const { data: insertedTransportation, error: transportationError } = await supabase
       .from('transportation')
       .insert(transportation)
@@ -235,23 +262,23 @@ app.get('/api/test-supabase', async (req, res) => {
 app.post('/api/test-attraction', async (req, res) => {
   try {
     console.log('测试插入单条景点数据...');
-    
+
     // 先获取一个城市ID
     const { data: cities, error: citiesError } = await supabase
       .from('cities')
       .select('id, name')
       .limit(1);
-    
+
     if (citiesError) {
       return res.status(500).json({ error: '获取城市失败', details: citiesError });
     }
-    
+
     if (!cities || cities.length === 0) {
       return res.status(500).json({ error: '没有找到城市数据' });
     }
-    
+
     console.log('找到城市:', cities[0]);
-    
+
     // 插入一条测试景点数据
     const { data: attraction, error: attractionError } = await supabase
       .from('attractions')
@@ -267,17 +294,17 @@ app.post('/api/test-attraction', async (req, res) => {
         rating: 4.5
       }])
       .select();
-    
+
     if (attractionError) {
       console.error('插入测试景点失败:', attractionError);
-      return res.status(500).json({ 
-        error: '插入测试景点失败', 
+      return res.status(500).json({
+        error: '插入测试景点失败',
         details: attractionError,
         city_id: cities[0].id
       });
     }
-    
-    res.json({ 
+
+    res.json({
       message: '测试景点插入成功',
       attraction: attraction[0],
       city: cities[0]
