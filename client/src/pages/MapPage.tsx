@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
-import { Star, Calendar, Plane, Train, Car, Ship } from 'lucide-react';
+import { MapContainer, TileLayer, Marker, Popup, Polyline, CircleMarker, Tooltip } from 'react-leaflet';
+import { Star, Calendar, Plane, Train, Car, Ship, MapPin } from 'lucide-react';
 import { itineraryAPI } from '../services/api';
 import { Itinerary, City, Attraction } from '../types';
 import 'leaflet/dist/leaflet.css';
@@ -21,6 +21,75 @@ const DefaultIcon = L.icon({
 });
 
 L.Marker.prototype.options.icon = DefaultIcon;
+
+// 创建自定义交通工具图标
+const createTransportIcon = (transportType: string) => {
+  const iconColor = getTransportColor(transportType);
+
+  const iconHtml = `
+    <div style="
+      background: ${iconColor};
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 16px;
+      border: 3px solid white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    ">
+      ${transportType === '飞机' ? '✈️' :
+      transportType === '火车' ? '🚂' :
+        transportType === '汽车' ? '🚗' :
+          transportType === '轮船' ? '🚢' : '🚌'}
+    </div>
+  `;
+
+  return L.divIcon({
+    html: iconHtml,
+    className: 'custom-transport-icon',
+    iconSize: [30, 30],
+    iconAnchor: [15, 15],
+    popupAnchor: [0, -15]
+  });
+};
+
+// 创建城市标签图标
+const createCityLabelIcon = (cityName: string, isMajor: boolean = false) => {
+  const fontSize = isMajor ? '16px' : '14px';
+  const fontWeight = isMajor ? 'bold' : '600';
+  const padding = isMajor ? '8px 12px' : '6px 10px';
+  const borderRadius = '20px';
+
+  const iconHtml = `
+    <div style="
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      font-size: ${fontSize};
+      font-weight: ${fontWeight};
+      padding: ${padding};
+      border-radius: ${borderRadius};
+      border: 2px solid white;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+      white-space: nowrap;
+      text-align: center;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      letter-spacing: 0.5px;
+    ">
+      ${cityName}
+    </div>
+  `;
+
+  return L.divIcon({
+    html: iconHtml,
+    className: 'city-label-icon',
+    iconSize: [isMajor ? 120 : 100, 30],
+    iconAnchor: [isMajor ? 60 : 50, 15],
+    popupAnchor: [0, -15]
+  });
+};
 
 // 获取交通工具图标
 const getTransportIcon = (transportType: string) => {
@@ -59,7 +128,10 @@ const MapPage: React.FC = () => {
   const [selectedItinerary, setSelectedItinerary] = useState<Itinerary | null>(null);
   const [loading, setLoading] = useState(true);
   const [mapCenter] = useState<[number, number]>([50.0, 10.0]); // 欧洲中心
-  const [mapZoom] = useState(4);
+  const [mapZoom] = useState(6);
+
+  // 主要城市列表（显示大标签）
+  const majorCities = ['阿姆斯特丹', '巴黎', '尼斯', '米兰', '佛罗伦萨', '威尼斯', '罗马', '布达佩斯'];
 
   // 推荐的欧洲景点数据
   const recommendedAttractions: { [key: string]: Attraction[] } = {
@@ -1099,11 +1171,6 @@ const MapPage: React.FC = () => {
                         <div className="transport-duration">
                           行程时间: {transport.duration}
                         </div>
-                        {transport.cost && (
-                          <div className="transport-cost">
-                            费用: ¥{transport.cost}
-                          </div>
-                        )}
                       </div>
                     </div>
                   );
@@ -1155,17 +1222,38 @@ const MapPage: React.FC = () => {
 
                 if (!fromCity || !toCity) return null;
 
+                // 计算路线中点位置，用于放置交通工具图标
+                const midLat = (fromCity.latitude + toCity.latitude) / 2;
+                const midLng = (fromCity.longitude + toCity.longitude) / 2;
+
                 return (
-                  <Polyline
-                    key={index}
-                    positions={[
-                      [fromCity.latitude, fromCity.longitude],
-                      [toCity.latitude, toCity.longitude]
-                    ]}
-                    color={getTransportColor(transport.transport_type)}
-                    weight={4}
-                    opacity={0.8}
-                  />
+                  <React.Fragment key={index}>
+                    {/* 交通路线 */}
+                    <Polyline
+                      positions={[
+                        [fromCity.latitude, fromCity.longitude],
+                        [toCity.latitude, toCity.longitude]
+                      ]}
+                      color={getTransportColor(transport.transport_type)}
+                      weight={6}
+                      opacity={0.8}
+                    />
+
+                    {/* 交通工具图标 */}
+                    <Marker
+                      position={[midLat, midLng]}
+                      icon={createTransportIcon(transport.transport_type)}
+                    >
+                      <Popup>
+                        <div className="transport-popup">
+                          <h3>{transport.transport_type}</h3>
+                          <p><strong>路线:</strong> {fromCity.name} → {toCity.name}</p>
+                          <p><strong>时间:</strong> {transport.departure_time} - {transport.arrival_time}</p>
+                          <p><strong>行程时间:</strong> {transport.duration}</p>
+                        </div>
+                      </Popup>
+                    </Marker>
+                  </React.Fragment>
                 );
               })}
 
@@ -1198,6 +1286,41 @@ const MapPage: React.FC = () => {
                   </Popup>
                 </Marker>
               ))}
+
+              {/* 城市标签 */}
+              {selectedItinerary.cities.map((city, index) => {
+                const isMajor = majorCities.includes(city.name);
+                const labelOffset: [number, number] = isMajor ? [0, -25] : [0, -20];
+
+                return (
+                  <Marker
+                    key={`label-${city.id}`}
+                    position={[city.latitude, city.longitude]}
+                    icon={createCityLabelIcon(city.name, isMajor)}
+                  >
+                    <Tooltip
+                      direction="top"
+                      offset={labelOffset}
+                      opacity={1}
+                      permanent={true}
+                      className="city-tooltip"
+                    >
+                      {city.name}
+                    </Tooltip>
+                  </Marker>
+                );
+              })}
+
+              {/* 绘制完整的行程路线（连接所有城市） */}
+              {selectedItinerary.cities && selectedItinerary.cities.length > 1 && (
+                <Polyline
+                  positions={selectedItinerary.cities.map(city => [city.latitude, city.longitude] as [number, number])}
+                  color="#667eea"
+                  weight={3}
+                  opacity={0.6}
+                  dashArray="10, 10"
+                />
+              )}
             </>
           )}
 

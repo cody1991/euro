@@ -209,22 +209,34 @@
 
 /* 地图弹窗样式 */
 .city-popup,
-.attraction-popup {
+.attraction-popup,
+.transport-popup {
   min-width: 200px;
 }
 
 .city-popup h3,
-.attraction-popup h3 {
+.attraction-popup h3,
+.transport-popup h3 {
   margin: 0 0 0.5rem 0;
   color: #333;
   font-size: 1.1rem;
 }
 
 .city-popup p,
-.attraction-popup p {
+.attraction-popup p,
+.transport-popup p {
   margin: 0 0 0.8rem 0;
   color: #666;
   font-size: 0.9rem;
+}
+
+.transport-popup p {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.85rem;
+}
+
+.transport-popup p:last-child {
+  margin-bottom: 0;
 }
 
 .popup-dates {
@@ -408,13 +420,6 @@
 .transport-duration {
   color: #6b7280;
   font-size: 0.8rem;
-  margin-bottom: 0.25rem;
-}
-
-.transport-cost {
-  color: #059669;
-  font-size: 0.8rem;
-  font-weight: 500;
 }
 
 /* 交通工具图标颜色 */
@@ -432,4 +437,54 @@
 
 .transport-item:nth-child(4n) .transport-icon-container {
   background: #9b59b6; /* 轮船 - 紫色 */
+}
+
+/* 自定义交通工具图标样式 */
+.custom-transport-icon {
+  background: transparent !important;
+  border: none !important;
+}
+
+.custom-transport-icon div {
+  transition: all 0.3s ease;
+}
+
+.custom-transport-icon:hover div {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* 城市标签样式 */
+.city-label-icon {
+  background: transparent !important;
+  border: none !important;
+}
+
+.city-label-icon div {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.city-label-icon:hover div {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* 城市工具提示样式 */
+.city-tooltip {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  font-size: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.city-tooltip .leaflet-tooltip-content {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  font-size: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
