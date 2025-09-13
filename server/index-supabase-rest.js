@@ -21,12 +21,12 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 const initializeDatabase = async () => {
   try {
     console.log('开始初始化 Supabase REST API 数据...');
-    
+
     // 检查是否已有数据
     const { data: existingItineraries, error: checkError } = await supabase
       .from('itineraries')
       .select('id');
-    
+
     if (checkError) {
       console.log('数据库连接错误:', checkError.message);
       console.log('请检查：');
@@ -104,23 +104,23 @@ const initializeDatabase = async () => {
       { name: '埃菲尔铁塔', description: '巴黎标志性建筑', city_id: insertedCities[2].id, latitude: 48.8584, longitude: 2.2945, visit_date: '2024-02-13', visit_time: '09:00', category: '地标', rating: 4.8 },
       { name: '卢浮宫', description: '世界著名博物馆', city_id: insertedCities[2].id, latitude: 48.8606, longitude: 2.3376, visit_date: '2024-02-14', visit_time: '10:00', category: '博物馆', rating: 4.9 },
       { name: '凯旋门', description: '拿破仑凯旋门', city_id: insertedCities[2].id, latitude: 48.8738, longitude: 2.2950, visit_date: '2024-02-15', visit_time: '14:00', category: '地标', rating: 4.5 },
-      
+
       // 尼斯景点
       { name: '天使湾', description: '美丽的海湾', city_id: insertedCities[3].id, latitude: 43.6959, longitude: 7.2644, visit_date: '2024-02-17', visit_time: '10:00', category: '自然', rating: 4.7 },
       { name: '尼斯老城', description: '历史悠久的城区', city_id: insertedCities[3].id, latitude: 43.6961, longitude: 7.2759, visit_date: '2024-02-17', visit_time: '15:00', category: '历史', rating: 4.3 },
-      
+
       // 米兰景点
       { name: '米兰大教堂', description: '哥特式建筑杰作', city_id: insertedCities[8].id, latitude: 45.4642, longitude: 9.1900, visit_date: '2024-02-27', visit_time: '09:00', category: '宗教', rating: 4.8 },
       { name: '斯福尔扎城堡', description: '历史城堡', city_id: insertedCities[8].id, latitude: 45.4700, longitude: 9.1797, visit_date: '2024-02-27', visit_time: '14:00', category: '历史', rating: 4.2 },
-      
+
       // 佛罗伦萨景点
       { name: '圣母百花大教堂', description: '文艺复兴建筑', city_id: insertedCities[9].id, latitude: 43.7731, longitude: 11.2560, visit_date: '2024-02-29', visit_time: '09:00', category: '宗教', rating: 4.9 },
       { name: '乌菲兹美术馆', description: '世界著名艺术馆', city_id: insertedCities[9].id, latitude: 43.7685, longitude: 11.2559, visit_date: '2024-02-29', visit_time: '14:00', category: '博物馆', rating: 4.8 },
-      
+
       // 威尼斯景点
       { name: '圣马可广场', description: '威尼斯中心广场', city_id: insertedCities[10].id, latitude: 45.4342, longitude: 12.3388, visit_date: '2024-03-02', visit_time: '09:00', category: '地标', rating: 4.6 },
       { name: '大运河', description: '威尼斯主要水道', city_id: insertedCities[10].id, latitude: 45.4408, longitude: 12.3155, visit_date: '2024-03-02', visit_time: '15:00', category: '自然', rating: 4.5 },
-      
+
       // 罗马景点
       { name: '斗兽场', description: '古罗马竞技场', city_id: insertedCities[11].id, latitude: 41.8902, longitude: 12.4922, visit_date: '2024-03-04', visit_time: '09:00', category: '历史', rating: 4.9 },
       { name: '梵蒂冈', description: '天主教中心', city_id: insertedCities[11].id, latitude: 41.9022, longitude: 12.4539, visit_date: '2024-03-04', visit_time: '14:00', category: '宗教', rating: 4.8 }
@@ -182,12 +182,12 @@ app.get('/api/health', async (req, res) => {
     const { data, error } = await supabase
       .from('itineraries')
       .select('id, title, created_at');
-    
+
     if (error) {
-      return res.status(500).json({ 
+      return res.status(500).json({
         status: 'unhealthy',
         database: 'disconnected',
-        error: error.message 
+        error: error.message
       });
     }
 
@@ -199,10 +199,10 @@ app.get('/api/health', async (req, res) => {
       message: 'Supabase REST API 连接正常'
     });
   } catch (error) {
-    res.status(500).json({ 
+    res.status(500).json({
       status: 'unhealthy',
       database: 'disconnected',
-      error: error.message 
+      error: error.message
     });
   }
 });
@@ -214,7 +214,7 @@ app.get('/api/itineraries', async (req, res) => {
       .from('itineraries')
       .select('*')
       .order('created_at', { ascending: false });
-    
+
     if (error) throw error;
     res.json(data);
   } catch (error) {
@@ -231,7 +231,7 @@ app.post('/api/itineraries', async (req, res) => {
       .insert([{ title, start_date, end_date }])
       .select()
       .single();
-    
+
     if (error) throw error;
     res.json(data);
   } catch (error) {
@@ -322,7 +322,7 @@ app.post('/api/cities', async (req, res) => {
       .insert([{ name, country, latitude, longitude, arrival_date, departure_date, itinerary_id }])
       .select()
       .single();
-    
+
     if (error) throw error;
     res.json(data);
   } catch (error) {
@@ -339,7 +339,7 @@ app.post('/api/attractions', async (req, res) => {
       .insert([{ name, description, city_id, latitude, longitude, visit_date, visit_time, category, rating }])
       .select()
       .single();
-    
+
     if (error) throw error;
     res.json(data);
   } catch (error) {
@@ -356,7 +356,7 @@ app.post('/api/transportation', async (req, res) => {
       .insert([{ from_city_id, to_city_id, transport_type, departure_time, arrival_time, duration, cost, booking_reference, itinerary_id }])
       .select()
       .single();
-    
+
     if (error) throw error;
     res.json(data);
   } catch (error) {
@@ -375,7 +375,7 @@ app.put('/api/cities/:id', async (req, res) => {
       .eq('id', cityId)
       .select()
       .single();
-    
+
     if (error) throw error;
     res.json(data);
   } catch (error) {
@@ -394,7 +394,7 @@ app.put('/api/attractions/:id', async (req, res) => {
       .eq('id', attractionId)
       .select()
       .single();
-    
+
     if (error) throw error;
     res.json(data);
   } catch (error) {
@@ -410,7 +410,7 @@ app.delete('/api/attractions/:id', async (req, res) => {
       .from('attractions')
       .delete()
       .eq('id', attractionId);
-    
+
     if (error) throw error;
     res.json({ message: 'Attraction deleted successfully' });
   } catch (error) {
@@ -426,7 +426,7 @@ app.delete('/api/cities/:id', async (req, res) => {
       .from('cities')
       .delete()
       .eq('id', cityId);
-    
+
     if (error) throw error;
     res.json({ message: 'City deleted successfully' });
   } catch (error) {
