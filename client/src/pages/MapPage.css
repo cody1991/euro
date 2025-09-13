@@ -1,0 +1,435 @@
+.map-page {
+  display: flex;
+  height: 100vh;
+  background: #f8f9fa;
+}
+
+.map-sidebar {
+  width: 400px;
+  background: white;
+  border-right: 1px solid #e9ecef;
+  overflow-y: auto;
+  padding: 2rem;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.map-sidebar h2 {
+  margin: 0 0 2rem 0;
+  color: #333;
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+.itinerary-selector {
+  margin-bottom: 2rem;
+}
+
+.itinerary-selector label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.current-itinerary {
+  padding: 0.8rem;
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  color: #374151;
+  font-weight: 500;
+}
+
+.itinerary-info {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 0.8rem;
+  margin-bottom: 2rem;
+}
+
+.itinerary-info h3 {
+  margin: 0 0 1rem 0;
+  color: #333;
+  font-size: 1.3rem;
+}
+
+.itinerary-dates {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.date-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.cities-list {
+  margin-top: 1.5rem;
+}
+
+.cities-list h4 {
+  margin: 0 0 1rem 0;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.city-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem;
+  background: white;
+  border-radius: 0.5rem;
+  margin-bottom: 0.8rem;
+  border: 1px solid #e9ecef;
+  transition: all 0.3s ease;
+}
+
+.city-item:hover {
+  transform: translateX(5px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.city-number {
+  width: 2rem;
+  height: 2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.city-details {
+  flex: 1;
+}
+
+.city-name {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.2rem;
+}
+
+.city-country {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 0.2rem;
+}
+
+.city-dates {
+  color: #999;
+  font-size: 0.8rem;
+}
+
+.recommended-attractions {
+  margin-top: 2rem;
+}
+
+.recommended-attractions h4 {
+  margin: 0 0 1.5rem 0;
+  color: #333;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.attractions-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.city-attractions {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 0.8rem;
+  border: 1px solid #e9ecef;
+}
+
+.city-attractions h5 {
+  margin: 0 0 1rem 0;
+  color: #333;
+  font-size: 1rem;
+  text-align: center;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.attraction-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.attraction-item:last-child {
+  border-bottom: none;
+}
+
+.attraction-name {
+  font-size: 0.9rem;
+  color: #555;
+  flex: 1;
+}
+
+.attraction-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: #ffc107;
+  font-size: 0.8rem;
+}
+
+.star-icon {
+  width: 0.9rem;
+  height: 0.9rem;
+  fill: currentColor;
+}
+
+.map-container {
+  flex: 1;
+  position: relative;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+/* 地图弹窗样式 */
+.city-popup,
+.attraction-popup {
+  min-width: 200px;
+}
+
+.city-popup h3,
+.attraction-popup h3 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.city-popup p,
+.attraction-popup p {
+  margin: 0 0 0.8rem 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.popup-dates {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: #666;
+  font-size: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.popup-icon {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+.popup-attractions h4 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.popup-attraction {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.3rem 0;
+  font-size: 0.8rem;
+}
+
+.popup-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  color: #ffc107;
+}
+
+.popup-star {
+  width: 0.8rem;
+  height: 0.8rem;
+  fill: currentColor;
+}
+
+.popup-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.popup-category {
+  background: #667eea;
+  color: white;
+  padding: 0.2rem 0.5rem;
+  border-radius: 1rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+/* 响应式设计 */
+@media (max-width: 1024px) {
+  .map-sidebar {
+    width: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .map-page {
+    flex-direction: column;
+  }
+
+  .map-sidebar {
+    width: 100%;
+    height: 300px;
+    border-right: none;
+    border-bottom: 1px solid #e9ecef;
+  }
+
+  .map-container {
+    height: calc(100vh - 300px);
+  }
+
+  .attractions-list {
+    max-height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .map-sidebar {
+    padding: 1rem;
+  }
+
+  .map-sidebar h2 {
+    font-size: 1.5rem;
+  }
+
+  .city-item {
+    padding: 0.6rem;
+  }
+
+  .city-number {
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* 交通信息样式 */
+.transportation-list {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.transportation-list h4 {
+  margin: 0 0 1rem 0;
+  color: #374151;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.transport-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+}
+
+.transport-item:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.transport-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  background: #667eea;
+  border-radius: 50%;
+  color: white;
+  flex-shrink: 0;
+}
+
+.transport-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.transport-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.transport-route {
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.transport-type {
+  color: #667eea;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.transport-time {
+  color: #6b7280;
+  font-size: 0.8rem;
+  margin-bottom: 0.25rem;
+}
+
+.transport-duration {
+  color: #6b7280;
+  font-size: 0.8rem;
+  margin-bottom: 0.25rem;
+}
+
+.transport-cost {
+  color: #059669;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* 交通工具图标颜色 */
+.transport-item:nth-child(odd) .transport-icon-container {
+  background: #3498db; /* 火车 - 蓝色 */
+}
+
+.transport-item:nth-child(even) .transport-icon-container {
+  background: #e74c3c; /* 飞机 - 红色 */
+}
+
+.transport-item:nth-child(3n) .transport-icon-container {
+  background: #f39c12; /* 汽车 - 橙色 */
+}
+
+.transport-item:nth-child(4n) .transport-icon-container {
+  background: #9b59b6; /* 轮船 - 紫色 */
+}

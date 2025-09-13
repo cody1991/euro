@@ -1,0 +1,12 @@
+{
+  "git.autoRepositoryDetection": "subFolders",
+  "git.detectSubmodules": false,
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/.git": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/build": true
+  }
+}
