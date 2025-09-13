@@ -5,6 +5,7 @@ import Header from './components/Header';
 import HomePage from './pages/HomePage';
 import ItineraryPage from './pages/ItineraryPage';
 import MapPage from './pages/MapPage';
+import SummaryPage from './pages/SummaryPage';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/itinerary/:id" element={<ItineraryPage />} />
           <Route path="/map" element={<MapPage />} />
+          <Route path="/summary" element={<SummaryPage />} />
         </Routes>
       </div>
     </Router>

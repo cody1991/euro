@@ -127,6 +127,12 @@ const HomePage: React.FC = () => {
                 查看完整行程
               </Link>
               <Link
+                to="/summary"
+                className="view-btn secondary"
+              >
+                行程总结
+              </Link>
+              <Link
                 to="/map"
                 className="view-btn secondary"
               >

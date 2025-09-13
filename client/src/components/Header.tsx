@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { MapPin, Home } from 'lucide-react';
+import { MapPin, Home, BarChart3 } from 'lucide-react';
 import './Header.css';
 
 const Header: React.FC = () => {
@@ -21,6 +21,13 @@ const Header: React.FC = () => {
           >
             <Home className="nav-icon" />
             首页
+          </Link>
+          <Link
+            to="/summary"
+            className={`nav-link ${location.pathname === '/summary' ? 'active' : ''}`}
+          >
+            <BarChart3 className="nav-icon" />
+            总结
           </Link>
           <Link
             to="/map"
