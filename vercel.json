@@ -9,14 +9,14 @@
       }
     },
     {
-      "src": "server/index-planetscale.js",
+      "src": "server/index-supabase.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/server/index-planetscale.js"
+      "dest": "/server/index-supabase.js"
     },
     {
       "src": "/(.*)",
