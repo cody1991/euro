@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Calendar, MapPin, Clock, Star, Plane, Train, Car, Ship, Users, DollarSign, Route } from 'lucide-react';
+import { ArrowLeft, Calendar, MapPin, Star, Plane, Train, Car, Ship, DollarSign, Route } from 'lucide-react';
 import { itineraryAPI } from '../services/api';
-import { Itinerary, City, Attraction, Transportation } from '../types';
+import { Itinerary, City } from '../types';
 import './SummaryPage.css';
 
 const SummaryPage: React.FC = () => {
@@ -32,9 +32,9 @@ const SummaryPage: React.FC = () => {
     });
   };
 
-  const formatTime = (timeString: string) => {
-    return timeString || '全天';
-  };
+  // const formatTime = (timeString: string) => {
+  //   return timeString || '全天';
+  // };
 
   const getTransportIcon = (transportType: string) => {
     switch (transportType) {

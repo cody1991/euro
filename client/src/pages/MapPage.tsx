@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, Polyline, CircleMarker, Tooltip } from 'react-leaflet';
-import { Star, Calendar, Plane, Train, Car, Ship, MapPin } from 'lucide-react';
+import { MapContainer, TileLayer, Marker, Popup, Polyline, Tooltip } from 'react-leaflet';
+import { Star, Calendar, Plane, Train, Car, Ship } from 'lucide-react';
 import { itineraryAPI } from '../services/api';
-import { Itinerary, City, Attraction } from '../types';
+import { Itinerary, Attraction } from '../types';
 import 'leaflet/dist/leaflet.css';
 import './MapPage.css';
 
@@ -124,7 +124,7 @@ const getTransportColor = (transportType: string) => {
 };
 
 const MapPage: React.FC = () => {
-  const [itineraries, setItineraries] = useState<Itinerary[]>([]);
+  // const [itineraries, setItineraries] = useState<Itinerary[]>([]);
   const [selectedItinerary, setSelectedItinerary] = useState<Itinerary | null>(null);
   const [loading, setLoading] = useState(true);
   const [mapCenter] = useState<[number, number]>([47.0, 9.50]); // 意大利中心偏南
@@ -144,7 +144,7 @@ const MapPage: React.FC = () => {
     try {
       // 直接获取ID为1的完整欧洲行程
       const response = await itineraryAPI.getById(1);
-      setItineraries([response.data]);
+      // setItineraries([response.data]);
       setSelectedItinerary(response.data);
 
       // 处理景点数据，按城市分组
@@ -164,9 +164,9 @@ const MapPage: React.FC = () => {
     }
   };
 
-  const getRouteCoordinates = (cities: City[]) => {
-    return cities.map(city => [city.latitude, city.longitude] as [number, number]);
-  };
+  // const getRouteCoordinates = (cities: City[]) => {
+  //   return cities.map(city => [city.latitude, city.longitude] as [number, number]);
+  // };
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('zh-CN');

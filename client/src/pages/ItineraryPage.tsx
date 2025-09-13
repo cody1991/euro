@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Plus, MapPin, Calendar, Clock, Star, Edit3, Trash2 } from 'lucide-react';
 import { itineraryAPI, cityAPI, attractionAPI } from '../services/api';
-import { Itinerary, City, Attraction } from '../types';
+import { Itinerary, City } from '../types';
 import './ItineraryPage.css';
 
 const ItineraryPage: React.FC = () => {
@@ -12,7 +12,7 @@ const ItineraryPage: React.FC = () => {
   const [showAddCity, setShowAddCity] = useState(false);
   const [showAddAttraction, setShowAddAttraction] = useState(false);
   const [selectedCity, setSelectedCity] = useState<City | null>(null);
-  const [editingAttraction, setEditingAttraction] = useState<Attraction | null>(null);
+  // const [editingAttraction, setEditingAttraction] = useState<Attraction | null>(null);
 
   const [newCity, setNewCity] = useState({
     name: '',
@@ -228,7 +228,7 @@ const ItineraryPage: React.FC = () => {
                         <div className="attraction-actions">
                           <button
                             className="edit-btn"
-                            onClick={() => setEditingAttraction(attraction)}
+                            onClick={() => {/* TODO: Implement edit functionality */}}
                           >
                             <Edit3 className="action-icon" />
                           </button>
