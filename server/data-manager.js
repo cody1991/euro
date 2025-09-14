@@ -1,19 +1,19 @@
 const { createClient } = require('@supabase/supabase-js');
 
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_ANON_KEY
-);
+const supabaseUrl = process.env.SUPABASE_URL || 'https://dqkvszoabqwogljoerrk.supabase.co';
+const supabaseKey = process.env.SUPABASE_ANON_KEY || 'your-anon-key';
+
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 class DataManager {
   // 检查数据是否存在
   async checkDataExists(table, condition = {}) {
     let query = supabase.from(table).select('id');
-    
+
     Object.keys(condition).forEach(key => {
       query = query.eq(key, condition[key]);
     });
-    
+
     const { data, error } = await query.limit(1);
     if (error) throw error;
     return data && data.length > 0;
@@ -26,7 +26,7 @@ class DataManager {
       uniqueFields.forEach(field => {
         condition[field] = data[field];
       });
-      
+
       const exists = await this.checkDataExists(table, condition);
       if (exists) {
         console.log(`数据已存在，跳过插入: ${table}`, condition);
@@ -38,7 +38,7 @@ class DataManager {
       .from(table)
       .insert(data)
       .select();
-    
+
     if (error) throw error;
     return { success: true, data: result };
   }
@@ -46,11 +46,11 @@ class DataManager {
   // 更新数据
   async updateData(table, updates, condition) {
     let query = supabase.from(table).update(updates);
-    
+
     Object.keys(condition).forEach(key => {
       query = query.eq(key, condition[key]);
     });
-    
+
     const { data, error } = await query.select();
     if (error) throw error;
     return { success: true, data };
@@ -59,11 +59,11 @@ class DataManager {
   // 删除数据
   async deleteData(table, condition) {
     let query = supabase.from(table).delete();
-    
+
     Object.keys(condition).forEach(key => {
       query = query.eq(key, condition[key]);
     });
-    
+
     const { error } = await query;
     if (error) throw error;
     return { success: true };

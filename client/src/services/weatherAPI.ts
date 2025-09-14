@@ -50,20 +50,20 @@ const getWeatherIcon = (condition: string): string => {
 };
 
 // 获取风向描述
-const getWindDirection = (degrees: number): string => {
-  const directions = ['北', '东北', '东', '东南', '南', '西南', '西', '西北'];
-  const index = Math.round(degrees / 45) % 8;
-  return directions[index];
-};
+// const getWindDirection = (degrees: number): string => {
+//   const directions = ['北', '东北', '东', '东南', '南', '西南', '西', '西北'];
+//   const index = Math.round(degrees / 45) % 8;
+//   return directions[index];
+// };
 
 // 获取UV指数描述
-const getUVIndexDescription = (index: number): string => {
-  if (index <= 2) return '低';
-  if (index <= 5) return '中等';
-  if (index <= 7) return '高';
-  if (index <= 10) return '很高';
-  return '极高';
-};
+// const getUVIndexDescription = (index: number): string => {
+//   if (index <= 2) return '低';
+//   if (index <= 5) return '中等';
+//   if (index <= 7) return '高';
+//   if (index <= 10) return '很高';
+//   return '极高';
+// };
 
 // 转换温度（从开尔文到摄氏度）
 const kelvinToCelsius = (kelvin: number): number => {
