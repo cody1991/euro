@@ -19,14 +19,12 @@
       "dest": "/server/index-supabase-rest.js"
     },
     {
-      "src": "/(.*)",
-      "dest": "/client/build/$1"
-    }
-  ],
-  "rewrites": [
+      "src": "/static/(.*)",
+      "dest": "/client/build/static/$1"
+    },
     {
-      "source": "/((?!api/).*)",
-      "destination": "/client/build/index.html"
+      "src": "/(.*)",
+      "dest": "/client/build/index.html"
     }
   ],
   "env": {
