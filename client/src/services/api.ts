@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { Itinerary, City, Attraction, Transportation } from '../types';
-import { Budget, BudgetCategory, Expense } from '../types/budget';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL ||
   (process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:5001/api');
@@ -49,50 +48,6 @@ export const attractionAPI = {
 export const transportationAPI = {
   // 添加交通
   create: (data: Omit<Transportation, 'id'>) => api.post<Transportation>('/transportation', data),
-};
-
-export const budgetAPI = {
-  // 获取预算
-  getByItineraryId: (itineraryId: number) => api.get<Budget[]>(`/budgets?itinerary_id=${itineraryId}`),
-
-  // 创建预算
-  create: (data: Omit<Budget, 'id' | 'created_at' | 'updated_at'>) =>
-    api.post<Budget>('/budgets', data),
-
-  // 更新预算
-  update: (id: number, data: Partial<Budget>) => api.put<Budget>(`/budgets?id=${id}`, data),
-};
-
-export const budgetCategoryAPI = {
-  // 获取所有预算分类
-  getAll: () => api.get<BudgetCategory[]>('/budget_categories'),
-
-  // 创建预算分类
-  create: (data: Omit<BudgetCategory, 'id' | 'created_at'>) =>
-    api.post<BudgetCategory>('/budget_categories', data),
-
-  // 更新预算分类
-  update: (id: number, data: Partial<BudgetCategory>) =>
-    api.put<BudgetCategory>(`/budget_categories?id=${id}`, data),
-
-  // 删除预算分类
-  delete: (id: number) => api.delete(`/budget_categories?id=${id}`),
-};
-
-export const expenseAPI = {
-  // 获取支出记录
-  getByBudgetId: (budgetId: number) => api.get<Expense[]>(`/expenses?budget_id=${budgetId}`),
-
-  // 创建支出记录
-  create: (data: Omit<Expense, 'id' | 'created_at'>) =>
-    api.post<Expense>('/expenses', data),
-
-  // 更新支出记录
-  update: (id: number, data: Partial<Expense>) =>
-    api.put<Expense>(`/expenses?id=${id}`, data),
-
-  // 删除支出记录
-  delete: (id: number) => api.delete(`/expenses?id=${id}`),
 };
 
 export default api;
