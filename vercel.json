@@ -19,43 +19,8 @@
       "dest": "/server/index-supabase-rest.js"
     },
     {
-      "src": "/static/(.*)",
-      "dest": "/client/build/static/$1"
-    },
-    {
-      "src": "/manifest.json",
-      "dest": "/client/build/manifest.json"
-    },
-    {
-      "src": "/favicon.ico",
-      "dest": "/client/build/favicon.ico"
-    },
-    {
-      "src": "/asset-manifest.json",
-      "dest": "/client/build/asset-manifest.json"
-    },
-    {
-      "src": "/logo192.png",
-      "dest": "/client/build/logo192.png"
-    },
-    {
-      "src": "/logo512.png",
-      "dest": "/client/build/logo512.png"
-    },
-    {
-      "src": "/robots.txt",
-      "dest": "/client/build/robots.txt"
-    },
-    {
-      "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot))",
-      "dest": "/client/build/$1"
-    },
-    {
       "src": "/(.*)",
-      "dest": "/client/build/index.html"
+      "dest": "/client/build/$1"
     }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  }
+  ]
 }
