@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Plus, Calendar, MapPin, Edit3, Trash2 } from 'lucide-react';
-import { itineraryAPI } from '../services/api';
+import { itineraryAPI, budgetAPI, budgetCategoryAPI, expenseAPI } from '../services/api';
 import { Itinerary } from '../types';
 import { Budget, BudgetCategory, Expense } from '../types/budget';
 import './BudgetPage.css';
@@ -13,65 +13,10 @@ const BudgetPage: React.FC = () => {
   const [editingExpense, setEditingExpense] = useState<Expense | null>(null);
   // const [showBudgetSettings, setShowBudgetSettings] = useState(false);
 
-  // 模拟预算数据（实际应用中应该从API获取）
-  const [budget, setBudget] = useState<Budget>({
-    id: 1,
-    itinerary_id: 1,
-    total_budget: 50000,
-    spent_amount: 12500,
-    remaining_amount: 37500,
-    currency: 'CNY',
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString()
-  });
-
-  const [budgetCategories, setBudgetCategories] = useState<BudgetCategory[]>([
-    { id: 1, name: '交通', budget_amount: 15000, spent_amount: 3500, color: '#3498db', icon: '✈️' },
-    { id: 2, name: '住宿', budget_amount: 12000, spent_amount: 2800, color: '#9b59b6', icon: '🏨' },
-    { id: 3, name: '餐饮', budget_amount: 8000, spent_amount: 2100, color: '#e74c3c', icon: '🍽️' },
-    { id: 4, name: '门票', budget_amount: 6000, spent_amount: 1800, color: '#f39c12', icon: '🎫' },
-    { id: 5, name: '购物', budget_amount: 5000, spent_amount: 1500, color: '#2ecc71', icon: '🛍️' },
-    { id: 6, name: '其他', budget_amount: 4000, spent_amount: 800, color: '#95a5a6', icon: '💼' }
-  ]);
-
-  const [expenses, setExpenses] = useState<Expense[]>([
-    {
-      id: 1,
-      budget_id: 1,
-      category_id: 1,
-      city_id: 1,
-      amount: 2500,
-      currency: 'CNY',
-      description: '武汉到阿姆斯特丹机票',
-      expense_date: '2024-01-15',
-      payment_method: '信用卡',
-      created_at: new Date().toISOString()
-    },
-    {
-      id: 2,
-      budget_id: 1,
-      category_id: 2,
-      city_id: 1,
-      amount: 800,
-      currency: 'CNY',
-      description: '阿姆斯特丹酒店住宿',
-      expense_date: '2024-01-16',
-      payment_method: '现金',
-      created_at: new Date().toISOString()
-    },
-    {
-      id: 3,
-      budget_id: 1,
-      category_id: 4,
-      city_id: 2,
-      amount: 300,
-      currency: 'CNY',
-      description: '梵高博物馆门票',
-      expense_date: '2024-01-17',
-      payment_method: '信用卡',
-      created_at: new Date().toISOString()
-    }
-  ]);
+  // 预算数据
+  const [budget, setBudget] = useState<Budget | null>(null);
+  const [budgetCategories, setBudgetCategories] = useState<BudgetCategory[]>([]);
+  const [expenses, setExpenses] = useState<Expense[]>([]);
 
   const [newExpense, setNewExpense] = useState({
     category_id: '',
@@ -88,6 +33,13 @@ const BudgetPage: React.FC = () => {
     fetchItinerary();
   }, []);
 
+  useEffect(() => {
+    if (itinerary) {
+      loadBudgetData();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [itinerary]);
+
   const fetchItinerary = async () => {
     try {
       const response = await itineraryAPI.getById(1);
@@ -99,38 +51,97 @@ const BudgetPage: React.FC = () => {
     }
   };
 
-  const handleAddExpense = (e: React.FormEvent) => {
+  const loadBudgetData = async () => {
+    if (!itinerary) return;
+
+    try {
+      // 加载预算数据
+      const budgetResponse = await budgetAPI.getByItineraryId(itinerary.id);
+      if (budgetResponse.data && budgetResponse.data.length > 0) {
+        setBudget(budgetResponse.data[0]);
+      } else {
+        // 如果没有预算数据，创建一个默认的
+        const newBudget = {
+          itinerary_id: itinerary.id,
+          total_budget: 50000,
+          spent_amount: 0,
+          remaining_amount: 50000,
+          currency: 'CNY'
+        };
+        const createResponse = await budgetAPI.create(newBudget);
+        setBudget(createResponse.data);
+      }
+
+      // 加载预算分类
+      const categoriesResponse = await budgetCategoryAPI.getAll();
+      if (categoriesResponse.data && categoriesResponse.data.length > 0) {
+        setBudgetCategories(categoriesResponse.data);
+      } else {
+        // 如果没有分类数据，创建默认分类
+        const defaultCategories = [
+          { name: '交通', budget_amount: 15000, spent_amount: 0, color: '#3498db', icon: '✈️' },
+          { name: '住宿', budget_amount: 12000, spent_amount: 0, color: '#9b59b6', icon: '🏨' },
+          { name: '餐饮', budget_amount: 8000, spent_amount: 0, color: '#e74c3c', icon: '🍽️' },
+          { name: '门票', budget_amount: 6000, spent_amount: 0, color: '#f39c12', icon: '🎫' },
+          { name: '购物', budget_amount: 5000, spent_amount: 0, color: '#2ecc71', icon: '🛍️' },
+          { name: '其他', budget_amount: 4000, spent_amount: 0, color: '#95a5a6', icon: '💼' }
+        ];
+
+        const createdCategories: BudgetCategory[] = [];
+        for (const category of defaultCategories) {
+          const response = await budgetCategoryAPI.create(category);
+          createdCategories.push(response.data);
+        }
+        setBudgetCategories(createdCategories);
+      }
+
+      // 加载支出记录
+      if (budget) {
+        const expensesResponse = await expenseAPI.getByBudgetId(budget.id);
+        setExpenses(expensesResponse.data || []);
+      }
+    } catch (error) {
+      console.error('加载预算数据失败:', error);
+    }
+  };
+
+  const handleAddExpense = async (e: React.FormEvent) => {
     e.preventDefault();
-    const expense: Expense = {
-      id: expenses.length + 1,
-      budget_id: budget.id,
-      category_id: parseInt(newExpense.category_id),
-      city_id: newExpense.city_id ? parseInt(newExpense.city_id) : undefined,
-      attraction_id: newExpense.attraction_id ? parseInt(newExpense.attraction_id) : undefined,
-      amount: parseFloat(newExpense.amount),
-      currency: newExpense.currency,
-      description: newExpense.description,
-      expense_date: newExpense.expense_date,
-      payment_method: newExpense.payment_method,
-      created_at: new Date().toISOString()
-    };
+    if (!budget) return;
 
-    setExpenses(prev => [...prev, expense]);
+    try {
+      const expenseData = {
+        budget_id: budget.id,
+        category_id: parseInt(newExpense.category_id),
+        city_id: newExpense.city_id ? parseInt(newExpense.city_id) : undefined,
+        attraction_id: newExpense.attraction_id ? parseInt(newExpense.attraction_id) : undefined,
+        amount: parseFloat(newExpense.amount),
+        currency: newExpense.currency,
+        description: newExpense.description,
+        expense_date: newExpense.expense_date,
+        payment_method: newExpense.payment_method
+      };
 
-    // 更新预算统计
-    updateBudgetStats(expense);
+      const response = await expenseAPI.create(expenseData);
+      setExpenses(prev => [...prev, response.data]);
 
-    setNewExpense({
-      category_id: '',
-      city_id: '',
-      attraction_id: '',
-      amount: '',
-      currency: 'CNY',
-      description: '',
-      expense_date: '',
-      payment_method: '现金'
-    });
-    setShowAddExpense(false);
+      // 更新预算统计
+      updateBudgetStats(response.data);
+
+      setNewExpense({
+        category_id: '',
+        city_id: '',
+        attraction_id: '',
+        amount: '',
+        currency: 'CNY',
+        description: '',
+        expense_date: '',
+        payment_method: '现金'
+      });
+      setShowAddExpense(false);
+    } catch (error) {
+      console.error('添加支出失败:', error);
+    }
   };
 
   const handleEditExpense = (expense: Expense) => {
@@ -148,71 +159,102 @@ const BudgetPage: React.FC = () => {
     setShowAddExpense(true);
   };
 
-  const handleUpdateExpense = (e: React.FormEvent) => {
+  const handleUpdateExpense = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingExpense) return;
 
-    const updatedExpense: Expense = {
-      ...editingExpense,
-      category_id: parseInt(newExpense.category_id),
-      city_id: newExpense.city_id ? parseInt(newExpense.city_id) : undefined,
-      attraction_id: newExpense.attraction_id ? parseInt(newExpense.attraction_id) : undefined,
-      amount: parseFloat(newExpense.amount),
-      currency: newExpense.currency,
-      description: newExpense.description,
-      expense_date: newExpense.expense_date,
-      payment_method: newExpense.payment_method
-    };
+    try {
+      const expenseData = {
+        category_id: parseInt(newExpense.category_id),
+        city_id: newExpense.city_id ? parseInt(newExpense.city_id) : undefined,
+        attraction_id: newExpense.attraction_id ? parseInt(newExpense.attraction_id) : undefined,
+        amount: parseFloat(newExpense.amount),
+        currency: newExpense.currency,
+        description: newExpense.description,
+        expense_date: newExpense.expense_date,
+        payment_method: newExpense.payment_method
+      };
 
-    setExpenses(prev => prev.map(exp =>
-      exp.id === editingExpense.id ? updatedExpense : exp
-    ));
+      await expenseAPI.update(editingExpense.id, expenseData);
 
-    // 重新计算预算统计
-    recalculateBudgetStats();
+      setExpenses(prev => prev.map(exp =>
+        exp.id === editingExpense.id ? { ...exp, ...expenseData } : exp
+      ));
 
-    setEditingExpense(null);
-    setNewExpense({
-      category_id: '',
-      city_id: '',
-      attraction_id: '',
-      amount: '',
-      currency: 'CNY',
-      description: '',
-      expense_date: '',
-      payment_method: '现金'
-    });
-    setShowAddExpense(false);
+      // 重新计算预算统计
+      recalculateBudgetStats();
+
+      setEditingExpense(null);
+      setNewExpense({
+        category_id: '',
+        city_id: '',
+        attraction_id: '',
+        amount: '',
+        currency: 'CNY',
+        description: '',
+        expense_date: '',
+        payment_method: '现金'
+      });
+      setShowAddExpense(false);
+    } catch (error) {
+      console.error('更新支出失败:', error);
+    }
   };
 
-  const handleDeleteExpense = (expenseId: number) => {
-    setExpenses(prev => prev.filter(exp => exp.id !== expenseId));
-    recalculateBudgetStats();
+  const handleDeleteExpense = async (expenseId: number) => {
+    try {
+      await expenseAPI.delete(expenseId);
+      setExpenses(prev => prev.filter(exp => exp.id !== expenseId));
+      recalculateBudgetStats();
+    } catch (error) {
+      console.error('删除支出失败:', error);
+    }
   };
 
-  const updateBudgetStats = (expense: Expense) => {
-    setBudget(prev => ({
+  const updateBudgetStats = async (expense: Expense) => {
+    if (!budget) return;
+
+    const newSpentAmount = budget.spent_amount + expense.amount;
+    const newRemainingAmount = budget.remaining_amount - expense.amount;
+
+    // 更新本地状态
+    setBudget(prev => prev ? {
       ...prev,
-      spent_amount: prev.spent_amount + expense.amount,
-      remaining_amount: prev.remaining_amount - expense.amount,
+      spent_amount: newSpentAmount,
+      remaining_amount: newRemainingAmount,
       updated_at: new Date().toISOString()
-    }));
+    } : null);
 
     setBudgetCategories(prev => prev.map(cat =>
       cat.id === expense.category_id
         ? { ...cat, spent_amount: cat.spent_amount + expense.amount }
         : cat
     ));
+
+    // 更新数据库
+    try {
+      await budgetAPI.update(budget.id, {
+        spent_amount: newSpentAmount,
+        remaining_amount: newRemainingAmount
+      });
+    } catch (error) {
+      console.error('更新预算统计失败:', error);
+    }
   };
 
-  const recalculateBudgetStats = () => {
+  const recalculateBudgetStats = async () => {
+    if (!budget) return;
+
     const totalSpent = expenses.reduce((sum, exp) => sum + exp.amount, 0);
-    setBudget(prev => ({
+    const newRemainingAmount = budget.total_budget - totalSpent;
+
+    // 更新本地状态
+    setBudget(prev => prev ? {
       ...prev,
       spent_amount: totalSpent,
-      remaining_amount: prev.total_budget - totalSpent,
+      remaining_amount: newRemainingAmount,
       updated_at: new Date().toISOString()
-    }));
+    } : null);
 
     const categorySpent: { [key: number]: number } = {};
     expenses.forEach(exp => {
@@ -223,6 +265,16 @@ const BudgetPage: React.FC = () => {
       ...cat,
       spent_amount: categorySpent[cat.id] || 0
     })));
+
+    // 更新数据库
+    try {
+      await budgetAPI.update(budget.id, {
+        spent_amount: totalSpent,
+        remaining_amount: newRemainingAmount
+      });
+    } catch (error) {
+      console.error('重新计算预算统计失败:', error);
+    }
   };
 
   const formatDate = (dateString: string) => {
@@ -252,6 +304,26 @@ const BudgetPage: React.FC = () => {
     return (
       <div className="budget-page">
         <div className="loading">加载中...</div>
+      </div>
+    );
+  }
+
+  if (!budget) {
+    return (
+      <div className="budget-page">
+        <div className="page-header">
+          <Link to="/" className="back-btn">
+            <ArrowLeft className="back-icon" />
+            返回首页
+          </Link>
+          <div className="header-content">
+            <h1>预算管理</h1>
+            <p>管理您的旅行预算和支出</p>
+          </div>
+        </div>
+        <div className="budget-content">
+          <div className="loading">正在初始化预算数据...</div>
+        </div>
       </div>
     );
   }

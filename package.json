@@ -15,13 +15,21 @@
     "install-all": "npm install && cd client && npm install",
     "start": "node server/index-supabase-rest.js",
     "start:local": "node server/index-sqlite.js",
-    "deploy:vercel": "vercel --prod"
+    "deploy:vercel": "vercel --prod",
+    "db:setup": "node database/setup-tables.js",
+    "db:list": "node database/db-manager.js list",
+    "db:describe": "node database/db-manager.js describe",
+    "db:add-column": "node database/db-manager.js add-column",
+    "db:drop-column": "node database/db-manager.js drop-column",
+    "db:test-data": "node database/db-manager.js test-data",
+    "db:truncate": "node database/db-manager.js truncate"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",
     "body-parser": "^1.20.2",
     "concurrently": "^8.2.2",
     "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
     "express": "^4.18.2",
     "nodemon": "^3.0.2",
     "sqlite3": "^5.1.6"
