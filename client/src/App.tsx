@@ -6,6 +6,9 @@ import HomePage from './pages/HomePage';
 import ItineraryPage from './pages/ItineraryPage';
 import MapPage from './pages/MapPage';
 import SummaryPage from './pages/SummaryPage';
+import BudgetPage from './pages/BudgetPage';
+import WeatherPage from './pages/WeatherPage';
+import TravelTipsPage from './pages/TravelTipsPage';
 
 function App() {
   return (
@@ -17,6 +20,9 @@ function App() {
           <Route path="/itinerary/:id" element={<ItineraryPage />} />
           <Route path="/map" element={<MapPage />} />
           <Route path="/summary" element={<SummaryPage />} />
+          <Route path="/budget" element={<BudgetPage />} />
+          <Route path="/weather" element={<WeatherPage />} />
+          <Route path="/tips" element={<TravelTipsPage />} />
         </Routes>
       </div>
     </Router>

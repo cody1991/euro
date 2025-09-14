@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { MapPin, Home, BarChart3 } from 'lucide-react';
+import { MapPin, Home, BarChart3, DollarSign, Cloud, BookOpen } from 'lucide-react';
 import './Header.css';
 
 const Header: React.FC = () => {
@@ -35,6 +35,27 @@ const Header: React.FC = () => {
           >
             <MapPin className="nav-icon" />
             地图
+          </Link>
+          <Link
+            to="/budget"
+            className={`nav-link ${location.pathname === '/budget' ? 'active' : ''}`}
+          >
+            <DollarSign className="nav-icon" />
+            预算
+          </Link>
+          <Link
+            to="/weather"
+            className={`nav-link ${location.pathname === '/weather' ? 'active' : ''}`}
+          >
+            <Cloud className="nav-icon" />
+            天气
+          </Link>
+          <Link
+            to="/tips"
+            className={`nav-link ${location.pathname === '/tips' ? 'active' : ''}`}
+          >
+            <BookOpen className="nav-icon" />
+            贴士
           </Link>
         </nav>
       </div>

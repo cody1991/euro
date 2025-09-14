@@ -138,6 +138,24 @@ const HomePage: React.FC = () => {
               >
                 查看地图
               </Link>
+              <Link
+                to="/budget"
+                className="view-btn secondary"
+              >
+                预算管理
+              </Link>
+              <Link
+                to="/weather"
+                className="view-btn secondary"
+              >
+                天气预报
+              </Link>
+              <Link
+                to="/tips"
+                className="view-btn secondary"
+              >
+                旅行贴士
+              </Link>
             </div>
           </div>
         </div>
