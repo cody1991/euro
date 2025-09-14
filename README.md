@@ -8,7 +8,8 @@
 
 - **前端**: React + TypeScript + Leaflet
 - **后端**: Node.js + Express
-- **数据库**: SQLite
+- **数据库**: Supabase (PostgreSQL)
+- **部署**: Vercel
 - **开发工具**: 热更新、并发运行
 
 ## 功能特性
@@ -29,12 +30,29 @@
 - 🇮🇹 **意大利**: 米兰、佛罗伦萨、威尼斯、五渔村、比萨、那不勒斯、罗马
 - 🇭🇺 **匈牙利**: 布达佩斯 (布达城堡、国会大厦、温泉浴场)
 
-## 安装和运行
+## 在线访问
+
+- **生产环境**: https://euro-lilac.vercel.app
+- **地图页面**: https://euro-lilac.vercel.app/map
+- **行程详情**: https://euro-lilac.vercel.app/itinerary/1
+- **行程总结**: https://euro-lilac.vercel.app/summary
+
+## 本地开发
 
 ### 环境要求
 
 - Node.js 16+
 - npm 或 yarn
+- Supabase 账号（用于数据库）
+
+### 环境变量设置
+
+在项目根目录创建 `.env` 文件：
+
+```bash
+SUPABASE_URL=your_supabase_url
+SUPABASE_ANON_KEY=your_supabase_anon_key
+```
 
 ### 安装依赖
 
@@ -66,53 +84,79 @@ npm run client
 npm run build
 ```
 
-## 访问地址
+## 本地访问地址
 
 - **前端**: http://localhost:3000
 - **后端 API**: http://localhost:5001/api
 - **地图页面**: http://localhost:3000/map
-- **行程详情**: http://localhost:3000/itinerary/4
+- **行程详情**: http://localhost:3000/itinerary/1
 
 ## 项目结构
 
 ```
 europe-travel-planner/
-├── client/                 # React 前端应用
+├── client/                    # React 前端应用
 │   ├── src/
-│   │   ├── components/     # 组件
-│   │   ├── pages/         # 页面
-│   │   ├── services/      # API 服务
-│   │   └── types/         # TypeScript 类型
-│   └── public/            # 静态资源
-├── server/                # Node.js 后端
-│   ├── index.js          # 服务器入口
-│   ├── initData.js       # 数据库初始化
-│   └── travel.db         # SQLite 数据库
-├── package.json          # 根目录依赖
-└── README.md             # 项目说明
+│   │   ├── components/        # 组件
+│   │   ├── pages/            # 页面
+│   │   ├── services/         # API 服务
+│   │   └── types/            # TypeScript 类型
+│   └── public/               # 静态资源
+├── server/                   # Node.js 后端
+│   ├── index-supabase-rest.js # 服务器入口 (Supabase REST API)
+│   ├── data-manager.js       # 数据管理工具
+│   └── schema-manager.js     # 表结构管理工具
+├── vercel.json              # Vercel 部署配置
+├── package.json             # 根目录依赖
+├── DATABASE_MANAGEMENT.md   # 数据库管理指南
+├── SCHEMA_MANAGEMENT.md     # 表结构管理指南
+└── README.md                # 项目说明
 ```
 
 ## API 接口
 
+### 基础接口
 - `GET /api/itineraries` - 获取所有行程
 - `GET /api/itineraries/:id` - 获取特定行程
 - `GET /api/cities` - 获取城市列表
 - `GET /api/attractions` - 获取景点列表
 - `GET /api/transportation` - 获取交通信息
 
+### 数据管理接口
+- `GET /api/data-stats` - 获取数据统计
+- `POST /api/cities` - 添加新城市
+- `POST /api/attractions` - 添加新景点
+- `POST /api/transportation` - 添加新交通
+- `POST /api/batch-update` - 批量更新数据
+
+### 表结构管理接口
+- `GET /api/schema/tables` - 获取所有表信息
+- `GET /api/schema/table/:tableName` - 获取表结构
+- `GET /api/schema/validate` - 验证表结构
+- `POST /api/schema/add-column` - 添加新字段
+- `POST /api/schema/create-table` - 创建新表
+
 ## 开发说明
 
 - 使用 `concurrently` 同时运行前后端
 - 前端支持热更新，修改代码自动刷新
 - 后端使用 `nodemon` 自动重启
-- 数据库使用 SQLite，无需额外安装
+- 数据库使用 Supabase (PostgreSQL)，云端存储
 
 ## 数据说明
 
-- 数据库文件：`server/travel.db`
-- 初始化脚本：`server/initData.js`
+- 数据库：Supabase (PostgreSQL)
+- 数据初始化：服务器启动时自动初始化
 - 包含完整的 20 天行程数据
 - 支持景点、交通、城市信息管理
+- 支持数据变更和表结构修改
+
+## 部署说明
+
+- **平台**: Vercel
+- **数据库**: Supabase
+- **自动部署**: 推送到 GitHub 主分支自动部署
+- **环境变量**: 在 Vercel 控制台设置 Supabase 相关变量
 
 ## 许可证
 

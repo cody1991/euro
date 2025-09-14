@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const { createClient } = require('@supabase/supabase-js');
 const DataManager = require('./data-manager');
+const SchemaManager = require('./schema-manager');
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -629,6 +630,7 @@ app.delete('/api/cities/:id', async (req, res) => {
 
 // 初始化数据管理器
 const dataManager = new DataManager();
+const schemaManager = new SchemaManager();
 
 // 获取数据统计
 app.get('/api/data-stats', async (req, res) => {
@@ -716,6 +718,83 @@ app.post('/api/reinitialize', async (req, res) => {
     await initializeDatabase();
     
     res.json({ success: true, message: '数据库重新初始化完成' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ==================== 表结构管理API ====================
+
+// 获取所有表信息
+app.get('/api/schema/tables', async (req, res) => {
+  try {
+    const tables = await schemaManager.getAllTables();
+    res.json(tables);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// 获取表结构
+app.get('/api/schema/table/:tableName', async (req, res) => {
+  try {
+    const { tableName } = req.params;
+    const schema = await schemaManager.getTableSchema(tableName);
+    res.json(schema);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// 验证表结构
+app.get('/api/schema/validate', async (req, res) => {
+  try {
+    const validation = await schemaManager.validateSchema();
+    res.json(validation);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// 添加新字段
+app.post('/api/schema/add-column', async (req, res) => {
+  try {
+    const { tableName, columnName, dataType, options } = req.body;
+    const result = await schemaManager.addColumn(tableName, columnName, dataType, options);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// 创建新表
+app.post('/api/schema/create-table', async (req, res) => {
+  try {
+    const { tableName, columns } = req.body;
+    const result = await schemaManager.createTable(tableName, columns);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// 添加外键约束
+app.post('/api/schema/add-foreign-key', async (req, res) => {
+  try {
+    const { tableName, columnName, referencedTable, referencedColumn } = req.body;
+    const result = await schemaManager.addForeignKey(tableName, columnName, referencedTable, referencedColumn);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// 添加索引
+app.post('/api/schema/add-index', async (req, res) => {
+  try {
+    const { tableName, columnName, indexName } = req.body;
+    const result = await schemaManager.addIndex(tableName, columnName, indexName);
+    res.json(result);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

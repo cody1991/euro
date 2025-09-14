@@ -1,18 +1,21 @@
 # 数据库管理指南
 
 ## 概述
+
 本项目使用 Supabase 作为云端数据库，支持多种数据变更方式。
 
 ## 数据变更方法
 
-### 1. 通过API端点（推荐）
+### 1. 通过 API 端点（推荐）
 
 #### 获取数据统计
+
 ```bash
 curl https://euro-lilac.vercel.app/api/data-stats
 ```
 
 #### 添加新城市
+
 ```bash
 curl -X POST https://euro-lilac.vercel.app/api/cities \
   -H "Content-Type: application/json" \
@@ -27,6 +30,7 @@ curl -X POST https://euro-lilac.vercel.app/api/cities \
 ```
 
 #### 添加新景点
+
 ```bash
 curl -X POST https://euro-lilac.vercel.app/api/attractions \
   -H "Content-Type: application/json" \
@@ -44,6 +48,7 @@ curl -X POST https://euro-lilac.vercel.app/api/attractions \
 ```
 
 #### 添加新交通
+
 ```bash
 curl -X POST https://euro-lilac.vercel.app/api/transportation \
   -H "Content-Type: application/json" \
@@ -59,6 +64,7 @@ curl -X POST https://euro-lilac.vercel.app/api/transportation \
 ```
 
 #### 批量更新数据
+
 ```bash
 curl -X POST https://euro-lilac.vercel.app/api/batch-update \
   -H "Content-Type: application/json" \
@@ -93,7 +99,7 @@ curl -X POST https://euro-lilac.vercel.app/api/batch-update \
   }'
 ```
 
-### 2. 通过Supabase Dashboard
+### 2. 通过 Supabase Dashboard
 
 1. 访问 [Supabase Dashboard](https://supabase.com/dashboard)
 2. 选择你的项目
@@ -111,27 +117,33 @@ curl -X POST https://euro-lilac.vercel.app/api/reinitialize
 ## 数据变更最佳实践
 
 ### 1. 添加新数据
-- 使用API端点，系统会自动检查重复
+
+- 使用 API 端点，系统会自动检查重复
 - 先测试在本地环境
 - 小批量添加，避免一次性大量数据
 
 ### 2. 修改现有数据
-- 优先使用Supabase Dashboard进行小量修改
-- 大量修改使用批量更新API
+
+- 优先使用 Supabase Dashboard 进行小量修改
+- 大量修改使用批量更新 API
 - 修改前先备份重要数据
 
 ### 3. 数据结构变更
-- 在Supabase Dashboard中添加新字段
+
+- 在 Supabase Dashboard 中添加新字段
 - 更新代码中的类型定义
 - 测试所有相关功能
 
 ## 常见问题
 
 ### Q: 如何添加新的行程？
+
 A: 目前系统设计为单行程，如需多行程，需要修改数据库结构和代码。
 
 ### Q: 如何修改景点信息？
-A: 使用现有的PUT API端点：
+
+A: 使用现有的 PUT API 端点：
+
 ```bash
 curl -X PUT https://euro-lilac.vercel.app/api/attractions/1 \
   -H "Content-Type: application/json" \
@@ -139,40 +151,49 @@ curl -X PUT https://euro-lilac.vercel.app/api/attractions/1 \
 ```
 
 ### Q: 如何删除数据？
-A: 使用现有的DELETE API端点：
+
+A: 使用现有的 DELETE API 端点：
+
 ```bash
 curl -X DELETE https://euro-lilac.vercel.app/api/attractions/1
 ```
 
 ### Q: 数据变更后多久生效？
-A: 通过API变更立即生效，通过Dashboard变更也立即生效。
+
+A: 通过 API 变更立即生效，通过 Dashboard 变更也立即生效。
 
 ## 监控和维护
 
 ### 1. 数据统计
+
 定期检查数据统计：
+
 ```bash
 curl https://euro-lilac.vercel.app/api/data-stats
 ```
 
 ### 2. 数据备份
-- Supabase自动备份
+
+- Supabase 自动备份
 - 重要变更前手动导出数据
 
 ### 3. 性能监控
-- 监控API响应时间
+
+- 监控 API 响应时间
 - 检查数据库连接状态
 
 ## 环境变量
 
 确保以下环境变量正确设置：
-- `SUPABASE_URL`: Supabase项目URL
-- `SUPABASE_ANON_KEY`: Supabase匿名密钥
+
+- `SUPABASE_URL`: Supabase 项目 URL
+- `SUPABASE_ANON_KEY`: Supabase 匿名密钥
 
 ## 联系支持
 
 如遇到问题，请检查：
-1. Supabase项目状态
+
+1. Supabase 项目状态
 2. 环境变量配置
-3. API端点响应
+3. API 端点响应
 4. 浏览器控制台错误
