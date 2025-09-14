@@ -19,10 +19,6 @@
       "dest": "/server/index-supabase-rest.js"
     },
     {
-      "src": "/static/(.*)",
-      "dest": "/client/build/static/$1"
-    },
-    {
       "src": "/(.*)",
       "dest": "/client/build/$1"
     }
