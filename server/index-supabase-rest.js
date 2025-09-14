@@ -3,6 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
 const { createClient } = require('@supabase/supabase-js');
+const DataManager = require('./data-manager');
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -619,6 +620,102 @@ app.delete('/api/cities/:id', async (req, res) => {
 
     if (error) throw error;
     res.json({ message: 'City deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ==================== 数据管理API ====================
+
+// 初始化数据管理器
+const dataManager = new DataManager();
+
+// 获取数据统计
+app.get('/api/data-stats', async (req, res) => {
+  try {
+    const stats = await dataManager.getDataStats();
+    res.json(stats);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// 添加新城市
+app.post('/api/cities', async (req, res) => {
+  try {
+    const result = await dataManager.addCity(req.body);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// 添加新景点
+app.post('/api/attractions', async (req, res) => {
+  try {
+    const result = await dataManager.addAttraction(req.body);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// 添加新交通
+app.post('/api/transportation', async (req, res) => {
+  try {
+    const result = await dataManager.addTransportation(req.body);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// 批量更新数据
+app.post('/api/batch-update', async (req, res) => {
+  try {
+    const { operations } = req.body;
+    const results = [];
+    
+    for (const operation of operations) {
+      let result;
+      switch (operation.type) {
+        case 'add_city':
+          result = await dataManager.addCity(operation.data);
+          break;
+        case 'add_attraction':
+          result = await dataManager.addAttraction(operation.data);
+          break;
+        case 'add_transportation':
+          result = await dataManager.addTransportation(operation.data);
+          break;
+        case 'update_attraction':
+          result = await dataManager.updateAttraction(operation.id, operation.data);
+          break;
+        default:
+          result = { error: 'Unknown operation type' };
+      }
+      results.push({ operation: operation.type, result });
+    }
+    
+    res.json({ success: true, results });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// 重新初始化数据库（谨慎使用）
+app.post('/api/reinitialize', async (req, res) => {
+  try {
+    // 清空所有表
+    await supabase.from('transportation').delete().neq('id', 0);
+    await supabase.from('attractions').delete().neq('id', 0);
+    await supabase.from('cities').delete().neq('id', 0);
+    await supabase.from('itineraries').delete().neq('id', 0);
+    
+    // 重新初始化
+    await initializeDatabase();
+    
+    res.json({ success: true, message: '数据库重新初始化完成' });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
