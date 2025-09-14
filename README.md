@@ -8,7 +8,7 @@
 
 - **前端**: React + TypeScript + Leaflet
 - **后端**: Node.js + Express
-- **数据库**: 
+- **数据库**:
   - **本地开发**: SQLite (方便调试)
   - **生产环境**: Supabase (PostgreSQL)
 - **部署**: Vercel
@@ -49,7 +49,7 @@
 
 ### 环境变量设置
 
-**本地开发（SQLite）**：无需环境变量，直接使用SQLite数据库
+**本地开发（SQLite）**：无需环境变量，直接使用 SQLite 数据库
 
 **生产环境（Supabase）**：在项目根目录创建 `.env` 文件：
 
@@ -128,6 +128,7 @@ europe-travel-planner/
 ## API 接口
 
 ### 基础接口
+
 - `GET /api/itineraries` - 获取所有行程
 - `GET /api/itineraries/:id` - 获取特定行程
 - `GET /api/cities` - 获取城市列表
@@ -135,6 +136,7 @@ europe-travel-planner/
 - `GET /api/transportation` - 获取交通信息
 
 ### 数据管理接口
+
 - `GET /api/data-stats` - 获取数据统计
 - `POST /api/cities` - 添加新城市
 - `POST /api/attractions` - 添加新景点
@@ -142,6 +144,7 @@ europe-travel-planner/
 - `POST /api/batch-update` - 批量更新数据
 
 ### 表结构管理接口
+
 - `GET /api/schema/tables` - 获取所有表信息
 - `GET /api/schema/table/:tableName` - 获取表结构
 - `GET /api/schema/validate` - 验证表结构
@@ -168,12 +171,14 @@ europe-travel-planner/
 ## 开发优势
 
 ### 本地开发 (SQLite)
+
 - ✅ **无需配置**: 直接运行，无需环境变量
 - ✅ **快速调试**: 数据修改立即生效
 - ✅ **离线开发**: 无需网络连接
 - ✅ **数据安全**: 本地存储，不会影响生产数据
 
 ### 生产环境 (Supabase)
+
 - ✅ **数据持久化**: 重新部署不会丢失数据
 - ✅ **云端访问**: 支持多设备访问
 - ✅ **自动备份**: Supabase 自动备份数据

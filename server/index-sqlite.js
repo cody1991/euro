@@ -37,10 +37,11 @@ const initializeDatabase = () => {
     db.run(`CREATE TABLE IF NOT EXISTS cities (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
-      country TEXT,
-      latitude REAL,
-      longitude REAL,
-      visit_date TEXT,
+      country TEXT NOT NULL,
+      latitude REAL NOT NULL,
+      longitude REAL NOT NULL,
+      arrival_date TEXT NOT NULL,
+      departure_date TEXT NOT NULL,
       itinerary_id INTEGER,
       FOREIGN KEY (itinerary_id) REFERENCES itineraries (id)
     )`);
@@ -315,7 +316,7 @@ app.get('/api/itineraries/:id', (req, res) => {
 });
 
 app.get('/api/cities', (req, res) => {
-  db.all("SELECT * FROM cities ORDER BY visit_date", (err, rows) => {
+  db.all("SELECT * FROM cities ORDER BY arrival_date", (err, rows) => {
     if (err) {
       res.status(500).json({ error: err.message });
       return;
