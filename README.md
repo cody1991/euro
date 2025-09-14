@@ -8,7 +8,9 @@
 
 - **前端**: React + TypeScript + Leaflet
 - **后端**: Node.js + Express
-- **数据库**: Supabase (PostgreSQL)
+- **数据库**: 
+  - **本地开发**: SQLite (方便调试)
+  - **生产环境**: Supabase (PostgreSQL)
 - **部署**: Vercel
 - **开发工具**: 热更新、并发运行
 
@@ -47,7 +49,9 @@
 
 ### 环境变量设置
 
-在项目根目录创建 `.env` 文件：
+**本地开发（SQLite）**：无需环境变量，直接使用SQLite数据库
+
+**生产环境（Supabase）**：在项目根目录创建 `.env` 文件：
 
 ```bash
 SUPABASE_URL=your_supabase_url
@@ -64,17 +68,23 @@ npm run install-all
 ### 开发模式
 
 ```bash
-# 同时启动前端和后端
+# 本地开发（SQLite）- 推荐
 npm run dev
+
+# 使用Supabase开发
+npm run dev:supabase
 ```
 
 ### 单独运行
 
 ```bash
-# 只启动后端
-npm run server
+# 本地SQLite后端
+npm run server:local
 
-# 只启动前端
+# Supabase后端
+npm run server:supabase
+
+# 前端
 npm run client
 ```
 
@@ -90,6 +100,7 @@ npm run build
 - **后端 API**: http://localhost:5001/api
 - **地图页面**: http://localhost:3000/map
 - **行程详情**: http://localhost:3000/itinerary/1
+- **健康检查**: http://localhost:5001/api/health
 
 ## 项目结构
 
@@ -103,7 +114,8 @@ europe-travel-planner/
 │   │   └── types/            # TypeScript 类型
 │   └── public/               # 静态资源
 ├── server/                   # Node.js 后端
-│   ├── index-supabase-rest.js # 服务器入口 (Supabase REST API)
+│   ├── index-sqlite.js       # 本地SQLite服务器
+│   ├── index-supabase-rest.js # 生产Supabase服务器
 │   ├── data-manager.js       # 数据管理工具
 │   └── schema-manager.js     # 表结构管理工具
 ├── vercel.json              # Vercel 部署配置
@@ -141,15 +153,31 @@ europe-travel-planner/
 - 使用 `concurrently` 同时运行前后端
 - 前端支持热更新，修改代码自动刷新
 - 后端使用 `nodemon` 自动重启
-- 数据库使用 Supabase (PostgreSQL)，云端存储
+- **本地开发**: SQLite 数据库，无需配置
+- **生产环境**: Supabase (PostgreSQL)，云端存储
 
 ## 数据说明
 
-- 数据库：Supabase (PostgreSQL)
+- **本地开发**: SQLite 数据库文件 (`server/travel_planner.db`)
+- **生产环境**: Supabase (PostgreSQL)
 - 数据初始化：服务器启动时自动初始化
 - 包含完整的 20 天行程数据
 - 支持景点、交通、城市信息管理
 - 支持数据变更和表结构修改
+
+## 开发优势
+
+### 本地开发 (SQLite)
+- ✅ **无需配置**: 直接运行，无需环境变量
+- ✅ **快速调试**: 数据修改立即生效
+- ✅ **离线开发**: 无需网络连接
+- ✅ **数据安全**: 本地存储，不会影响生产数据
+
+### 生产环境 (Supabase)
+- ✅ **数据持久化**: 重新部署不会丢失数据
+- ✅ **云端访问**: 支持多设备访问
+- ✅ **自动备份**: Supabase 自动备份数据
+- ✅ **扩展性**: 支持大量数据和并发访问
 
 ## 部署说明
 

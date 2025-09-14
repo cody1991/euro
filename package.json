@@ -4,12 +4,16 @@
   "description": "欧洲旅游规划网站 - 武汉到欧洲20天行程规划",
   "main": "server/index-supabase-rest.js",
   "scripts": {
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "dev": "concurrently \"npm run server:local\" \"npm run client\"",
+    "dev:supabase": "concurrently \"npm run server:supabase\" \"npm run client\"",
     "server": "nodemon server/index-supabase-rest.js",
+    "server:local": "nodemon server/index-sqlite.js",
+    "server:supabase": "nodemon server/index-supabase-rest.js",
     "client": "cd client && npm start",
     "build": "cd client && npm run build",
     "install-all": "npm install && cd client && npm install",
     "start": "node server/index-supabase-rest.js",
+    "start:local": "node server/index-sqlite.js",
     "deploy:vercel": "vercel --prod"
   },
   "dependencies": {
@@ -18,7 +22,8 @@
     "concurrently": "^8.2.2",
     "cors": "^2.8.5",
     "express": "^4.18.2",
-    "nodemon": "^3.0.2"
+    "nodemon": "^3.0.2",
+    "sqlite3": "^5.1.6"
   },
   "keywords": [
     "travel",
