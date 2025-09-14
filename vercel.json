@@ -19,14 +19,28 @@
       "dest": "/server/index-supabase-rest.js"
     },
     {
-      "src": "/(.*)",
-      "dest": "/client/$1"
-    }
-  ],
-  "rewrites": [
+      "src": "/static/(.*)",
+      "dest": "/client/static/$1"
+    },
     {
-      "source": "/((?!api/).*)",
-      "destination": "/client/index.html"
+      "src": "/manifest.json",
+      "dest": "/client/manifest.json"
+    },
+    {
+      "src": "/favicon.ico",
+      "dest": "/client/favicon.ico"
+    },
+    {
+      "src": "/asset-manifest.json",
+      "dest": "/client/asset-manifest.json"
+    },
+    {
+      "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot))",
+      "dest": "/client/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/client/index.html"
     }
   ],
   "env": {
