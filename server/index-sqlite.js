@@ -302,16 +302,52 @@ app.get('/api/itineraries', (req, res) => {
 
 app.get('/api/itineraries/:id', (req, res) => {
   const id = req.params.id;
-  db.get("SELECT * FROM itineraries WHERE id = ?", [id], (err, row) => {
+  db.get("SELECT * FROM itineraries WHERE id = ?", [id], (err, itinerary) => {
     if (err) {
       res.status(500).json({ error: err.message });
       return;
     }
-    if (!row) {
+    if (!itinerary) {
       res.status(404).json({ error: 'Itinerary not found' });
       return;
     }
-    res.json(row);
+
+    // 获取关联的城市数据
+    db.all("SELECT * FROM cities WHERE itinerary_id = ? ORDER BY arrival_date", [id], (err, cities) => {
+      if (err) {
+        res.status(500).json({ error: err.message });
+        return;
+      }
+
+      // 为每个城市获取关联的景点数据
+      const citiesWithAttractions = [];
+      let processedCities = 0;
+
+      if (cities.length === 0) {
+        res.json({ ...itinerary, cities: [] });
+        return;
+      }
+
+      cities.forEach((city, index) => {
+        db.all("SELECT * FROM attractions WHERE city_id = ? ORDER BY visit_date, visit_time", [city.id], (err, attractions) => {
+          if (err) {
+            console.error(`获取城市 ${city.name} 的景点时出错:`, err);
+            attractions = [];
+          }
+
+          citiesWithAttractions[index] = {
+            ...city,
+            attractions: attractions || []
+          };
+
+          processedCities++;
+          if (processedCities === cities.length) {
+            // 所有城市数据都处理完成，返回结果
+            res.json({ ...itinerary, cities: citiesWithAttractions });
+          }
+        });
+      });
+    });
   });
 });
 
