@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { Map, FileText } from 'lucide-react';
 import './App.css';
 import MapPage from './pages/MapPage';
@@ -7,7 +7,7 @@ import ItineraryOverview from './pages/ItineraryOverview';
 
 function Navigation() {
   const location = useLocation();
-  
+
   return (
     <nav style={{
       display: 'flex',
@@ -16,8 +16,8 @@ function Navigation() {
       background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
       boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
     }}>
-      <Link 
-        to="/" 
+      <Link
+        to="/"
         style={{
           display: 'flex',
           alignItems: 'center',
@@ -34,8 +34,8 @@ function Navigation() {
         <Map size={20} />
         地图视图
       </Link>
-      <Link 
-        to="/overview" 
+      <Link
+        to="/overview"
         style={{
           display: 'flex',
           alignItems: 'center',
