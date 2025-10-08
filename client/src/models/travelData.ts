@@ -115,8 +115,8 @@ export const attractionsData: Attraction[] = [
 // 交通数据
 export const transportationData: Transportation[] = [
   // 往返航班（地图上显示）
-  { id: 0, transport_type: "飞机", from_city_id: 0, to_city_id: -1, departure_time: "2026-02-07 上午", arrival_time: "2026-02-07 上午", duration: "约2小时" },
-  { id: -1, transport_type: "飞机", from_city_id: -1, to_city_id: 1, departure_time: "2026-02-07 下午", arrival_time: "2026-02-08 上午", duration: "约13小时" },
+  { id: 0, transport_type: "飞机", from_city_id: 0, to_city_id: -1, departure_time: "2026-02-07 09:30", arrival_time: "2026-02-07 11:30", duration: "2小时" },
+  { id: -1, transport_type: "飞机", from_city_id: -1, to_city_id: 1, departure_time: "2026-02-07 13:35", arrival_time: "2026-02-07 19:15", duration: "11小时40分钟" },
 
   // 欧洲段交通
   { id: 1, transport_type: "火车", from_city_id: 1, to_city_id: 2, departure_time: "2026-02-10 上午", arrival_time: "2026-02-10 中午", duration: "约3.5小时" },
@@ -130,7 +130,11 @@ export const transportationData: Transportation[] = [
   { id: 9, transport_type: "火车", from_city_id: 8, to_city_id: 9, departure_time: "2026-02-21 上午", arrival_time: "2026-02-21 上午", duration: "约2小时" },
   { id: 10, transport_type: "火车", from_city_id: 9, to_city_id: 13, departure_time: "2026-02-22 上午", arrival_time: "2026-02-22 上午", duration: "约1小时" },
   { id: 11, transport_type: "火车", from_city_id: 13, to_city_id: 10, departure_time: "2026-02-22 下午", arrival_time: "2026-02-22 下午", duration: "约3小时" },
-  { id: 12, transport_type: "地铁", from_city_id: 10, to_city_id: 11, departure_time: "2026-02-24 下午", arrival_time: "2026-02-24 下午", duration: "约20分钟" }
+  { id: 12, transport_type: "地铁", from_city_id: 10, to_city_id: 11, departure_time: "2026-02-24 下午", arrival_time: "2026-02-24 下午", duration: "约20分钟" },
+
+  // 返程航班
+  { id: 13, transport_type: "飞机", from_city_id: 11, to_city_id: 1, departure_time: "2026-02-25 21:40", arrival_time: "2026-02-26 00:10", duration: "2小时30分钟" },
+  { id: 14, transport_type: "飞机", from_city_id: 1, to_city_id: -1, departure_time: "2026-02-26 19:00", arrival_time: "2026-02-26 20:55", duration: "1小时55分钟" }
 ];
 
 // 组装完整数据
