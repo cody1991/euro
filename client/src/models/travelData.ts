@@ -115,22 +115,22 @@ export const attractionsData: Attraction[] = [
 // 交通数据
 export const transportationData: Transportation[] = [
   // 往返航班（地图上显示）
-  { id: 0, transport_type: "飞机", from_city_id: 0, to_city_id: -1, departure_time: "2026-02-07 08:00", arrival_time: "2026-02-07 10:00", duration: "2小时" },
-  { id: -1, transport_type: "飞机", from_city_id: -1, to_city_id: 1, departure_time: "2026-02-07 14:00", arrival_time: "2026-02-08 07:00", duration: "13小时" },
+  { id: 0, transport_type: "飞机", from_city_id: 0, to_city_id: -1, departure_time: "2026-02-07 上午", arrival_time: "2026-02-07 上午", duration: "约2小时" },
+  { id: -1, transport_type: "飞机", from_city_id: -1, to_city_id: 1, departure_time: "2026-02-07 下午", arrival_time: "2026-02-08 上午", duration: "约13小时" },
 
   // 欧洲段交通
-  { id: 1, transport_type: "火车", from_city_id: 1, to_city_id: 2, departure_time: "2026-02-10 09:00", arrival_time: "2026-02-10 12:30", duration: "3.5小时" },
-  { id: 2, transport_type: "火车", from_city_id: 2, to_city_id: 3, departure_time: "2026-02-13 10:00", arrival_time: "2026-02-13 12:00", duration: "2小时" },
-  { id: 3, transport_type: "火车", from_city_id: 3, to_city_id: 4, departure_time: "2026-02-14 09:00", arrival_time: "2026-02-14 10:45", duration: "1.75小时" },
-  { id: 4, transport_type: "火车", from_city_id: 4, to_city_id: 5, departure_time: "2026-02-15 08:30", arrival_time: "2026-02-15 11:00", duration: "2.5小时" },
-  { id: 5, transport_type: "汽车", from_city_id: 5, to_city_id: 6, departure_time: "2026-02-16 10:00", arrival_time: "2026-02-16 10:30", duration: "30分钟" },
-  { id: 6, transport_type: "火车", from_city_id: 6, to_city_id: 7, departure_time: "2026-02-17 08:00", arrival_time: "2026-02-17 12:30", duration: "4.5小时" },
-  { id: 7, transport_type: "火车", from_city_id: 7, to_city_id: 12, departure_time: "2026-02-18 16:00", arrival_time: "2026-02-18 17:30", duration: "1.5小时" },
-  { id: 8, transport_type: "火车", from_city_id: 12, to_city_id: 8, departure_time: "2026-02-19 09:00", arrival_time: "2026-02-19 10:30", duration: "1.5小时" },
-  { id: 9, transport_type: "火车", from_city_id: 8, to_city_id: 9, departure_time: "2026-02-21 09:00", arrival_time: "2026-02-21 11:00", duration: "2小时" },
-  { id: 10, transport_type: "火车", from_city_id: 9, to_city_id: 13, departure_time: "2026-02-22 09:00", arrival_time: "2026-02-22 10:00", duration: "1小时" },
-  { id: 11, transport_type: "火车", from_city_id: 13, to_city_id: 10, departure_time: "2026-02-22 15:00", arrival_time: "2026-02-22 18:00", duration: "3小时" },
-  { id: 12, transport_type: "地铁", from_city_id: 10, to_city_id: 11, departure_time: "2026-02-24 14:00", arrival_time: "2026-02-24 14:20", duration: "20分钟" }
+  { id: 1, transport_type: "火车", from_city_id: 1, to_city_id: 2, departure_time: "2026-02-10 上午", arrival_time: "2026-02-10 中午", duration: "约3.5小时" },
+  { id: 2, transport_type: "火车", from_city_id: 2, to_city_id: 3, departure_time: "2026-02-13 上午", arrival_time: "2026-02-13 中午", duration: "约2小时" },
+  { id: 3, transport_type: "火车", from_city_id: 3, to_city_id: 4, departure_time: "2026-02-14 上午", arrival_time: "2026-02-14 上午", duration: "约1.5小时" },
+  { id: 4, transport_type: "火车", from_city_id: 4, to_city_id: 5, departure_time: "2026-02-15 上午", arrival_time: "2026-02-15 上午", duration: "约2.5小时" },
+  { id: 5, transport_type: "巴士", from_city_id: 5, to_city_id: 6, departure_time: "2026-02-16 上午", arrival_time: "2026-02-16 上午", duration: "约30分钟" },
+  { id: 6, transport_type: "飞机", from_city_id: 6, to_city_id: 7, departure_time: "2026-02-17 上午", arrival_time: "2026-02-17 中午", duration: "约1.5小时" },
+  { id: 7, transport_type: "火车", from_city_id: 7, to_city_id: 12, departure_time: "2026-02-18 下午", arrival_time: "2026-02-18 下午", duration: "约1.5小时" },
+  { id: 8, transport_type: "火车", from_city_id: 12, to_city_id: 8, departure_time: "2026-02-19 上午", arrival_time: "2026-02-19 上午", duration: "约1.5小时" },
+  { id: 9, transport_type: "火车", from_city_id: 8, to_city_id: 9, departure_time: "2026-02-21 上午", arrival_time: "2026-02-21 上午", duration: "约2小时" },
+  { id: 10, transport_type: "火车", from_city_id: 9, to_city_id: 13, departure_time: "2026-02-22 上午", arrival_time: "2026-02-22 上午", duration: "约1小时" },
+  { id: 11, transport_type: "火车", from_city_id: 13, to_city_id: 10, departure_time: "2026-02-22 下午", arrival_time: "2026-02-22 下午", duration: "约3小时" },
+  { id: 12, transport_type: "地铁", from_city_id: 10, to_city_id: 11, departure_time: "2026-02-24 下午", arrival_time: "2026-02-24 下午", duration: "约20分钟" }
 ];
 
 // 组装完整数据
