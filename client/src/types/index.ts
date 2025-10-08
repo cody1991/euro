@@ -3,7 +3,6 @@ export interface Itinerary {
   title: string;
   start_date: string;
   end_date: string;
-  created_at: string;
   cities?: City[];
   transportation?: Transportation[];
 }
@@ -16,7 +15,6 @@ export interface City {
   longitude: number;
   arrival_date: string;
   departure_date: string;
-  itinerary_id: number;
   attractions?: Attraction[];
 }
 
@@ -27,8 +25,6 @@ export interface Attraction {
   city_id: number;
   latitude: number;
   longitude: number;
-  visit_date: string;
-  visit_time: string;
   category: string;
   rating: number;
 }
@@ -41,9 +37,6 @@ export interface Transportation {
   departure_time: string;
   arrival_time: string;
   duration: string;
-  cost: number;
-  booking_reference: string;
-  itinerary_id: number;
 }
 
 export interface RecommendedAttraction {

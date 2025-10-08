@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Polyline, Tooltip } from 'react-leaflet';
-import { Star, Calendar, Plane, Train, Car, Ship, Download } from 'lucide-react';
-import { itineraryAPI } from '../services/api';
+import { Star, Calendar, Plane, Train, Car, Ship } from 'lucide-react';
+import { getItineraryData } from '../models/travelData';
 import { Itinerary, Attraction } from '../types';
 import 'leaflet/dist/leaflet.css';
 import './MapPage.css';
-import html2canvas from 'html2canvas';
 
 // 修复 Leaflet 默认图标问题
 import L from 'leaflet';
@@ -125,60 +124,31 @@ const getTransportColor = (transportType: string) => {
 };
 
 const MapPage: React.FC = () => {
-  // const [itineraries, setItineraries] = useState<Itinerary[]>([]);
   const [selectedItinerary, setSelectedItinerary] = useState<Itinerary | null>(null);
   const [loading, setLoading] = useState(true);
   const [mapCenter] = useState<[number, number]>([45.5, 7.0]); // 法国南部和意大利北部之间
   const [mapZoom] = useState(5.5);
-  const [exporting, setExporting] = useState(false);
-  const mapPageRef = useRef<HTMLDivElement>(null);
 
   // 主要城市列表（显示大标签）
-  const majorCities = ['阿姆斯特丹', '巴黎', '里昂', '马赛', '尼斯', '摩纳哥', '米兰', '威尼斯', '佛罗伦萨', '罗马', '梵蒂冈'];
+  const majorCities = ['阿姆斯特丹', '巴黎', '里昂', '马赛', '尼斯', '摩纳哥', '米兰', '维罗纳', '威尼斯', '佛罗伦萨', '比萨', '罗马', '梵蒂冈'];
 
   // 从数据库获取的景点数据
   const [recommendedAttractions, setRecommendedAttractions] = useState<{ [key: string]: Attraction[] }>({});
 
-  // 导出图片功能
-  const handleExportImage = async () => {
-    if (!mapPageRef.current) return;
-
-    setExporting(true);
-    try {
-      const canvas = await html2canvas(mapPageRef.current, {
-        scale: 2,
-        useCORS: true,
-        logging: false,
-        backgroundColor: '#ffffff'
-      });
-
-      const link = document.createElement('a');
-      link.download = `欧洲旅游地图_${new Date().toLocaleDateString()}.png`;
-      link.href = canvas.toDataURL();
-      link.click();
-    } catch (error) {
-      console.error('导出失败:', error);
-      alert('导出失败，请重试');
-    } finally {
-      setExporting(false);
-    }
-  };
-
   useEffect(() => {
-    fetchItineraries();
+    loadItineraryData();
   }, []);
 
-  const fetchItineraries = async () => {
+  const loadItineraryData = () => {
     try {
-      // 直接获取ID为1的完整欧洲行程
-      const response = await itineraryAPI.getById(1);
-      // setItineraries([response.data]);
-      setSelectedItinerary(response.data);
+      // 直接从本地数据获取行程
+      const data = getItineraryData();
+      setSelectedItinerary(data);
 
       // 处理景点数据，按城市分组
       const attractionsByCity: { [key: string]: Attraction[] } = {};
-      if (response.data.cities) {
-        response.data.cities.forEach(city => {
+      if (data.cities) {
+        data.cities.forEach(city => {
           if (city.attractions && city.attractions.length > 0) {
             attractionsByCity[city.name] = city.attractions;
           }
@@ -186,7 +156,7 @@ const MapPage: React.FC = () => {
       }
       setRecommendedAttractions(attractionsByCity);
     } catch (error) {
-      console.error('获取行程失败:', error);
+      console.error('加载行程数据失败:', error);
     } finally {
       setLoading(false);
     }
@@ -209,19 +179,9 @@ const MapPage: React.FC = () => {
   }
 
   return (
-    <div className="map-page" ref={mapPageRef}>
+    <div className="map-page">
       <div className="map-sidebar">
         <h2>欧洲旅游地图</h2>
-
-        {/* 导出按钮 */}
-        <button
-          className="export-map-button"
-          onClick={handleExportImage}
-          disabled={exporting}
-        >
-          <Download size={18} />
-          {exporting ? '导出中...' : '导出地图'}
-        </button>
 
         {selectedItinerary && (
           <div className="itinerary-info">
@@ -274,15 +234,17 @@ const MapPage: React.FC = () => {
                         {getTransportIcon(transport.transport_type)}
                       </div>
                       <div className="transport-details">
-                        <div className="transport-route">
-                          {fromCity.name} → {toCity.name}
+                        <div className="transport-main">
+                          <div className="transport-route">
+                            {fromCity.name} → {toCity.name}
+                          </div>
+                          <div className="transport-type-badge">{transport.transport_type}</div>
                         </div>
-                        <div className="transport-type">{transport.transport_type}</div>
-                        <div className="transport-time">
-                          {transport.departure_time} - {transport.arrival_time}
-                        </div>
-                        <div className="transport-duration">
-                          行程时间: {transport.duration}
+                        <div className="transport-meta">
+                          <span className="transport-duration">{transport.duration}</span>
+                          <span className="transport-time-simple">
+                            {transport.departure_time.split(' ')[1]} - {transport.arrival_time.split(' ')[1]}
+                          </span>
                         </div>
                       </div>
                     </div>

@@ -1,23 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { Calendar, MapPin, Star, Plane, Train, Car, Navigation } from 'lucide-react';
-import { itineraryAPI } from '../services/api';
+import React, { useState, useEffect, useRef } from 'react';
+import { Calendar, MapPin, Star, Plane, Train, Car, Navigation, Download, FileText } from 'lucide-react';
+import { getItineraryData } from '../models/travelData';
 import { Itinerary } from '../types';
+import html2canvas from 'html2canvas';
 import './ItineraryOverview.css';
 
 const ItineraryOverview: React.FC = () => {
   const [itinerary, setItinerary] = useState<Itinerary | null>(null);
   const [loading, setLoading] = useState(true);
+  const [exporting, setExporting] = useState(false);
+  const overviewRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    fetchItinerary();
+    loadItinerary();
   }, []);
 
-  const fetchItinerary = async () => {
+  const loadItinerary = () => {
     try {
-      const response = await itineraryAPI.getById(1);
-      setItinerary(response.data);
+      const data = getItineraryData();
+      setItinerary(data);
     } catch (error) {
-      console.error('获取行程失败:', error);
+      console.error('加载行程数据失败:', error);
     } finally {
       setLoading(false);
     }
@@ -31,6 +34,114 @@ const ItineraryOverview: React.FC = () => {
     const arrival = new Date(arrivalDate);
     const departure = new Date(departureDate);
     return Math.ceil((departure.getTime() - arrival.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+  };
+
+  // 导出图片功能
+  const handleExportImage = async () => {
+    if (!overviewRef.current) return;
+
+    setExporting(true);
+    try {
+      // 滚动到顶部
+      window.scrollTo(0, 0);
+      await new Promise(resolve => setTimeout(resolve, 300));
+
+      const canvas = await html2canvas(overviewRef.current, {
+        scale: 2,
+        useCORS: true,
+        logging: false,
+        backgroundColor: '#f8f9fa',
+        scrollY: 0,
+        scrollX: 0,
+        windowHeight: overviewRef.current.scrollHeight + 100
+      });
+
+      const link = document.createElement('a');
+      link.download = `欧洲行程总览_${new Date().toLocaleDateString()}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    } catch (error) {
+      console.error('导出失败:', error);
+      alert('导出失败，请重试');
+    } finally {
+      setExporting(false);
+    }
+  };
+
+  // 生成Markdown文本
+  const generateMarkdown = () => {
+    if (!itinerary) return '';
+
+    let md = `# ${itinerary.title}\n\n`;
+    md += `📅 **时间**：${formatDate(itinerary.start_date)} - ${formatDate(itinerary.end_date)}\n`;
+    md += `⏱️ **总计**：${calculateDays(itinerary.start_date, itinerary.end_date)} 天\n\n`;
+    md += `---\n\n`;
+
+    // 路线概览
+    md += `## 🗺️ 路线概览\n\n`;
+    const route = itinerary.cities?.map(c => c.name).join(' → ') || '';
+    md += `${route}\n\n`;
+    md += `---\n\n`;
+
+    // 详细行程
+    md += `## 📅 详细行程\n\n`;
+    itinerary.cities?.forEach((city, index) => {
+      const days = calculateDays(city.arrival_date, city.departure_date);
+      md += `### Day ${index + 1} - ${city.name} ${city.country}\n\n`;
+      md += `📍 **停留时间**：${formatDate(city.arrival_date)} - ${formatDate(city.departure_date)} (${days}天)\n\n`;
+
+      // 景点
+      if (city.attractions && city.attractions.length > 0) {
+        md += `**🏛️ 推荐景点** (${city.attractions.length}个)：\n\n`;
+        city.attractions.forEach((attr, i) => {
+          md += `${i + 1}. **${attr.name}** ⭐${attr.rating}\n`;
+          md += `   - ${attr.description}\n`;
+          md += `   - 类型：${attr.category}\n\n`;
+        });
+      }
+
+      // 交通
+      const cityTransports = itinerary.transportation?.filter(t => t.from_city_id === city.id);
+      if (cityTransports && cityTransports.length > 0) {
+        cityTransports.forEach(trans => {
+          const toCity = itinerary.cities?.find(c => c.id === trans.to_city_id);
+          if (toCity) {
+            md += `**🚄 前往** ${toCity.name}：${trans.transport_type} (${trans.duration})\n`;
+            md += `   - 出发：${trans.departure_time}\n`;
+            md += `   - 到达：${trans.arrival_time}\n\n`;
+          }
+        });
+      }
+
+      md += `---\n\n`;
+    });
+
+    // 统计信息
+    md += `## 📊 行程统计\n\n`;
+    md += `- 🏙️ 城市数量：${itinerary.cities?.length || 0} 个\n`;
+    md += `- 🏛️ 景点数量：${itinerary.cities?.reduce((sum, city) => sum + (city.attractions?.length || 0), 0) || 0} 个\n`;
+    md += `- 🚄 交通段数：${itinerary.transportation?.length || 0} 段\n`;
+    md += `- ⏱️ 总天数：${calculateDays(itinerary.start_date, itinerary.end_date)} 天\n\n`;
+
+    return md;
+  };
+
+  // 导出Markdown
+  const handleExportMarkdown = () => {
+    const markdown = generateMarkdown();
+
+    // 复制到剪贴板
+    navigator.clipboard.writeText(markdown).then(() => {
+      alert('✅ Markdown 文本已复制到剪贴板！\n可以直接粘贴到微信或其他地方。');
+    }).catch(() => {
+      // 如果复制失败，下载为文件
+      const blob = new Blob([markdown], { type: 'text/markdown' });
+      const link = document.createElement('a');
+      link.download = `欧洲行程_${new Date().toLocaleDateString()}.md`;
+      link.href = URL.createObjectURL(blob);
+      link.click();
+      alert('✅ Markdown 文件已下载！');
+    });
   };
 
   const getTransportIcon = (transportType: string) => {
@@ -56,7 +167,7 @@ const ItineraryOverview: React.FC = () => {
   }
 
   return (
-    <div className="itinerary-overview">
+    <div className="itinerary-overview" ref={overviewRef}>
       <div className="overview-header">
         <h1>{itinerary.title}</h1>
         <div className="overview-dates">
@@ -195,13 +306,24 @@ const ItineraryOverview: React.FC = () => {
         </section>
       </div>
 
-      {/* 导出按钮 */}
-      <button 
-        className="export-button"
-        onClick={() => window.print()}
-      >
-        📄 导出/打印行程
-      </button>
+      {/* 导出按钮组 */}
+      <div className="export-buttons">
+        <button
+          className="export-button export-markdown"
+          onClick={handleExportMarkdown}
+        >
+          <FileText size={20} />
+          复制文本
+        </button>
+        <button
+          className="export-button export-image"
+          onClick={handleExportImage}
+          disabled={exporting}
+        >
+          <Download size={20} />
+          {exporting ? '导出中...' : '导出图片'}
+        </button>
+      </div>
     </div>
   );
 };
