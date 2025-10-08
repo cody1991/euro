@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Polyline, Tooltip } from 'react-leaflet';
-import { Star, Calendar, Plane, Train, Car, Ship } from 'lucide-react';
+import { Star, Calendar, Plane, Train, Car, Ship, Download } from 'lucide-react';
 import { itineraryAPI } from '../services/api';
 import { Itinerary, Attraction } from '../types';
 import 'leaflet/dist/leaflet.css';
 import './MapPage.css';
+import html2canvas from 'html2canvas';
 
 // 修复 Leaflet 默认图标问题
 import L from 'leaflet';
@@ -127,14 +128,41 @@ const MapPage: React.FC = () => {
   // const [itineraries, setItineraries] = useState<Itinerary[]>([]);
   const [selectedItinerary, setSelectedItinerary] = useState<Itinerary | null>(null);
   const [loading, setLoading] = useState(true);
-  const [mapCenter] = useState<[number, number]>([47.0, 9.50]); // 意大利中心偏南
-  const [mapZoom] = useState(6);
+  const [mapCenter] = useState<[number, number]>([45.5, 7.0]); // 法国南部和意大利北部之间
+  const [mapZoom] = useState(5.5);
+  const [exporting, setExporting] = useState(false);
+  const mapPageRef = useRef<HTMLDivElement>(null);
 
   // 主要城市列表（显示大标签）
-  const majorCities = ['武汉', '阿姆斯特丹', '巴黎', '尼斯', '米兰', '佛罗伦萨', '威尼斯', '罗马', '布达佩斯'];
+  const majorCities = ['阿姆斯特丹', '巴黎', '里昂', '马赛', '尼斯', '摩纳哥', '米兰', '威尼斯', '佛罗伦萨', '罗马', '梵蒂冈'];
 
   // 从数据库获取的景点数据
   const [recommendedAttractions, setRecommendedAttractions] = useState<{ [key: string]: Attraction[] }>({});
+
+  // 导出图片功能
+  const handleExportImage = async () => {
+    if (!mapPageRef.current) return;
+
+    setExporting(true);
+    try {
+      const canvas = await html2canvas(mapPageRef.current, {
+        scale: 2,
+        useCORS: true,
+        logging: false,
+        backgroundColor: '#ffffff'
+      });
+
+      const link = document.createElement('a');
+      link.download = `欧洲旅游地图_${new Date().toLocaleDateString()}.png`;
+      link.href = canvas.toDataURL();
+      link.click();
+    } catch (error) {
+      console.error('导出失败:', error);
+      alert('导出失败，请重试');
+    } finally {
+      setExporting(false);
+    }
+  };
 
   useEffect(() => {
     fetchItineraries();
@@ -181,16 +209,19 @@ const MapPage: React.FC = () => {
   }
 
   return (
-    <div className="map-page">
+    <div className="map-page" ref={mapPageRef}>
       <div className="map-sidebar">
         <h2>欧洲旅游地图</h2>
 
-        <div className="itinerary-selector">
-          <label>当前行程：</label>
-          <div className="current-itinerary">
-            {selectedItinerary?.title || '加载中...'}
-          </div>
-        </div>
+        {/* 导出按钮 */}
+        <button
+          className="export-map-button"
+          onClick={handleExportImage}
+          disabled={exporting}
+        >
+          <Download size={18} />
+          {exporting ? '导出中...' : '导出地图'}
+        </button>
 
         {selectedItinerary && (
           <div className="itinerary-info">
@@ -203,18 +234,28 @@ const MapPage: React.FC = () => {
             {selectedItinerary.cities && selectedItinerary.cities.length > 0 && (
               <div className="cities-list">
                 <h4>行程城市</h4>
-                {selectedItinerary.cities.map((city, index) => (
-                  <div key={city.id} className="city-item">
-                    <div className="city-number">{index + 1}</div>
-                    <div className="city-details">
-                      <div className="city-name">{city.name}</div>
-                      <div className="city-country">{city.country}</div>
-                      <div className="city-dates">
-                        {formatDate(city.arrival_date)} - {formatDate(city.departure_date)}
+                {selectedItinerary.cities.map((city, index) => {
+                  // 计算停留天数
+                  const arrival = new Date(city.arrival_date);
+                  const departure = new Date(city.departure_date);
+                  const days = Math.ceil((departure.getTime() - arrival.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+
+                  return (
+                    <div key={city.id} className="city-item">
+                      <div className="city-number">{index + 1}</div>
+                      <div className="city-details">
+                        <div className="city-name">
+                          {city.name}
+                          <span className="city-duration"> ({days}天)</span>
+                        </div>
+                        <div className="city-country">{city.country}</div>
+                        <div className="city-dates">
+                          {formatDate(city.arrival_date)} - {formatDate(city.departure_date)}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             )}
 
