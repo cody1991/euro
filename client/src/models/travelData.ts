@@ -27,7 +27,8 @@ export const citiesData: City[] = [
   { id: 9, name: "佛罗伦萨", country: "意大利", latitude: 43.7696, longitude: 11.2558, arrival_date: "2026-02-21", departure_date: "2026-02-21" },
   { id: 13, name: "比萨", country: "意大利", latitude: 43.7228, longitude: 10.3966, arrival_date: "2026-02-22", departure_date: "2026-02-22" },
   { id: 10, name: "罗马", country: "意大利", latitude: 41.9028, longitude: 12.4964, arrival_date: "2026-02-23", departure_date: "2026-02-24" },
-  { id: 11, name: "梵蒂冈", country: "梵蒂冈", latitude: 41.9029, longitude: 12.4534, arrival_date: "2026-02-24", departure_date: "2026-02-24" }
+  { id: 11, name: "梵蒂冈", country: "梵蒂冈", latitude: 41.9029, longitude: 12.4534, arrival_date: "2026-02-24", departure_date: "2026-02-24" },
+  { id: 14, name: "阿姆斯特丹", country: "荷兰", latitude: 52.3676, longitude: 4.9041, arrival_date: "2026-02-26", departure_date: "2026-02-26" }
 ];
 
 // 景点数据
@@ -38,6 +39,10 @@ export const attractionsData: Attraction[] = [
   { id: 3, name: "运河区", description: "联合国教科文组织世界遗产", latitude: 52.3676, longitude: 4.9041, category: "风景", rating: 4.7, city_id: 1 },
   { id: 4, name: "国立博物馆", description: "荷兰国家博物馆", latitude: 52.3600, longitude: 4.8852, category: "博物馆", rating: 4.7, city_id: 1 },
   { id: 5, name: "水坝广场", description: "阿姆斯特丹中心广场", latitude: 52.3730, longitude: 4.8936, category: "地标", rating: 4.5, city_id: 1 },
+  { id: 54, name: "桑斯安斯风车村", description: "荷兰传统风车村，体验经典荷兰风光", latitude: 52.4748, longitude: 4.8175, category: "风景", rating: 4.6, city_id: 14 },
+  { id: 55, name: "阿姆斯特丹花市", description: "世界唯一的水上花市", latitude: 52.3665, longitude: 4.8913, category: "市场", rating: 4.4, city_id: 14 },
+  { id: 56, name: "喜力啤酒体验馆", description: "了解喜力啤酒历史与酿造过程", latitude: 52.3578, longitude: 4.8917, category: "娱乐", rating: 4.3, city_id: 14 },
+  { id: 57, name: "运河游船", description: "乘船游览阿姆斯特丹运河，欣赏城市美景", latitude: 52.3702, longitude: 4.8952, category: "活动", rating: 4.7, city_id: 14 },
 
   // 巴黎
   { id: 6, name: "埃菲尔铁塔", description: "巴黎地标建筑", latitude: 48.8584, longitude: 2.2945, category: "地标", rating: 4.9, city_id: 2 },
@@ -133,8 +138,8 @@ export const transportationData: Transportation[] = [
   { id: 12, transport_type: "地铁", from_city_id: 10, to_city_id: 11, departure_time: "2026-02-24 下午", arrival_time: "2026-02-24 下午", duration: "约20分钟" },
 
   // 返程航班
-  { id: 13, transport_type: "飞机", from_city_id: 11, to_city_id: 1, departure_time: "2026-02-25 21:40", arrival_time: "2026-02-26 00:10", duration: "2小时30分钟" },
-  { id: 14, transport_type: "飞机", from_city_id: 1, to_city_id: -1, departure_time: "2026-02-26 19:00", arrival_time: "2026-02-26 20:55", duration: "1小时55分钟" }
+  { id: 13, transport_type: "飞机", from_city_id: 11, to_city_id: 14, departure_time: "2026-02-25 21:40", arrival_time: "2026-02-26 00:10", duration: "2小时30分钟" },
+  { id: 14, transport_type: "飞机", from_city_id: 14, to_city_id: -1, departure_time: "2026-02-26 19:00", arrival_time: "2026-02-26 20:55", duration: "1小时55分钟" }
 ];
 
 // 组装完整数据
