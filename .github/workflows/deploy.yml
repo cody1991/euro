@@ -3,41 +3,46 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - master # 当推送到 master 分支时触发
-  workflow_dispatch: # 允许手动触发
+      - master
+  workflow_dispatch:
+
+# 设置 GITHUB_TOKEN 的权限
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
+    
     permissions:
-      contents: write # 需要写权限来推送到 gh-pages 分支
+      contents: write
 
     steps:
-      - name: Checkout 代码
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: 设置 Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "18"
           cache: "npm"
           cache-dependency-path: client/package-lock.json
 
-      - name: 安装依赖
-        run: |
-          cd client
-          npm ci
+      - name: Install dependencies
+        working-directory: ./client
+        run: npm ci
 
-      - name: 构建项目
-        run: |
-          cd client
-          npm run build
+      - name: Build
+        working-directory: ./client
+        run: npm run build
 
-      - name: 部署到 GitHub Pages
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./client/build
           publish_branch: gh-pages
-          cname: false # 如果你有自定义域名，设置为域名；否则设置为 false
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
