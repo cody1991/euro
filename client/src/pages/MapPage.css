@@ -1,5 +1,7 @@
 .map-page {
   display: flex;
+  width: 100%;
+  min-width: 800px;
   height: 100vh;
   background: #f8f9fa;
 }
@@ -341,8 +343,9 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 800px) {
   .map-page {
+    min-width: 100%;
     flex-direction: column;
   }
 

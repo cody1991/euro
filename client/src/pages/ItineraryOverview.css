@@ -1,5 +1,6 @@
 .itinerary-overview {
-  max-width: 1200px;
+  width: 100%;
+  min-width: 800px;
   margin: 0 auto;
   padding: 40px 20px;
   background: #f8f9fa;
@@ -498,7 +499,11 @@
 }
 
 /* 响应式 */
-@media (max-width: 768px) {
+@media (max-width: 800px) {
+  .itinerary-overview {
+    min-width: 100%;
+  }
+  
   .overview-header h1 {
     font-size: 1.8em;
   }

@@ -1,5 +1,6 @@
 .visa-itinerary {
-  max-width: 1200px;
+  width: 100%;
+  min-width: 800px;
   margin: 0 auto;
   padding: 50px 40px;
   font-family: 'Arial', 'Microsoft YaHei', sans-serif;
@@ -378,9 +379,9 @@
 }
 
 /* 响应式设计 */
-@media (max-width: 768px) {
+@media (max-width: 800px) {
   .visa-itinerary {
-    max-width: 100%;
+    min-width: 100%;
     padding: 30px 20px;
   }
   
@@ -433,6 +434,7 @@
 
 @media (max-width: 480px) {
   .visa-itinerary {
+    min-width: 320px;
     padding: 20px 15px;
   }
   

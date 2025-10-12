@@ -1,5 +1,6 @@
 .timeline-container {
-  max-width: 1200px;
+  width: 100%;
+  min-width: 800px;
   margin: 0 auto;
   padding: 40px 20px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -224,8 +225,9 @@
 }
 
 /* 响应式设计 */
-@media (max-width: 768px) {
+@media (max-width: 800px) {
   .timeline-container {
+    min-width: 100%;
     padding: 20px 10px;
   }
 
