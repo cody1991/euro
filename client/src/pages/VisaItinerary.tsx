@@ -141,7 +141,11 @@ const VisaItinerary: React.FC = () => {
         backgroundColor: '#ffffff',
         logging: false,
         width: 794, // A4宽度像素
-        height: 1123 // A4高度像素
+        height: tempContainer.scrollHeight, // 使用内容实际高度
+        scrollX: 0,
+        scrollY: 0,
+        windowWidth: 794,
+        windowHeight: tempContainer.scrollHeight
       });
 
       // 清理临时容器
@@ -202,7 +206,7 @@ const VisaItinerary: React.FC = () => {
       if (!cityAttractions || cityAttractions.length === 0) {
         return '_______________';
       }
-      return cityAttractions.map((attr: any, idx: number) => 
+      return cityAttractions.map((attr: any, idx: number) =>
         `${idx + 1}. ${attr.name_en || attr.name}`
       ).join('<br/>');
     };
@@ -237,14 +241,204 @@ const VisaItinerary: React.FC = () => {
       return `${type} ${from}→${to}<br/>${departure}→${arrival}`;
     };
 
-    const rows = citiesData.map((city, index) => `
+    // 生成完整的20天行程
+    const generateFullItinerary = () => {
+      const itinerary = [];
+      let dayCounter = 1;
+      
+      // 添加出发日
+      itinerary.push({
+        day: dayCounter++,
+        date: "2026/02/07 (Fri)",
+        city: "Wuhan→Guangzhou",
+        touring: "1.出发前往机场<br/>2.办理登机手续",
+        accommodation: "_______________",
+        transportation: "Flight Wuhan→Guangzhou<br/>09:30->11:30"
+      });
+      
+      // 添加到达阿姆斯特丹
+      itinerary.push({
+        day: dayCounter++,
+        date: "2026/02/08 (Sat)",
+        city: "Guangzhou→Amsterdam",
+        touring: getTouringSpots({ id: 1 }),
+        accommodation: getAccommodation({ id: 1 }),
+        transportation: "Flight Guangzhou→Amsterdam<br/>13:00->18:00"
+      });
+      
+      // 添加巴黎3天
+      for (let i = 0; i < 3; i++) {
+        const date = new Date("2026-02-09");
+        date.setDate(date.getDate() + i);
+        const dateStr = formatDate(date.toISOString().split('T')[0]);
+        const attractions = [
+          "1.Eiffel Tower<br/>2.Louvre Museum<br/>3.Champs-Élysées",
+          "1.Notre-Dame Cathedral<br/>2.Arc de Triomphe<br/>3.Seine River Cruise",
+          "1.Palace of Versailles<br/>2.Transfer to Lyon"
+        ];
+        
+        itinerary.push({
+          day: dayCounter++,
+          date: dateStr,
+          city: i === 2 ? "Paris→Lyon" : "Paris",
+          touring: attractions[i],
+          accommodation: getAccommodation({ id: 2 }),
+          transportation: i === 2 ? "Train Paris→Lyon<br/>14:00->16:30" : "Public transport"
+        });
+      }
+      
+      // 添加里昂
+      itinerary.push({
+        day: dayCounter++,
+        date: "2026/02/12 (Wed)",
+        city: "Lyon→Marseille",
+        touring: "1.Basilica of Notre-Dame de Fourvière<br/>2.Vieux Lyon<br/>3.Place Bellecour",
+        accommodation: getAccommodation({ id: 3 }),
+        transportation: "Train Lyon→Marseille<br/>10:00->12:00"
+      });
+      
+      // 添加马赛
+      itinerary.push({
+        day: dayCounter++,
+        date: "2026/02/13 (Thu)",
+        city: "Marseille→Nice",
+        touring: "1.Old Port<br/>2.Notre-Dame de la Garde<br/>3.Château d'If",
+        accommodation: getAccommodation({ id: 4 }),
+        transportation: "Train Marseille→Nice<br/>11:00->13:30"
+      });
+      
+      // 添加尼斯
+      itinerary.push({
+        day: dayCounter++,
+        date: "2026/02/14 (Fri)",
+        city: "Nice→Monaco",
+        touring: "1.Baie des Anges<br/>2.Vieux Nice<br/>3.Castle Hill",
+        accommodation: getAccommodation({ id: 5 }),
+        transportation: "Bus Nice→Monaco<br/>09:00->09:30"
+      });
+      
+      // 添加摩纳哥
+      itinerary.push({
+        day: dayCounter++,
+        date: "2026/02/15 (Sat)",
+        city: "Monaco→Milan",
+        touring: "1.Monte Carlo Casino<br/>2.Prince's Palace of Monaco<br/>3.Oceanographic Museum",
+        accommodation: getAccommodation({ id: 6 }),
+        transportation: "Flight Nice→Milan<br/>15:00->16:00"
+      });
+      
+      // 添加米兰2天
+      for (let i = 0; i < 2; i++) {
+        const date = new Date("2026-02-16");
+        date.setDate(date.getDate() + i);
+        const dateStr = formatDate(date.toISOString().split('T')[0]);
+        const attractions = [
+          "1.Duomo di Milano<br/>2.Teatro alla Scala<br/>3.Castello Sforzesco",
+          "1.The Last Supper<br/>2.Verona Arena<br/>3.Transfer to Venice"
+        ];
+        
+        itinerary.push({
+          day: dayCounter++,
+          date: dateStr,
+          city: i === 1 ? "Milan→Verona→Venice" : "Milan",
+          touring: attractions[i],
+          accommodation: getAccommodation({ id: 7 }),
+          transportation: i === 1 ? "Train Milan→Venice<br/>10:00->13:00" : "Public transport"
+        });
+      }
+      
+      // 添加威尼斯2天
+      for (let i = 0; i < 2; i++) {
+        const date = new Date("2026-02-18");
+        date.setDate(date.getDate() + i);
+        const dateStr = formatDate(date.toISOString().split('T')[0]);
+        const attractions = [
+          "1.Piazza San Marco<br/>2.Grand Canal<br/>3.Rialto Bridge",
+          "1.Bridge of Sighs<br/>2.St. Mark's Basilica<br/>3.Transfer to Florence"
+        ];
+        
+        itinerary.push({
+          day: dayCounter++,
+          date: dateStr,
+          city: i === 1 ? "Venice→Florence" : "Venice",
+          touring: attractions[i],
+          accommodation: getAccommodation({ id: 8 }),
+          transportation: i === 1 ? "Train Venice→Florence<br/>11:00->14:00" : "Public transport"
+        });
+      }
+      
+      // 添加佛罗伦萨
+      itinerary.push({
+        day: dayCounter++,
+        date: "2026/02/20 (Thu)",
+        city: "Florence→Pisa→Rome",
+        touring: "1.Cathedral of Santa Maria del Fiore<br/>2.Uffizi Gallery<br/>3.Ponte Vecchio",
+        accommodation: getAccommodation({ id: 9 }),
+        transportation: "Train Florence→Rome<br/>15:00->17:30"
+      });
+      
+      // 添加比萨和梵蒂冈
+      itinerary.push({
+        day: dayCounter++,
+        date: "2026/02/21 (Fri)",
+        city: "Pisa→Rome",
+        touring: "1.Leaning Tower of Pisa<br/>2.Piazza dei Miracoli<br/>3.Vatican City",
+        accommodation: getAccommodation({ id: 10 }),
+        transportation: "Public transport"
+      });
+      
+      // 添加罗马2天
+      for (let i = 0; i < 2; i++) {
+        const date = new Date("2026-02-22");
+        date.setDate(date.getDate() + i);
+        const dateStr = formatDate(date.toISOString().split('T')[0]);
+        const attractions = [
+          "1.Colosseum<br/>2.Roman Forum<br/>3.Trevi Fountain",
+          "1.Pantheon<br/>2.Spanish Steps<br/>3.St. Peter's Basilica"
+        ];
+        
+        itinerary.push({
+          day: dayCounter++,
+          date: dateStr,
+          city: i === 1 ? "Rome→Naples" : "Rome",
+          touring: attractions[i],
+          accommodation: getAccommodation({ id: 10 }),
+          transportation: i === 1 ? "Train Rome→Naples<br/>09:00->11:00" : "Public transport"
+        });
+      }
+      
+      // 添加那不勒斯
+      itinerary.push({
+        day: dayCounter++,
+        date: "2026/02/24 (Mon)",
+        city: "Naples→Amsterdam",
+        touring: "1.Pompeii<br/>2.Historic Centre of Naples<br/>3.Castel Nuovo",
+        accommodation: getAccommodation({ id: 15 }),
+        transportation: "Flight Naples→Amsterdam<br/>18:00->21:00"
+      });
+      
+      // 添加返程
+      itinerary.push({
+        day: dayCounter++,
+        date: "2026/02/25 (Tue)",
+        city: "Amsterdam→Guangzhou→Wuhan",
+        touring: "1.返程航班<br/>2.转机广州",
+        accommodation: "_______________",
+        transportation: "Flight Amsterdam→Guangzhou<br/>12:00->05:00+1"
+      });
+      
+      return itinerary;
+    };
+
+    const fullItinerary = generateFullItinerary();
+    const rows = fullItinerary.map(item => `
       <tr>
-        <td style="border: 1px solid #000; padding: 8px; text-align: center;">${index + 1}</td>
-        <td style="border: 1px solid #000; padding: 8px; text-align: center;">${formatDate(city.arrival_date)}</td>
-        <td style="border: 1px solid #000; padding: 8px;">${getCityDisplay(city, index)}</td>
-        <td style="border: 1px solid #000; padding: 8px;">${getTouringSpots(city)}</td>
-        <td style="border: 1px solid #000; padding: 8px;">${getAccommodation(city)}</td>
-        <td style="border: 1px solid #000; padding: 8px;">${getTransportation(city, index)}</td>
+        <td style="border: 1px solid #000; padding: 8px; text-align: center;">${item.day}</td>
+        <td style="border: 1px solid #000; padding: 8px; text-align: center;">${item.date}</td>
+        <td style="border: 1px solid #000; padding: 8px;">${item.city}</td>
+        <td style="border: 1px solid #000; padding: 8px;">${item.touring}</td>
+        <td style="border: 1px solid #000; padding: 8px;">${item.accommodation}</td>
+        <td style="border: 1px solid #000; padding: 8px;">${item.transportation}</td>
       </tr>
     `).join('');
 
