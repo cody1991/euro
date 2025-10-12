@@ -15,19 +15,20 @@ export const itineraryData: Itinerary = {
 export const citiesData: City[] = [
   { id: 0, name: "武汉", country: "中国", latitude: 30.5928, longitude: 114.3055, arrival_date: "2026-02-07", departure_date: "2026-02-07" },
   { id: -1, name: "广州", country: "中国", latitude: 23.1291, longitude: 113.2644, arrival_date: "2026-02-07", departure_date: "2026-02-07" },
-  { id: 1, name: "阿姆斯特丹", country: "荷兰", latitude: 52.3676, longitude: 4.9041, arrival_date: "2026-02-08", departure_date: "2026-02-09" },
-  { id: 2, name: "巴黎", country: "法国", latitude: 48.8566, longitude: 2.3522, arrival_date: "2026-02-10", departure_date: "2026-02-12" },
-  { id: 3, name: "里昂", country: "法国", latitude: 45.7640, longitude: 4.8357, arrival_date: "2026-02-13", departure_date: "2026-02-13" },
-  { id: 4, name: "马赛", country: "法国", latitude: 43.2965, longitude: 5.3698, arrival_date: "2026-02-14", departure_date: "2026-02-14" },
-  { id: 5, name: "尼斯", country: "法国", latitude: 43.7102, longitude: 7.2620, arrival_date: "2026-02-15", departure_date: "2026-02-15" },
-  { id: 6, name: "摩纳哥", country: "摩纳哥", latitude: 43.7384, longitude: 7.4246, arrival_date: "2026-02-16", departure_date: "2026-02-16" },
-  { id: 7, name: "米兰", country: "意大利", latitude: 45.4642, longitude: 9.1900, arrival_date: "2026-02-17", departure_date: "2026-02-18" },
-  { id: 12, name: "维罗纳", country: "意大利", latitude: 45.4384, longitude: 10.9916, arrival_date: "2026-02-18", departure_date: "2026-02-18" },
-  { id: 8, name: "威尼斯", country: "意大利", latitude: 45.4408, longitude: 12.3155, arrival_date: "2026-02-19", departure_date: "2026-02-20" },
-  { id: 9, name: "佛罗伦萨", country: "意大利", latitude: 43.7696, longitude: 11.2558, arrival_date: "2026-02-21", departure_date: "2026-02-21" },
-  { id: 13, name: "比萨", country: "意大利", latitude: 43.7228, longitude: 10.3966, arrival_date: "2026-02-22", departure_date: "2026-02-22" },
-  { id: 10, name: "罗马", country: "意大利", latitude: 41.9028, longitude: 12.4964, arrival_date: "2026-02-23", departure_date: "2026-02-24" },
-  { id: 11, name: "梵蒂冈", country: "梵蒂冈", latitude: 41.9029, longitude: 12.4534, arrival_date: "2026-02-24", departure_date: "2026-02-24" },
+  { id: 1, name: "阿姆斯特丹", country: "荷兰", latitude: 52.3676, longitude: 4.9041, arrival_date: "2026-02-08", departure_date: "2026-02-08" },
+  { id: 2, name: "巴黎", country: "法国", latitude: 48.8566, longitude: 2.3522, arrival_date: "2026-02-09", departure_date: "2026-02-11" },
+  { id: 3, name: "里昂", country: "法国", latitude: 45.7640, longitude: 4.8357, arrival_date: "2026-02-12", departure_date: "2026-02-12" },
+  { id: 4, name: "马赛", country: "法国", latitude: 43.2965, longitude: 5.3698, arrival_date: "2026-02-13", departure_date: "2026-02-13" },
+  { id: 5, name: "尼斯", country: "法国", latitude: 43.7102, longitude: 7.2620, arrival_date: "2026-02-14", departure_date: "2026-02-14" },
+  { id: 6, name: "摩纳哥", country: "摩纳哥", latitude: 43.7384, longitude: 7.4246, arrival_date: "2026-02-15", departure_date: "2026-02-15" },
+  { id: 7, name: "米兰", country: "意大利", latitude: 45.4642, longitude: 9.1900, arrival_date: "2026-02-16", departure_date: "2026-02-17" },
+  { id: 12, name: "维罗纳", country: "意大利", latitude: 45.4384, longitude: 10.9916, arrival_date: "2026-02-17", departure_date: "2026-02-17" },
+  { id: 8, name: "威尼斯", country: "意大利", latitude: 45.4408, longitude: 12.3155, arrival_date: "2026-02-18", departure_date: "2026-02-19" },
+  { id: 9, name: "佛罗伦萨", country: "意大利", latitude: 43.7696, longitude: 11.2558, arrival_date: "2026-02-20", departure_date: "2026-02-20" },
+  { id: 13, name: "比萨", country: "意大利", latitude: 43.7228, longitude: 10.3966, arrival_date: "2026-02-21", departure_date: "2026-02-21" },
+  { id: 11, name: "梵蒂冈", country: "梵蒂冈", latitude: 41.9029, longitude: 12.4534, arrival_date: "2026-02-21", departure_date: "2026-02-21" },
+  { id: 10, name: "罗马", country: "意大利", latitude: 41.9028, longitude: 12.4964, arrival_date: "2026-02-21", departure_date: "2026-02-23" },
+  { id: 15, name: "那不勒斯", country: "意大利", latitude: 40.8518, longitude: 14.2681, arrival_date: "2026-02-24", departure_date: "2026-02-24" },
   { id: 14, name: "阿姆斯特丹", country: "荷兰", latitude: 52.3676, longitude: 4.9041, arrival_date: "2026-02-26", departure_date: "2026-02-26" }
 ];
 
@@ -114,7 +115,14 @@ export const attractionsData: Attraction[] = [
   { id: 50, name: "圣彼得大教堂", description: "世界最大的教堂", latitude: 41.9022, longitude: 12.4539, category: "宗教", rating: 4.9, city_id: 11 },
   { id: 51, name: "西斯廷礼拜堂", description: "米开朗基罗壁画杰作", latitude: 41.9029, longitude: 12.4545, category: "艺术", rating: 4.8, city_id: 11 },
   { id: 52, name: "梵蒂冈博物馆", description: "世界顶级艺术收藏", latitude: 41.9065, longitude: 12.4536, category: "博物馆", rating: 4.8, city_id: 11 },
-  { id: 53, name: "圣彼得广场", description: "梵蒂冈主广场", latitude: 41.9022, longitude: 12.4568, category: "地标", rating: 4.7, city_id: 11 }
+  { id: 53, name: "圣彼得广场", description: "梵蒂冈主广场", latitude: 41.9022, longitude: 12.4568, category: "地标", rating: 4.7, city_id: 11 },
+
+  // 那不勒斯
+  { id: 58, name: "庞贝古城", description: "被维苏威火山掩埋的古罗马城市", latitude: 40.7510, longitude: 14.4989, category: "历史", rating: 4.9, city_id: 15 },
+  { id: 59, name: "那不勒斯历史中心", description: "世界文化遗产，充满活力的老城", latitude: 40.8518, longitude: 14.2681, category: "历史", rating: 4.5, city_id: 15 },
+  { id: 60, name: "新堡", description: "那不勒斯标志性城堡", latitude: 40.8387, longitude: 14.2486, category: "历史", rating: 4.4, city_id: 15 },
+  { id: 61, name: "那不勒斯国家考古博物馆", description: "收藏庞贝出土文物", latitude: 40.8534, longitude: 14.2508, category: "博物馆", rating: 4.6, city_id: 15 },
+  { id: 62, name: "圣卡洛歌剧院", description: "欧洲最古老的歌剧院之一", latitude: 40.8376, longitude: 14.2496, category: "文化", rating: 4.5, city_id: 15 }
 ];
 
 // 交通数据
@@ -124,21 +132,22 @@ export const transportationData: Transportation[] = [
   { id: -1, transport_type: "飞机", from_city_id: -1, to_city_id: 1, departure_time: "2026-02-07 13:35", arrival_time: "2026-02-07 19:15", duration: "11小时40分钟" },
 
   // 欧洲段交通
-  { id: 1, transport_type: "火车", from_city_id: 1, to_city_id: 2, departure_time: "2026-02-10 上午", arrival_time: "2026-02-10 中午", duration: "约3.5小时" },
-  { id: 2, transport_type: "火车", from_city_id: 2, to_city_id: 3, departure_time: "2026-02-13 上午", arrival_time: "2026-02-13 中午", duration: "约2小时" },
-  { id: 3, transport_type: "火车", from_city_id: 3, to_city_id: 4, departure_time: "2026-02-14 上午", arrival_time: "2026-02-14 上午", duration: "约1.5小时" },
-  { id: 4, transport_type: "火车", from_city_id: 4, to_city_id: 5, departure_time: "2026-02-15 上午", arrival_time: "2026-02-15 上午", duration: "约2.5小时" },
-  { id: 5, transport_type: "巴士", from_city_id: 5, to_city_id: 6, departure_time: "2026-02-16 上午", arrival_time: "2026-02-16 上午", duration: "约30分钟" },
-  { id: 6, transport_type: "飞机", from_city_id: 6, to_city_id: 7, departure_time: "2026-02-17 上午", arrival_time: "2026-02-17 中午", duration: "约1.5小时" },
-  { id: 7, transport_type: "火车", from_city_id: 7, to_city_id: 12, departure_time: "2026-02-18 下午", arrival_time: "2026-02-18 下午", duration: "约1.5小时" },
-  { id: 8, transport_type: "火车", from_city_id: 12, to_city_id: 8, departure_time: "2026-02-19 上午", arrival_time: "2026-02-19 上午", duration: "约1.5小时" },
-  { id: 9, transport_type: "火车", from_city_id: 8, to_city_id: 9, departure_time: "2026-02-21 上午", arrival_time: "2026-02-21 上午", duration: "约2小时" },
-  { id: 10, transport_type: "火车", from_city_id: 9, to_city_id: 13, departure_time: "2026-02-22 上午", arrival_time: "2026-02-22 上午", duration: "约1小时" },
-  { id: 11, transport_type: "火车", from_city_id: 13, to_city_id: 10, departure_time: "2026-02-22 下午", arrival_time: "2026-02-22 下午", duration: "约3小时" },
-  { id: 12, transport_type: "地铁", from_city_id: 10, to_city_id: 11, departure_time: "2026-02-24 下午", arrival_time: "2026-02-24 下午", duration: "约20分钟" },
+  { id: 1, transport_type: "火车", from_city_id: 1, to_city_id: 2, departure_time: "2026-02-09 上午", arrival_time: "2026-02-09 中午", duration: "约3.5小时" },
+  { id: 2, transport_type: "火车", from_city_id: 2, to_city_id: 3, departure_time: "2026-02-12 上午", arrival_time: "2026-02-12 中午", duration: "约2小时" },
+  { id: 3, transport_type: "火车", from_city_id: 3, to_city_id: 4, departure_time: "2026-02-13 上午", arrival_time: "2026-02-13 上午", duration: "约1.5小时" },
+  { id: 4, transport_type: "火车", from_city_id: 4, to_city_id: 5, departure_time: "2026-02-14 上午", arrival_time: "2026-02-14 上午", duration: "约2.5小时" },
+  { id: 5, transport_type: "巴士", from_city_id: 5, to_city_id: 6, departure_time: "2026-02-15 上午", arrival_time: "2026-02-15 上午", duration: "约30分钟" },
+  { id: 6, transport_type: "飞机", from_city_id: 6, to_city_id: 7, departure_time: "2026-02-16 上午", arrival_time: "2026-02-16 中午", duration: "约1.5小时" },
+  { id: 7, transport_type: "火车", from_city_id: 7, to_city_id: 12, departure_time: "2026-02-17 下午", arrival_time: "2026-02-17 下午", duration: "约1.5小时" },
+  { id: 8, transport_type: "火车", from_city_id: 12, to_city_id: 8, departure_time: "2026-02-18 上午", arrival_time: "2026-02-18 上午", duration: "约1.5小时" },
+  { id: 9, transport_type: "火车", from_city_id: 8, to_city_id: 9, departure_time: "2026-02-20 上午", arrival_time: "2026-02-20 上午", duration: "约2小时" },
+  { id: 10, transport_type: "火车", from_city_id: 9, to_city_id: 13, departure_time: "2026-02-21 上午", arrival_time: "2026-02-21 上午", duration: "约1小时" },
+  { id: 11, transport_type: "火车", from_city_id: 13, to_city_id: 10, departure_time: "2026-02-21 下午", arrival_time: "2026-02-21 下午", duration: "约3小时" },
+  { id: 12, transport_type: "地铁", from_city_id: 10, to_city_id: 11, departure_time: "2026-02-21 下午", arrival_time: "2026-02-21 下午", duration: "约20分钟" },
+  { id: 15, transport_type: "火车", from_city_id: 10, to_city_id: 15, departure_time: "2026-02-24 上午", arrival_time: "2026-02-24 上午", duration: "约1小时" },
 
   // 返程航班
-  { id: 13, transport_type: "飞机", from_city_id: 11, to_city_id: 14, departure_time: "2026-02-25 21:40", arrival_time: "2026-02-26 00:10", duration: "2小时30分钟" },
+  { id: 13, transport_type: "飞机", from_city_id: 15, to_city_id: 14, departure_time: "2026-02-25 21:40", arrival_time: "2026-02-26 00:10", duration: "2小时30分钟" },
   { id: 14, transport_type: "飞机", from_city_id: 14, to_city_id: -1, departure_time: "2026-02-26 19:00", arrival_time: "2026-02-26 20:55", duration: "1小时55分钟" }
 ];
 
