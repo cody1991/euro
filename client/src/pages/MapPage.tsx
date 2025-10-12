@@ -425,9 +425,6 @@ const MapPage: React.FC = () => {
           )}
         </MapContainer>
       </div>
-
-      {/* 滚动按钮 */}
-      <ScrollButtons />
     </div>
   );
 };
