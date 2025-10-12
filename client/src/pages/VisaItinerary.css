@@ -27,20 +27,28 @@
   font-weight: normal;
 }
 
-.save-btn {
+.header-buttons {
   position: absolute;
   top: 0;
   right: 0;
+  display: flex;
+  gap: 15px;
+}
+
+.save-btn, .form-btn {
   padding: 12px 24px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-size: 15px;
   font-weight: bold;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
   transition: all 0.3s ease;
+}
+
+.save-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
 }
 
 .save-btn:hover {
@@ -48,11 +56,21 @@
   box-shadow: 0 6px 16px rgba(102, 126, 234, 0.6);
 }
 
-.save-btn:active {
+.form-btn {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  box-shadow: 0 4px 12px rgba(240, 147, 251, 0.4);
+}
+
+.form-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(240, 147, 251, 0.6);
+}
+
+.save-btn:active, .form-btn:active {
   transform: translateY(0);
 }
 
-.save-btn:disabled {
+.save-btn:disabled, .form-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   transform: none;
@@ -258,25 +276,25 @@
   margin-top: 8px;
 }
 
-.detail-row {
+.visa-detail-row {
   display: flex;
   align-items: center;
   margin-bottom: 6px;
   font-size: 14px;
 }
 
-.detail-row:last-child {
+.visa-detail-row:last-child {
   margin-bottom: 0;
 }
 
-.detail-row .label {
+.visa-detail-row .visa-label {
   font-weight: 600;
   color: #856404;
   min-width: 140px;
   font-size: 13px;
 }
 
-.detail-row .value {
+.visa-detail-row .visa-value {
   color: #333;
   flex: 1;
   border-bottom: 1px dashed #c9a35c;
@@ -300,11 +318,11 @@
   margin-top: 8px;
 }
 
-.transportation-details .detail-row .label {
+.transportation-details .visa-detail-row .visa-label {
   color: #0c5460;
 }
 
-.transportation-details .detail-row .value {
+.transportation-details .visa-detail-row .visa-value {
   border-bottom-color: #7bc8d8;
 }
 
