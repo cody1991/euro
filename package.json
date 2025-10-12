@@ -7,7 +7,7 @@
     "build": "cd client && npm run build",
     "install": "cd client && npm install",
     "deploy": "cd client && npm run deploy",
-    "postcommit": "npm run deploy"
+    "commit-and-deploy": "git add . && git commit -m 'Auto-commit and deploy' && npm run deploy"
   },
   "keywords": [
     "travel",
