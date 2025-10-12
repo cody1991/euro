@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import html2canvas from 'html2canvas';
+import * as XLSX from 'xlsx';
 import { citiesData, transportationData, attractionsData } from '../models/travelData';
 import './VisaItinerary.css';
 
@@ -109,6 +110,179 @@ const VisaItinerary: React.FC = () => {
     }
   };
 
+  // 辅助函数
+  const getTouringSpots = (city: any) => {
+    const cityAttractions = attractionsData.filter(attr => attr.city_id === city.id);
+    if (!cityAttractions || cityAttractions.length === 0) {
+      return '_______________';
+    }
+    return cityAttractions.map((attr: any, idx: number) =>
+      `${idx + 1}. ${attr.name_en || attr.name}`
+    ).join('<br/>');
+  };
+
+  const getAccommodation = (city: any) => {
+    if (!city.accommodation || !city.accommodation.hotel_name) {
+      return '_______________';
+    }
+    const hotel = city.accommodation.hotel_name_en || city.accommodation.hotel_name;
+    const address = city.accommodation.address || '';
+    const phone = city.accommodation.phone || '';
+    return `${hotel}<br/>${address}<br/>TEL: ${phone}`;
+  };
+
+  // 基于实际数据生成行程
+  const generateItineraryFromData = () => {
+    const itinerary: Array<{
+      day: number;
+      date: string;
+      city: string;
+      touring: string;
+      accommodation: string;
+      transportation: string;
+    }> = [];
+    let dayCounter = 1;
+    
+    // 按日期排序城市
+    const sortedCities = [...citiesData].sort((a, b) => 
+      new Date(a.arrival_date).getTime() - new Date(b.arrival_date).getTime()
+    );
+    
+    // 为每个城市生成行程
+    sortedCities.forEach((city, index) => {
+      const arrivalDate = new Date(city.arrival_date);
+      const departureDate = new Date(city.departure_date);
+      
+      // 计算在这个城市停留的天数
+      const daysInCity = Math.ceil((departureDate.getTime() - arrivalDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+      
+      for (let dayOffset = 0; dayOffset < daysInCity; dayOffset++) {
+        const currentDate = new Date(arrivalDate);
+        currentDate.setDate(currentDate.getDate() + dayOffset);
+        const dateStr = formatDate(currentDate.toISOString().split('T')[0]);
+        
+        // 获取城市显示信息
+        let cityDisplay = city.name_en || city.name;
+        if (dayOffset === 0 && index > 0) {
+          // 到达日显示出发城市→到达城市
+          const prevCity = sortedCities[index - 1];
+          cityDisplay = `${prevCity.name_en || prevCity.name}→${city.name_en || city.name}`;
+        } else if (dayOffset === daysInCity - 1 && index < sortedCities.length - 1) {
+          // 离开日显示当前城市→下一城市
+          const nextCity = sortedCities[index + 1];
+          cityDisplay = `${city.name_en || city.name}→${nextCity.name_en || nextCity.name}`;
+        }
+        
+        // 获取交通信息
+        let transportation = "Public transport";
+        if (dayOffset === 0 && index > 0) {
+          // 到达日显示交通信息
+          const transport = transportationData.find(t => t.to_city_id === city.id);
+          if (transport) {
+            const fromLocation = transport.departure_location_en || transport.departure_location || '';
+            const toLocation = transport.arrival_location_en || transport.arrival_location || '';
+            transportation = `${transport.transport_type} ${fromLocation}→${toLocation}<br/>${transport.departure_time}→${transport.arrival_time}`;
+          }
+        } else if (dayOffset === daysInCity - 1 && index < sortedCities.length - 1) {
+          // 离开日显示下一段交通信息
+          const nextCity = sortedCities[index + 1];
+          const transport = transportationData.find(t => t.from_city_id === city.id && t.to_city_id === nextCity.id);
+          if (transport) {
+            const fromLocation = transport.departure_location_en || transport.departure_location || '';
+            const toLocation = transport.arrival_location_en || transport.arrival_location || '';
+            transportation = `${transport.transport_type} ${fromLocation}→${toLocation}<br/>${transport.departure_time}→${transport.arrival_time}`;
+          }
+        }
+        
+        itinerary.push({
+          day: dayCounter++,
+          date: dateStr,
+          city: cityDisplay,
+          touring: getTouringSpots(city),
+          accommodation: getAccommodation(city),
+          transportation: transportation
+        });
+      }
+    });
+    
+    return itinerary;
+  };
+
+  const generateExcel = async () => {
+    try {
+      // 显示加载提示
+      const button = document.querySelector('.excel-btn') as HTMLButtonElement;
+      const originalText = button.textContent;
+      button.textContent = '生成中...';
+      button.disabled = true;
+
+      // 生成行程数据
+      const itinerary = generateItineraryFromData();
+      
+      // 创建工作簿
+      const wb = XLSX.utils.book_new();
+      
+      // 创建工作表数据
+      const wsData = [
+        ['Day', 'Date', 'City', 'Touring Spots', 'Accommodation', 'Transportation']
+      ];
+      
+      // 添加行程数据
+      itinerary.forEach((item: {
+        day: number;
+        date: string;
+        city: string;
+        touring: string;
+        accommodation: string;
+        transportation: string;
+      }) => {
+        wsData.push([
+          item.day.toString(),
+          item.date,
+          item.city,
+          item.touring.replace(/<br\/>/g, '\n'), // 将HTML换行符转换为Excel换行符
+          item.accommodation,
+          item.transportation.replace(/<br\/>/g, '\n')
+        ]);
+      });
+      
+      // 创建工作表
+      const ws = XLSX.utils.aoa_to_sheet(wsData);
+      
+      // 设置列宽
+      ws['!cols'] = [
+        { width: 5 },   // Day
+        { width: 20 },  // Date
+        { width: 30 },  // City
+        { width: 50 },  // Touring Spots
+        { width: 30 },  // Accommodation
+        { width: 40 }   // Transportation
+      ];
+      
+      // 添加工作表到工作簿
+      XLSX.utils.book_append_sheet(wb, ws, 'Trip Itinerary');
+      
+      // 生成文件名
+      const fileName = `Schengen_Visa_Itinerary_${new Date().toISOString().split('T')[0]}.xlsx`;
+      
+      // 导出文件
+      XLSX.writeFile(wb, fileName);
+      
+      // 恢复按钮状态
+      button.textContent = originalText;
+      button.disabled = false;
+      
+    } catch (error) {
+      console.error('生成Excel失败:', error);
+      alert('生成Excel失败，请重试');
+      
+      // 恢复按钮状态
+      const button = document.querySelector('.excel-btn') as HTMLButtonElement;
+      button.textContent = '📊 导出Excel';
+      button.disabled = false;
+    }
+  };
+
   const generateForm = async () => {
     try {
       // 显示加载提示
@@ -201,25 +375,6 @@ const VisaItinerary: React.FC = () => {
       return city.name_en || city.name;
     };
 
-    const getTouringSpots = (city: any) => {
-      const cityAttractions = attractionsData.filter(attr => attr.city_id === city.id);
-      if (!cityAttractions || cityAttractions.length === 0) {
-        return '_______________';
-      }
-      return cityAttractions.map((attr: any, idx: number) =>
-        `${idx + 1}. ${attr.name_en || attr.name}`
-      ).join('<br/>');
-    };
-
-    const getAccommodation = (city: any) => {
-      if (!city.accommodation || !city.accommodation.hotel_name) {
-        return '_______________';
-      }
-      const hotel = city.accommodation.hotel_name_en || city.accommodation.hotel_name;
-      const address = city.accommodation.address || '';
-      const phone = city.accommodation.phone || '';
-      return `${hotel}<br/>${address}<br/>TEL: ${phone}`;
-    };
 
     const getTransportation = (city: any, index: number) => {
       const transport = transportationData.find(t => t.from_city_id === city.id);
@@ -241,82 +396,6 @@ const VisaItinerary: React.FC = () => {
       return `${type} ${from}→${to}<br/>${departure}→${arrival}`;
     };
 
-    // 基于实际数据生成行程
-    const generateItineraryFromData = () => {
-      const itinerary: Array<{
-        day: number;
-        date: string;
-        city: string;
-        touring: string;
-        accommodation: string;
-        transportation: string;
-      }> = [];
-      let dayCounter = 1;
-
-      // 按日期排序城市
-      const sortedCities = [...citiesData].sort((a, b) =>
-        new Date(a.arrival_date).getTime() - new Date(b.arrival_date).getTime()
-      );
-
-      // 为每个城市生成行程
-      sortedCities.forEach((city, index) => {
-        const arrivalDate = new Date(city.arrival_date);
-        const departureDate = new Date(city.departure_date);
-
-        // 计算在这个城市停留的天数
-        const daysInCity = Math.ceil((departureDate.getTime() - arrivalDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
-
-        for (let dayOffset = 0; dayOffset < daysInCity; dayOffset++) {
-          const currentDate = new Date(arrivalDate);
-          currentDate.setDate(currentDate.getDate() + dayOffset);
-          const dateStr = formatDate(currentDate.toISOString().split('T')[0]);
-
-          // 获取城市显示信息
-          let cityDisplay = city.name_en || city.name;
-          if (dayOffset === 0 && index > 0) {
-            // 到达日显示出发城市→到达城市
-            const prevCity = sortedCities[index - 1];
-            cityDisplay = `${prevCity.name_en || prevCity.name}→${city.name_en || city.name}`;
-          } else if (dayOffset === daysInCity - 1 && index < sortedCities.length - 1) {
-            // 离开日显示当前城市→下一城市
-            const nextCity = sortedCities[index + 1];
-            cityDisplay = `${city.name_en || city.name}→${nextCity.name_en || nextCity.name}`;
-          }
-
-          // 获取交通信息
-          let transportation = "Public transport";
-          if (dayOffset === 0 && index > 0) {
-            // 到达日显示交通信息
-            const transport = transportationData.find(t => t.to_city_id === city.id);
-            if (transport) {
-              const fromLocation = transport.departure_location_en || transport.departure_location || '';
-              const toLocation = transport.arrival_location_en || transport.arrival_location || '';
-              transportation = `${transport.transport_type} ${fromLocation}→${toLocation}<br/>${transport.departure_time}→${transport.arrival_time}`;
-            }
-          } else if (dayOffset === daysInCity - 1 && index < sortedCities.length - 1) {
-            // 离开日显示下一段交通信息
-            const nextCity = sortedCities[index + 1];
-            const transport = transportationData.find(t => t.from_city_id === city.id && t.to_city_id === nextCity.id);
-            if (transport) {
-              const fromLocation = transport.departure_location_en || transport.departure_location || '';
-              const toLocation = transport.arrival_location_en || transport.arrival_location || '';
-              transportation = `${transport.transport_type} ${fromLocation}→${toLocation}<br/>${transport.departure_time}→${transport.arrival_time}`;
-            }
-          }
-
-          itinerary.push({
-            day: dayCounter++,
-            date: dateStr,
-            city: cityDisplay,
-            touring: getTouringSpots(city),
-            accommodation: getAccommodation(city),
-            transportation: transportation
-          });
-        }
-      });
-
-      return itinerary;
-    };
 
     const itinerary = generateItineraryFromData();
     const rows = itinerary.map(item => `
@@ -368,6 +447,9 @@ const VisaItinerary: React.FC = () => {
           </button>
           <button className="form-btn" onClick={generateForm}>
             📋 生成申请表
+          </button>
+          <button className="excel-btn" onClick={generateExcel}>
+            📊 导出Excel
           </button>
         </div>
       </div>
