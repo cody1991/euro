@@ -174,6 +174,79 @@ const VisaItinerary: React.FC = () => {
   };
 
   const createFormContent = () => {
+    if (!itinerary) return '';
+
+    const formatDate = (dateString: string) => {
+      const date = new Date(dateString);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      const dayName = dayNames[date.getDay()];
+      return `${year}/${month}/${day} (${dayName})`;
+    };
+
+    const getCityDisplay = (city: any, index: number) => {
+      if (index === 0) return `${city.name_en || city.name}→${citiesData[1]?.name_en || citiesData[1]?.name}`;
+      if (index === citiesData.length - 1) return `${city.name_en || city.name}→${citiesData[0]?.name_en || citiesData[0]?.name}`;
+      
+      const nextCity = citiesData[index + 1];
+      if (nextCity) {
+        return `${city.name_en || city.name}→${nextCity.name_en || nextCity.name}`;
+      }
+      return city.name_en || city.name;
+    };
+
+    const getTouringSpots = (city: any) => {
+      if (!city.attractions || city.attractions.length === 0) {
+        return '_______________';
+      }
+      return city.attractions.map((attr: any, idx: number) => 
+        `${idx + 1}. ${attr.name_en || attr.name}`
+      ).join('<br/>');
+    };
+
+    const getAccommodation = (city: any) => {
+      if (!city.accommodation || !city.accommodation.hotel_name) {
+        return '_______________';
+      }
+      const hotel = city.accommodation.hotel_name_en || city.accommodation.hotel_name;
+      const address = city.accommodation.address || '';
+      const phone = city.accommodation.phone || '';
+      return `${hotel}<br/>${address}<br/>TEL: ${phone}`;
+    };
+
+    const getTransportation = (city: any, index: number) => {
+      const transport = transportationData.find(t => t.from_city_id === city.id);
+      if (!transport) return 'Public transport';
+      
+      const type = transport.transport_type === '飞机' ? 'Flight' : 
+                   transport.transport_type === '火车' ? 'Train' : 
+                   transport.transport_type === '汽车' ? 'Bus' : 'Transport';
+      
+      const from = transport.departure_location_en || transport.departure_location;
+      const to = transport.arrival_location_en || transport.arrival_location;
+      const departure = transport.departure_time?.split(' ')[1] || '';
+      const arrival = transport.arrival_time?.split(' ')[1] || '';
+      
+      if (transport.flight_number) {
+        return `${type} ${transport.flight_number}<br/>${from}→${to}<br/>${departure}→${arrival}`;
+      }
+      
+      return `${type} ${from}→${to}<br/>${departure}→${arrival}`;
+    };
+
+    const rows = citiesData.map((city, index) => `
+      <tr>
+        <td style="border: 1px solid #000; padding: 8px; text-align: center;">${index + 1}</td>
+        <td style="border: 1px solid #000; padding: 8px; text-align: center;">${formatDate(city.arrival_date)}</td>
+        <td style="border: 1px solid #000; padding: 8px;">${getCityDisplay(city, index)}</td>
+        <td style="border: 1px solid #000; padding: 8px;">${getTouringSpots(city)}</td>
+        <td style="border: 1px solid #000; padding: 8px;">${getAccommodation(city)}</td>
+        <td style="border: 1px solid #000; padding: 8px;">${getTransportation(city, index)}</td>
+      </tr>
+    `).join('');
+
     return `
       <div style="width: 100%; font-family: 'Arial', sans-serif; font-size: 14px; color: #333;">
         <!-- 标题 -->
@@ -194,134 +267,7 @@ const VisaItinerary: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td style="border: 1px solid #000; padding: 8px; text-align: center;">1</td>
-              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2026/02/07 (Fri)</td>
-              <td style="border: 1px solid #000; padding: 8px;">武汉→广州</td>
-              <td style="border: 1px solid #000; padding: 8px;">1.出发前往机场<br/>2.办理登机手续</td>
-              <td style="border: 1px solid #000; padding: 8px;">_______________</td>
-              <td style="border: 1px solid #000; padding: 8px;">Flight 武汉→广州<br/>09:30->11:30</td>
-            </tr>
-            <tr>
-              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2</td>
-              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2026/02/08 (Sat)</td>
-              <td style="border: 1px solid #000; padding: 8px;">广州→阿姆斯特丹</td>
-              <td style="border: 1px solid #000; padding: 8px;">1.梵高博物馆<br/>2.运河区游览<br/>3.安妮之家</td>
-              <td style="border: 1px solid #000; padding: 8px;">_______________</td>
-              <td style="border: 1px solid #000; padding: 8px;">Flight 广州→阿姆斯特丹<br/>13:00->18:00</td>
-            </tr>
-            <tr>
-              <td style="border: 1px solid #000; padding: 8px; text-align: center;">3</td>
-              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2026/02/09 (Sun)</td>
-              <td style="border: 1px solid #000; padding: 8px;">阿姆斯特丹→巴黎</td>
-              <td style="border: 1px solid #000; padding: 8px;">1.埃菲尔铁塔<br/>2.卢浮宫<br/>3.香榭丽舍大街</td>
-              <td style="border: 1px solid #000; padding: 8px;">_______________</td>
-              <td style="border: 1px solid #000; padding: 8px;">Train 阿姆斯特丹→巴黎<br/>09:00->12:00</td>
-            </tr>
-            <tr>
-              <td style="border: 1px solid #000; padding: 8px; text-align: center;">4</td>
-              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2026/02/10 (Mon)</td>
-              <td style="border: 1px solid #000; padding: 8px;">巴黎</td>
-              <td style="border: 1px solid #000; padding: 8px;">1.巴黎圣母院<br/>2.凯旋门<br/>3.塞纳河游船</td>
-              <td style="border: 1px solid #000; padding: 8px;">_______________</td>
-              <td style="border: 1px solid #000; padding: 8px;">Public transport</td>
-            </tr>
-            <tr>
-              <td style="border: 1px solid #000; padding: 8px; text-align: center;">5</td>
-              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2026/02/11 (Tue)</td>
-              <td style="border: 1px solid #000; padding: 8px;">巴黎→里昂</td>
-              <td style="border: 1px solid #000; padding: 8px;">1.凡尔赛宫<br/>2.富维耶圣母院<br/>3.里昂老城</td>
-              <td style="border: 1px solid #000; padding: 8px;">_______________</td>
-              <td style="border: 1px solid #000; padding: 8px;">Train 巴黎→里昂<br/>14:00->16:30</td>
-            </tr>
-            <tr>
-              <td style="border: 1px solid #000; padding: 8px; text-align: center;">6</td>
-              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2026/02/12 (Wed)</td>
-              <td style="border: 1px solid #000; padding: 8px;">里昂→马赛</td>
-              <td style="border: 1px solid #000; padding: 8px;">1.老港<br/>2.守护圣母教堂<br/>3.马赛鱼市</td>
-              <td style="border: 1px solid #000; padding: 8px;">_______________</td>
-              <td style="border: 1px solid #000; padding: 8px;">Train 里昂→马赛<br/>10:00->12:00</td>
-            </tr>
-            <tr>
-              <td style="border: 1px solid #000; padding: 8px; text-align: center;">7</td>
-              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2026/02/13 (Thu)</td>
-              <td style="border: 1px solid #000; padding: 8px;">马赛→尼斯</td>
-              <td style="border: 1px solid #000; padding: 8px;">1.天使湾<br/>2.尼斯老城<br/>3.英国人漫步大道</td>
-              <td style="border: 1px solid #000; padding: 8px;">_______________</td>
-              <td style="border: 1px solid #000; padding: 8px;">Train 马赛→尼斯<br/>11:00->13:30</td>
-            </tr>
-            <tr>
-              <td style="border: 1px solid #000; padding: 8px; text-align: center;">8</td>
-              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2026/02/14 (Fri)</td>
-              <td style="border: 1px solid #000; padding: 8px;">尼斯→摩纳哥</td>
-              <td style="border: 1px solid #000; padding: 8px;">1.蒙特卡洛赌场<br/>2.摩纳哥王宫<br/>3.海洋博物馆</td>
-              <td style="border: 1px solid #000; padding: 8px;">_______________</td>
-              <td style="border: 1px solid #000; padding: 8px;">Bus 尼斯→摩纳哥<br/>09:00->09:30</td>
-            </tr>
-            <tr>
-              <td style="border: 1px solid #000; padding: 8px; text-align: center;">9</td>
-              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2026/02/15 (Sat)</td>
-              <td style="border: 1px solid #000; padding: 8px;">摩纳哥→米兰</td>
-              <td style="border: 1px solid #000; padding: 8px;">1.米兰大教堂<br/>2.斯卡拉歌剧院<br/>3.斯福尔扎城堡</td>
-              <td style="border: 1px solid #000; padding: 8px;">_______________</td>
-              <td style="border: 1px solid #000; padding: 8px;">Flight 尼斯→米兰<br/>15:00->16:00</td>
-            </tr>
-            <tr>
-              <td style="border: 1px solid #000; padding: 8px; text-align: center;">10</td>
-              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2026/02/16 (Sun)</td>
-              <td style="border: 1px solid #000; padding: 8px;">米兰→维罗纳→威尼斯</td>
-              <td style="border: 1px solid #000; padding: 8px;">1.最后的晚餐<br/>2.维罗纳圆形竞技场<br/>3.圣马可广场</td>
-              <td style="border: 1px solid #000; padding: 8px;">_______________</td>
-              <td style="border: 1px solid #000; padding: 8px;">Train 米兰→威尼斯<br/>10:00->13:00</td>
-            </tr>
-            <tr>
-              <td style="border: 1px solid #000; padding: 8px; text-align: center;">11</td>
-              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2026/02/17 (Mon)</td>
-              <td style="border: 1px solid #000; padding: 8px;">威尼斯→佛罗伦萨</td>
-              <td style="border: 1px solid #000; padding: 8px;">1.里亚托桥<br/>2.叹息桥<br/>3.圣母百花大教堂</td>
-              <td style="border: 1px solid #000; padding: 8px;">_______________</td>
-              <td style="border: 1px solid #000; padding: 8px;">Train 威尼斯→佛罗伦萨<br/>11:00->14:00</td>
-            </tr>
-            <tr>
-              <td style="border: 1px solid #000; padding: 8px; text-align: center;">12</td>
-              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2026/02/18 (Tue)</td>
-              <td style="border: 1px solid #000; padding: 8px;">佛罗伦萨→比萨→罗马</td>
-              <td style="border: 1px solid #000; padding: 8px;">1.乌菲兹美术馆<br/>2.比萨斜塔<br/>3.梵蒂冈城</td>
-              <td style="border: 1px solid #000; padding: 8px;">_______________</td>
-              <td style="border: 1px solid #000; padding: 8px;">Train 佛罗伦萨→罗马<br/>15:00->17:30</td>
-            </tr>
-            <tr>
-              <td style="border: 1px solid #000; padding: 8px; text-align: center;">13</td>
-              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2026/02/19 (Wed)</td>
-              <td style="border: 1px solid #000; padding: 8px;">罗马</td>
-              <td style="border: 1px solid #000; padding: 8px;">1.斗兽场<br/>2.古罗马广场<br/>3.特雷维喷泉</td>
-              <td style="border: 1px solid #000; padding: 8px;">_______________</td>
-              <td style="border: 1px solid #000; padding: 8px;">Public transport</td>
-            </tr>
-            <tr>
-              <td style="border: 1px solid #000; padding: 8px; text-align: center;">14</td>
-              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2026/02/20 (Thu)</td>
-              <td style="border: 1px solid #000; padding: 8px;">罗马→那不勒斯</td>
-              <td style="border: 1px solid #000; padding: 8px;">1.万神殿<br/>2.庞贝古城<br/>3.那不勒斯历史中心</td>
-              <td style="border: 1px solid #000; padding: 8px;">_______________</td>
-              <td style="border: 1px solid #000; padding: 8px;">Train 罗马→那不勒斯<br/>09:00->11:00</td>
-            </tr>
-            <tr>
-              <td style="border: 1px solid #000; padding: 8px; text-align: center;">15</td>
-              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2026/02/21 (Fri)</td>
-              <td style="border: 1px solid #000; padding: 8px;">那不勒斯→阿姆斯特丹</td>
-              <td style="border: 1px solid #000; padding: 8px;">1.庞贝古城深度游<br/>2.维苏威火山</td>
-              <td style="border: 1px solid #000; padding: 8px;">_______________</td>
-              <td style="border: 1px solid #000; padding: 8px;">Flight 那不勒斯→阿姆斯特丹<br/>18:00->21:00</td>
-            </tr>
-            <tr>
-              <td style="border: 1px solid #000; padding: 8px; text-align: center;">16</td>
-              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2026/02/22 (Sat)</td>
-              <td style="border: 1px solid #000; padding: 8px;">阿姆斯特丹→广州→武汉</td>
-              <td style="border: 1px solid #000; padding: 8px;">1.返程航班<br/>2.转机广州</td>
-              <td style="border: 1px solid #000; padding: 8px;">_______________</td>
-              <td style="border: 1px solid #000; padding: 8px;">Flight 阿姆斯特丹→广州<br/>12:00->05:00+1</td>
-            </tr>
+            ${rows}
           </tbody>
         </table>
       </div>
