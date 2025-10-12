@@ -143,25 +143,25 @@ const VisaItinerary: React.FC = () => {
       transportation: string;
     }> = [];
     let dayCounter = 1;
-    
+
     // 按日期排序城市
-    const sortedCities = [...citiesData].sort((a, b) => 
+    const sortedCities = [...citiesData].sort((a, b) =>
       new Date(a.arrival_date).getTime() - new Date(b.arrival_date).getTime()
     );
-    
+
     // 为每个城市生成行程
     sortedCities.forEach((city, index) => {
       const arrivalDate = new Date(city.arrival_date);
       const departureDate = new Date(city.departure_date);
-      
+
       // 计算在这个城市停留的天数
       const daysInCity = Math.ceil((departureDate.getTime() - arrivalDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
-      
+
       for (let dayOffset = 0; dayOffset < daysInCity; dayOffset++) {
         const currentDate = new Date(arrivalDate);
         currentDate.setDate(currentDate.getDate() + dayOffset);
         const dateStr = formatDate(currentDate.toISOString().split('T')[0]);
-        
+
         // 获取城市显示信息
         let cityDisplay = city.name_en || city.name;
         if (dayOffset === 0 && index > 0) {
@@ -173,7 +173,7 @@ const VisaItinerary: React.FC = () => {
           const nextCity = sortedCities[index + 1];
           cityDisplay = `${city.name_en || city.name}→${nextCity.name_en || nextCity.name}`;
         }
-        
+
         // 获取交通信息
         let transportation = "Public transport";
         if (dayOffset === 0 && index > 0) {
@@ -194,7 +194,7 @@ const VisaItinerary: React.FC = () => {
             transportation = `${transport.transport_type} ${fromLocation}→${toLocation}<br/>${transport.departure_time}→${transport.arrival_time}`;
           }
         }
-        
+
         itinerary.push({
           day: dayCounter++,
           date: dateStr,
@@ -205,7 +205,7 @@ const VisaItinerary: React.FC = () => {
         });
       }
     });
-    
+
     return itinerary;
   };
 
@@ -219,15 +219,15 @@ const VisaItinerary: React.FC = () => {
 
       // 生成行程数据
       const itinerary = generateItineraryFromData();
-      
+
       // 创建工作簿
       const wb = XLSX.utils.book_new();
-      
+
       // 创建工作表数据
       const wsData = [
         ['Day', 'Date', 'City', 'Touring Spots', 'Accommodation', 'Transportation']
       ];
-      
+
       // 添加行程数据
       itinerary.forEach((item: {
         day: number;
@@ -246,10 +246,10 @@ const VisaItinerary: React.FC = () => {
           item.transportation.replace(/<br\/>/g, '\n')
         ]);
       });
-      
+
       // 创建工作表
       const ws = XLSX.utils.aoa_to_sheet(wsData);
-      
+
       // 设置列宽
       ws['!cols'] = [
         { width: 5 },   // Day
@@ -259,24 +259,24 @@ const VisaItinerary: React.FC = () => {
         { width: 30 },  // Accommodation
         { width: 40 }   // Transportation
       ];
-      
+
       // 添加工作表到工作簿
       XLSX.utils.book_append_sheet(wb, ws, 'Trip Itinerary');
-      
+
       // 生成文件名
       const fileName = `Schengen_Visa_Itinerary_${new Date().toISOString().split('T')[0]}.xlsx`;
-      
+
       // 导出文件
       XLSX.writeFile(wb, fileName);
-      
+
       // 恢复按钮状态
       button.textContent = originalText;
       button.disabled = false;
-      
+
     } catch (error) {
       console.error('生成Excel失败:', error);
       alert('生成Excel失败，请重试');
-      
+
       // 恢复按钮状态
       const button = document.querySelector('.excel-btn') as HTMLButtonElement;
       button.textContent = '📊 导出Excel';

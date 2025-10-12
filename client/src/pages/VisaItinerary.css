@@ -36,7 +36,9 @@
   gap: 20px;
 }
 
-.save-btn, .form-btn, .excel-btn {
+.save-btn,
+.form-btn,
+.excel-btn {
   padding: 14px 28px;
   color: white;
   border: none;
@@ -78,11 +80,15 @@
   box-shadow: 0 6px 16px rgba(78, 205, 196, 0.6);
 }
 
-.save-btn:active, .form-btn:active, .excel-btn:active {
+.save-btn:active,
+.form-btn:active,
+.excel-btn:active {
   transform: translateY(0);
 }
 
-.save-btn:disabled, .form-btn:disabled, .excel-btn:disabled {
+.save-btn:disabled,
+.form-btn:disabled,
+.excel-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   transform: none;
@@ -384,15 +390,15 @@
     min-width: 100%;
     padding: 30px 20px;
   }
-  
+
   .visa-header h1 {
     font-size: 28px;
   }
-  
+
   .visa-header h2 {
     font-size: 18px;
   }
-  
+
   .header-buttons {
     position: static;
     justify-content: center;
@@ -400,32 +406,34 @@
     flex-wrap: wrap;
     gap: 15px;
   }
-  
-  .save-btn, .form-btn, .excel-btn {
+
+  .save-btn,
+  .form-btn,
+  .excel-btn {
     min-width: 120px;
     padding: 12px 20px;
     font-size: 14px;
   }
-  
+
   .visa-summary {
     padding: 25px;
   }
-  
+
   .summary-item {
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
   }
-  
+
   .summary-item strong {
     min-width: auto;
   }
-  
+
   .summary-item .editable {
     min-width: auto;
     width: 100%;
   }
-  
+
   .country-table th,
   .country-table td {
     padding: 12px 15px;
@@ -437,19 +445,20 @@
     min-width: 320px;
     padding: 20px 15px;
   }
-  
+
   .visa-header h1 {
     font-size: 24px;
   }
-  
+
   .header-buttons {
     flex-direction: column;
     align-items: center;
   }
-  
-  .save-btn, .form-btn, .excel-btn {
+
+  .save-btn,
+  .form-btn,
+  .excel-btn {
     width: 100%;
     max-width: 200px;
   }
 }
-
