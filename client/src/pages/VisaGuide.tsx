@@ -248,12 +248,12 @@ const VisaGuide: React.FC = () => {
   const usefulLinks = [
     {
       name: "意大利签证申请中心官网",
-      url: "https://www.vfsglobal.com/italy/china/",
+      url: "https://visa.vfsglobal.com/chn/zh/ita",
       description: "在线预约、下载表格、查询状态"
     },
     {
       name: "申根签证申请表下载",
-      url: "https://www.vfsglobal.com/italy/china/visa-application-forms.html",
+      url: "https://visa.vfsglobal.com/chn/zh/ita/apply-visa",
       description: "最新版申请表和材料清单"
     },
     {
