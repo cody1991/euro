@@ -400,7 +400,7 @@ section h2 {
 }
 
 .tip-details li:before {
-  content: "✓";
+  content: '✓';
   position: absolute;
   left: 0;
   color: #667eea;
@@ -812,4 +812,3 @@ section h2 {
     min-width: 600px;
   }
 }
-
