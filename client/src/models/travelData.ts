@@ -303,14 +303,14 @@ export const attractionsData: Attraction[] = [
   { id: 17, name: "伊夫岛", name_en: "Château d'If", description: "基督山伯爵故事发生地", latitude: 43.2798, longitude: 5.3256, category: "历史", rating: 4.4, city_id: 4 },
 
   // 尼斯
-  { id: 18, name: "天使湾", description: "蔚蓝海岸最美海湾", latitude: 43.6959, longitude: 7.2716, category: "海滩", rating: 4.8, city_id: 5 },
-  { id: 19, name: "尼斯老城", description: "充满魅力的历史街区", latitude: 43.6961, longitude: 7.2759, category: "历史", rating: 4.5, city_id: 5 },
-  { id: 20, name: "城堡山", description: "俯瞰尼斯全景", latitude: 43.6959, longitude: 7.2817, category: "风景", rating: 4.6, city_id: 5 },
+  { id: 18, name: "天使湾", name_en: "Baie des Anges", description: "蔚蓝海岸最美海湾", latitude: 43.6959, longitude: 7.2716, category: "海滩", rating: 4.8, city_id: 5 },
+  { id: 19, name: "尼斯老城", name_en: "Vieux Nice", description: "充满魅力的历史街区", latitude: 43.6961, longitude: 7.2759, category: "历史", rating: 4.5, city_id: 5 },
+  { id: 20, name: "城堡山", name_en: "Castle Hill", description: "俯瞰尼斯全景", latitude: 43.6959, longitude: 7.2817, category: "风景", rating: 4.6, city_id: 5 },
 
   // 摩纳哥
-  { id: 21, name: "蒙特卡洛赌场", description: "世界著名赌场", latitude: 43.7404, longitude: 7.4286, category: "娱乐", rating: 4.5, city_id: 6 },
-  { id: 22, name: "摩纳哥王宫", description: "格里马尔迪家族宫殿", latitude: 43.7325, longitude: 7.4208, category: "历史", rating: 4.3, city_id: 6 },
-  { id: 23, name: "海洋博物馆", description: "世界知名海洋博物馆", latitude: 43.7307, longitude: 7.4254, category: "博物馆", rating: 4.4, city_id: 6 },
+  { id: 21, name: "蒙特卡洛赌场", name_en: "Monte Carlo Casino", description: "世界著名赌场", latitude: 43.7404, longitude: 7.4286, category: "娱乐", rating: 4.5, city_id: 6 },
+  { id: 22, name: "摩纳哥王宫", name_en: "Prince's Palace of Monaco", description: "格里马尔迪家族宫殿", latitude: 43.7325, longitude: 7.4208, category: "历史", rating: 4.3, city_id: 6 },
+  { id: 23, name: "海洋博物馆", name_en: "Oceanographic Museum", description: "世界知名海洋博物馆", latitude: 43.7307, longitude: 7.4254, category: "博物馆", rating: 4.4, city_id: 6 },
 
   // 米兰
   { id: 24, name: "米兰大教堂", name_en: "Duomo di Milano", description: "哥特式建筑杰作", latitude: 45.4642, longitude: 9.1900, category: "宗教", rating: 4.7, city_id: 7 },
@@ -341,20 +341,20 @@ export const attractionsData: Attraction[] = [
   { id: 43, name: "西班牙广场", name_en: "Spanish Steps", description: "罗马著名广场", latitude: 41.9058, longitude: 12.4823, category: "地标", rating: 4.5, city_id: 10 },
 
   // 维罗纳
-  { id: 44, name: "朱丽叶故居", description: "罗密欧与朱丽叶的阳台", latitude: 45.4438, longitude: 10.9984, category: "历史", rating: 4.5, city_id: 12 },
-  { id: 45, name: "圆形竞技场", description: "古罗马圆形剧场", latitude: 45.4391, longitude: 10.9944, category: "历史", rating: 4.6, city_id: 12 },
-  { id: 46, name: "布拉广场", description: "维罗纳中心广场", latitude: 45.4384, longitude: 10.9945, category: "风景", rating: 4.4, city_id: 12 },
+  { id: 44, name: "朱丽叶故居", name_en: "Juliet's House", description: "罗密欧与朱丽叶的阳台", latitude: 45.4438, longitude: 10.9984, category: "历史", rating: 4.5, city_id: 12 },
+  { id: 45, name: "圆形竞技场", name_en: "Verona Arena", description: "古罗马圆形剧场", latitude: 45.4391, longitude: 10.9944, category: "历史", rating: 4.6, city_id: 12 },
+  { id: 46, name: "布拉广场", name_en: "Piazza Bra", description: "维罗纳中心广场", latitude: 45.4384, longitude: 10.9945, category: "风景", rating: 4.4, city_id: 12 },
 
   // 比萨
-  { id: 47, name: "比萨斜塔", description: "世界著名斜塔", latitude: 43.7230, longitude: 10.3966, category: "地标", rating: 4.7, city_id: 13 },
-  { id: 48, name: "比萨大教堂", description: "罗马式建筑杰作", latitude: 43.7230, longitude: 10.3964, category: "宗教", rating: 4.5, city_id: 13 },
-  { id: 49, name: "奇迹广场", description: "世界文化遗产", latitude: 43.7229, longitude: 10.3965, category: "风景", rating: 4.6, city_id: 13 },
+  { id: 47, name: "比萨斜塔", name_en: "Leaning Tower of Pisa", description: "世界著名斜塔", latitude: 43.7230, longitude: 10.3966, category: "地标", rating: 4.7, city_id: 13 },
+  { id: 48, name: "比萨大教堂", name_en: "Pisa Cathedral", description: "罗马式建筑杰作", latitude: 43.7230, longitude: 10.3964, category: "宗教", rating: 4.5, city_id: 13 },
+  { id: 49, name: "奇迹广场", name_en: "Piazza dei Miracoli", description: "世界文化遗产", latitude: 43.7229, longitude: 10.3965, category: "风景", rating: 4.6, city_id: 13 },
 
   // 梵蒂冈
-  { id: 50, name: "圣彼得大教堂", description: "世界最大的教堂", latitude: 41.9022, longitude: 12.4539, category: "宗教", rating: 4.9, city_id: 11 },
-  { id: 51, name: "西斯廷礼拜堂", description: "米开朗基罗壁画杰作", latitude: 41.9029, longitude: 12.4545, category: "艺术", rating: 4.8, city_id: 11 },
-  { id: 52, name: "梵蒂冈博物馆", description: "世界顶级艺术收藏", latitude: 41.9065, longitude: 12.4536, category: "博物馆", rating: 4.8, city_id: 11 },
-  { id: 53, name: "圣彼得广场", description: "梵蒂冈主广场", latitude: 41.9022, longitude: 12.4568, category: "地标", rating: 4.7, city_id: 11 },
+  { id: 50, name: "圣彼得大教堂", name_en: "St. Peter's Basilica", description: "世界最大的教堂", latitude: 41.9022, longitude: 12.4539, category: "宗教", rating: 4.9, city_id: 11 },
+  { id: 51, name: "西斯廷礼拜堂", name_en: "Sistine Chapel", description: "米开朗基罗壁画杰作", latitude: 41.9029, longitude: 12.4545, category: "艺术", rating: 4.8, city_id: 11 },
+  { id: 52, name: "梵蒂冈博物馆", name_en: "Vatican Museums", description: "世界顶级艺术收藏", latitude: 41.9065, longitude: 12.4536, category: "博物馆", rating: 4.8, city_id: 11 },
+  { id: 53, name: "圣彼得广场", name_en: "St. Peter's Square", description: "梵蒂冈主广场", latitude: 41.9022, longitude: 12.4568, category: "地标", rating: 4.7, city_id: 11 },
 
   // 那不勒斯
   { id: 58, name: "庞贝古城", name_en: "Pompeii", description: "被维苏威火山掩埋的古罗马城市", latitude: 40.7510, longitude: 14.4989, category: "历史", rating: 4.9, city_id: 15 },
