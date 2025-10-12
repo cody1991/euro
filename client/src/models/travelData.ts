@@ -1,5 +1,5 @@
 // 欧洲旅游行程数据
-import { Itinerary, City, Attraction, Transportation } from '../types';
+import { Itinerary, City, Attraction, Transportation, Accommodation } from '../types';
 
 // 行程基本信息
 export const itineraryData: Itinerary = {
@@ -13,23 +13,262 @@ export const itineraryData: Itinerary = {
 
 // 城市数据
 export const citiesData: City[] = [
-  { id: 0, name: "武汉", country: "中国", latitude: 30.5928, longitude: 114.3055, arrival_date: "2026-02-07", departure_date: "2026-02-07" },
-  { id: -1, name: "广州", country: "中国", latitude: 23.1291, longitude: 113.2644, arrival_date: "2026-02-07", departure_date: "2026-02-07" },
-  { id: 1, name: "阿姆斯特丹", country: "荷兰", latitude: 52.3676, longitude: 4.9041, arrival_date: "2026-02-08", departure_date: "2026-02-08" },
-  { id: 2, name: "巴黎", country: "法国", latitude: 48.8566, longitude: 2.3522, arrival_date: "2026-02-09", departure_date: "2026-02-11" },
-  { id: 3, name: "里昂", country: "法国", latitude: 45.7640, longitude: 4.8357, arrival_date: "2026-02-12", departure_date: "2026-02-12" },
-  { id: 4, name: "马赛", country: "法国", latitude: 43.2965, longitude: 5.3698, arrival_date: "2026-02-13", departure_date: "2026-02-13" },
-  { id: 5, name: "尼斯", country: "法国", latitude: 43.7102, longitude: 7.2620, arrival_date: "2026-02-14", departure_date: "2026-02-14" },
-  { id: 6, name: "摩纳哥", country: "摩纳哥", latitude: 43.7384, longitude: 7.4246, arrival_date: "2026-02-15", departure_date: "2026-02-15" },
-  { id: 7, name: "米兰", country: "意大利", latitude: 45.4642, longitude: 9.1900, arrival_date: "2026-02-16", departure_date: "2026-02-17" },
-  { id: 12, name: "维罗纳", country: "意大利", latitude: 45.4384, longitude: 10.9916, arrival_date: "2026-02-17", departure_date: "2026-02-17" },
-  { id: 8, name: "威尼斯", country: "意大利", latitude: 45.4408, longitude: 12.3155, arrival_date: "2026-02-18", departure_date: "2026-02-19" },
-  { id: 9, name: "佛罗伦萨", country: "意大利", latitude: 43.7696, longitude: 11.2558, arrival_date: "2026-02-20", departure_date: "2026-02-20" },
-  { id: 13, name: "比萨", country: "意大利", latitude: 43.7228, longitude: 10.3966, arrival_date: "2026-02-21", departure_date: "2026-02-21" },
-  { id: 11, name: "梵蒂冈", country: "梵蒂冈", latitude: 41.9029, longitude: 12.4534, arrival_date: "2026-02-21", departure_date: "2026-02-21" },
-  { id: 10, name: "罗马", country: "意大利", latitude: 41.9028, longitude: 12.4964, arrival_date: "2026-02-21", departure_date: "2026-02-23" },
-  { id: 15, name: "那不勒斯", country: "意大利", latitude: 40.8518, longitude: 14.2681, arrival_date: "2026-02-24", departure_date: "2026-02-24" },
-  { id: 14, name: "阿姆斯特丹", country: "荷兰", latitude: 52.3676, longitude: 4.9041, arrival_date: "2026-02-26", departure_date: "2026-02-26" }
+  {
+    id: 0,
+    name: "武汉",
+    country: "中国",
+    latitude: 30.5928,
+    longitude: 114.3055,
+    arrival_date: "2026-02-07",
+    departure_date: "2026-02-07"
+  },
+  {
+    id: -1,
+    name: "广州",
+    country: "中国",
+    latitude: 23.1291,
+    longitude: 113.2644,
+    arrival_date: "2026-02-07",
+    departure_date: "2026-02-07"
+  },
+  {
+    id: 1,
+    name: "阿姆斯特丹",
+    name_en: "Amsterdam",
+    country: "荷兰",
+    latitude: 52.3676,
+    longitude: 4.9041,
+    arrival_date: "2026-02-08",
+    departure_date: "2026-02-08",
+    accommodation: {
+      hotel_name: "",
+      hotel_name_en: "",
+      address: "",
+      phone: "",
+      check_in: "2026-02-08",
+      check_out: "2026-02-09"
+    }
+  },
+  {
+    id: 2,
+    name: "巴黎",
+    name_en: "Paris",
+    country: "法国",
+    latitude: 48.8566,
+    longitude: 2.3522,
+    arrival_date: "2026-02-09",
+    departure_date: "2026-02-11",
+    accommodation: {
+      hotel_name: "",
+      hotel_name_en: "",
+      address: "",
+      phone: "",
+      check_in: "2026-02-09",
+      check_out: "2026-02-12"
+    }
+  },
+  {
+    id: 3,
+    name: "里昂",
+    name_en: "Lyon",
+    country: "法国",
+    latitude: 45.7640,
+    longitude: 4.8357,
+    arrival_date: "2026-02-12",
+    departure_date: "2026-02-12",
+    accommodation: {
+      hotel_name: "",
+      hotel_name_en: "",
+      address: "",
+      phone: "",
+      check_in: "2026-02-12",
+      check_out: "2026-02-13"
+    }
+  },
+  {
+    id: 4,
+    name: "马赛",
+    name_en: "Marseille",
+    country: "法国",
+    latitude: 43.2965,
+    longitude: 5.3698,
+    arrival_date: "2026-02-13",
+    departure_date: "2026-02-13",
+    accommodation: {
+      hotel_name: "",
+      hotel_name_en: "",
+      address: "",
+      phone: "",
+      check_in: "2026-02-13",
+      check_out: "2026-02-14"
+    }
+  },
+  {
+    id: 5,
+    name: "尼斯",
+    name_en: "Nice",
+    country: "法国",
+    latitude: 43.7102,
+    longitude: 7.2620,
+    arrival_date: "2026-02-14",
+    departure_date: "2026-02-14",
+    accommodation: {
+      hotel_name: "",
+      hotel_name_en: "",
+      address: "",
+      phone: "",
+      check_in: "2026-02-14",
+      check_out: "2026-02-15"
+    }
+  },
+  {
+    id: 6,
+    name: "摩纳哥",
+    name_en: "Monaco",
+    country: "摩纳哥",
+    latitude: 43.7384,
+    longitude: 7.4246,
+    arrival_date: "2026-02-15",
+    departure_date: "2026-02-15",
+    accommodation: {
+      hotel_name: "",
+      hotel_name_en: "",
+      address: "",
+      phone: "",
+      check_in: "2026-02-15",
+      check_out: "2026-02-16"
+    }
+  },
+  {
+    id: 7,
+    name: "米兰",
+    name_en: "Milan",
+    country: "意大利",
+    latitude: 45.4642,
+    longitude: 9.1900,
+    arrival_date: "2026-02-16",
+    departure_date: "2026-02-17",
+    accommodation: {
+      hotel_name: "",
+      hotel_name_en: "",
+      address: "",
+      phone: "",
+      check_in: "2026-02-16",
+      check_out: "2026-02-18"
+    }
+  },
+  {
+    id: 12,
+    name: "维罗纳",
+    name_en: "Verona",
+    country: "意大利",
+    latitude: 45.4384,
+    longitude: 10.9916,
+    arrival_date: "2026-02-17",
+    departure_date: "2026-02-17"
+  },
+  {
+    id: 8,
+    name: "威尼斯",
+    name_en: "Venice",
+    country: "意大利",
+    latitude: 45.4408,
+    longitude: 12.3155,
+    arrival_date: "2026-02-18",
+    departure_date: "2026-02-19",
+    accommodation: {
+      hotel_name: "",
+      hotel_name_en: "",
+      address: "",
+      phone: "",
+      check_in: "2026-02-18",
+      check_out: "2026-02-20"
+    }
+  },
+  {
+    id: 9,
+    name: "佛罗伦萨",
+    name_en: "Florence",
+    country: "意大利",
+    latitude: 43.7696,
+    longitude: 11.2558,
+    arrival_date: "2026-02-20",
+    departure_date: "2026-02-20",
+    accommodation: {
+      hotel_name: "",
+      hotel_name_en: "",
+      address: "",
+      phone: "",
+      check_in: "2026-02-20",
+      check_out: "2026-02-21"
+    }
+  },
+  {
+    id: 13,
+    name: "比萨",
+    name_en: "Pisa",
+    country: "意大利",
+    latitude: 43.7228,
+    longitude: 10.3966,
+    arrival_date: "2026-02-21",
+    departure_date: "2026-02-21"
+  },
+  {
+    id: 11,
+    name: "梵蒂冈",
+    name_en: "Vatican City",
+    country: "梵蒂冈",
+    latitude: 41.9029,
+    longitude: 12.4534,
+    arrival_date: "2026-02-21",
+    departure_date: "2026-02-21"
+  },
+  {
+    id: 10,
+    name: "罗马",
+    name_en: "Rome",
+    country: "意大利",
+    latitude: 41.9028,
+    longitude: 12.4964,
+    arrival_date: "2026-02-21",
+    departure_date: "2026-02-23",
+    accommodation: {
+      hotel_name: "",
+      hotel_name_en: "",
+      address: "",
+      phone: "",
+      check_in: "2026-02-21",
+      check_out: "2026-02-24"
+    }
+  },
+  {
+    id: 15,
+    name: "那不勒斯",
+    name_en: "Naples",
+    country: "意大利",
+    latitude: 40.8518,
+    longitude: 14.2681,
+    arrival_date: "2026-02-24",
+    departure_date: "2026-02-24",
+    accommodation: {
+      hotel_name: "",
+      hotel_name_en: "",
+      address: "",
+      phone: "",
+      check_in: "2026-02-24",
+      check_out: "2026-02-25"
+    }
+  },
+  {
+    id: 14,
+    name: "阿姆斯特丹",
+    name_en: "Amsterdam",
+    country: "荷兰",
+    latitude: 52.3676,
+    longitude: 4.9041,
+    arrival_date: "2026-02-26",
+    departure_date: "2026-02-26"
+  }
 ];
 
 // 景点数据
@@ -128,27 +367,246 @@ export const attractionsData: Attraction[] = [
 // 交通数据
 export const transportationData: Transportation[] = [
   // 往返航班（地图上显示）
-  { id: 0, transport_type: "飞机", from_city_id: 0, to_city_id: -1, departure_time: "2026-02-07 09:30", arrival_time: "2026-02-07 11:30", duration: "2小时" },
-  { id: -1, transport_type: "飞机", from_city_id: -1, to_city_id: 1, departure_time: "2026-02-07 13:35", arrival_time: "2026-02-07 19:15", duration: "11小时40分钟" },
+  {
+    id: 0,
+    transport_type: "飞机",
+    from_city_id: 0,
+    to_city_id: -1,
+    departure_time: "2026-02-07 09:30",
+    arrival_time: "2026-02-07 11:30",
+    duration: "2小时",
+    flight_number: "",
+    departure_location: "武汉天河国际机场",
+    departure_location_en: "Wuhan Tianhe International Airport",
+    arrival_location: "广州白云国际机场",
+    arrival_location_en: "Guangzhou Baiyun International Airport"
+  },
+  {
+    id: -1,
+    transport_type: "飞机",
+    from_city_id: -1,
+    to_city_id: 1,
+    departure_time: "2026-02-07 13:35",
+    arrival_time: "2026-02-07 19:15",
+    duration: "11小时40分钟",
+    flight_number: "",
+    departure_location: "广州白云国际机场",
+    departure_location_en: "Guangzhou Baiyun International Airport",
+    arrival_location: "阿姆斯特丹史基浦机场",
+    arrival_location_en: "Amsterdam Schiphol Airport"
+  },
 
   // 欧洲段交通
-  { id: 1, transport_type: "火车", from_city_id: 1, to_city_id: 2, departure_time: "2026-02-09 上午", arrival_time: "2026-02-09 中午", duration: "约3.5小时" },
-  { id: 2, transport_type: "火车", from_city_id: 2, to_city_id: 3, departure_time: "2026-02-12 上午", arrival_time: "2026-02-12 中午", duration: "约2小时" },
-  { id: 3, transport_type: "火车", from_city_id: 3, to_city_id: 4, departure_time: "2026-02-13 上午", arrival_time: "2026-02-13 上午", duration: "约1.5小时" },
-  { id: 4, transport_type: "火车", from_city_id: 4, to_city_id: 5, departure_time: "2026-02-14 上午", arrival_time: "2026-02-14 上午", duration: "约2.5小时" },
-  { id: 5, transport_type: "巴士", from_city_id: 5, to_city_id: 6, departure_time: "2026-02-15 上午", arrival_time: "2026-02-15 上午", duration: "约30分钟" },
-  { id: 6, transport_type: "飞机", from_city_id: 6, to_city_id: 7, departure_time: "2026-02-16 上午", arrival_time: "2026-02-16 中午", duration: "约1.5小时" },
-  { id: 7, transport_type: "火车", from_city_id: 7, to_city_id: 12, departure_time: "2026-02-17 下午", arrival_time: "2026-02-17 下午", duration: "约1.5小时" },
-  { id: 8, transport_type: "火车", from_city_id: 12, to_city_id: 8, departure_time: "2026-02-18 上午", arrival_time: "2026-02-18 上午", duration: "约1.5小时" },
-  { id: 9, transport_type: "火车", from_city_id: 8, to_city_id: 9, departure_time: "2026-02-20 上午", arrival_time: "2026-02-20 上午", duration: "约2小时" },
-  { id: 10, transport_type: "火车", from_city_id: 9, to_city_id: 13, departure_time: "2026-02-21 上午", arrival_time: "2026-02-21 上午", duration: "约1小时" },
-  { id: 11, transport_type: "火车", from_city_id: 13, to_city_id: 10, departure_time: "2026-02-21 下午", arrival_time: "2026-02-21 下午", duration: "约3小时" },
-  { id: 12, transport_type: "地铁", from_city_id: 10, to_city_id: 11, departure_time: "2026-02-21 下午", arrival_time: "2026-02-21 下午", duration: "约20分钟" },
-  { id: 15, transport_type: "火车", from_city_id: 10, to_city_id: 15, departure_time: "2026-02-24 上午", arrival_time: "2026-02-24 上午", duration: "约1小时" },
+  {
+    id: 1,
+    transport_type: "火车",
+    from_city_id: 1,
+    to_city_id: 2,
+    departure_time: "2026-02-09 09:00",
+    arrival_time: "2026-02-09 12:30",
+    duration: "约3.5小时",
+    train_number: "",
+    departure_location: "阿姆斯特丹中央车站",
+    departure_location_en: "Amsterdam Centraal Station",
+    arrival_location: "巴黎北站",
+    arrival_location_en: "Paris Gare du Nord"
+  },
+  {
+    id: 2,
+    transport_type: "火车",
+    from_city_id: 2,
+    to_city_id: 3,
+    departure_time: "2026-02-12 08:30",
+    arrival_time: "2026-02-12 10:30",
+    duration: "约2小时",
+    train_number: "",
+    departure_location: "巴黎里昂火车站",
+    departure_location_en: "Paris Gare de Lyon",
+    arrival_location: "里昂帕尔迪厄站",
+    arrival_location_en: "Lyon Part-Dieu Station"
+  },
+  {
+    id: 3,
+    transport_type: "火车",
+    from_city_id: 3,
+    to_city_id: 4,
+    departure_time: "2026-02-13 09:00",
+    arrival_time: "2026-02-13 10:30",
+    duration: "约1.5小时",
+    train_number: "",
+    departure_location: "里昂帕尔迪厄站",
+    departure_location_en: "Lyon Part-Dieu Station",
+    arrival_location: "马赛圣夏勒站",
+    arrival_location_en: "Marseille Saint-Charles Station"
+  },
+  {
+    id: 4,
+    transport_type: "火车",
+    from_city_id: 4,
+    to_city_id: 5,
+    departure_time: "2026-02-14 09:00",
+    arrival_time: "2026-02-14 11:30",
+    duration: "约2.5小时",
+    train_number: "",
+    departure_location: "马赛圣夏勒站",
+    departure_location_en: "Marseille Saint-Charles Station",
+    arrival_location: "尼斯车站",
+    arrival_location_en: "Nice Ville Station"
+  },
+  {
+    id: 5,
+    transport_type: "巴士",
+    from_city_id: 5,
+    to_city_id: 6,
+    departure_time: "2026-02-15 09:00",
+    arrival_time: "2026-02-15 09:30",
+    duration: "约30分钟",
+    departure_location: "尼斯市区",
+    departure_location_en: "Nice City Center",
+    arrival_location: "摩纳哥蒙特卡洛",
+    arrival_location_en: "Monte Carlo, Monaco"
+  },
+  {
+    id: 6,
+    transport_type: "飞机",
+    from_city_id: 6,
+    to_city_id: 7,
+    departure_time: "2026-02-16 10:00",
+    arrival_time: "2026-02-16 11:30",
+    duration: "约1.5小时",
+    flight_number: "",
+    departure_location: "尼斯蓝色海岸机场",
+    departure_location_en: "Nice Côte d'Azur Airport",
+    arrival_location: "米兰马尔彭萨机场",
+    arrival_location_en: "Milan Malpensa Airport"
+  },
+  {
+    id: 7,
+    transport_type: "火车",
+    from_city_id: 7,
+    to_city_id: 12,
+    departure_time: "2026-02-17 14:00",
+    arrival_time: "2026-02-17 15:30",
+    duration: "约1.5小时",
+    train_number: "",
+    departure_location: "米兰中央车站",
+    departure_location_en: "Milano Centrale Station",
+    arrival_location: "维罗纳门户新站",
+    arrival_location_en: "Verona Porta Nuova Station"
+  },
+  {
+    id: 8,
+    transport_type: "火车",
+    from_city_id: 12,
+    to_city_id: 8,
+    departure_time: "2026-02-18 09:00",
+    arrival_time: "2026-02-18 10:30",
+    duration: "约1.5小时",
+    train_number: "",
+    departure_location: "维罗纳门户新站",
+    departure_location_en: "Verona Porta Nuova Station",
+    arrival_location: "威尼斯圣露西亚站",
+    arrival_location_en: "Venezia Santa Lucia Station"
+  },
+  {
+    id: 9,
+    transport_type: "火车",
+    from_city_id: 8,
+    to_city_id: 9,
+    departure_time: "2026-02-20 09:00",
+    arrival_time: "2026-02-20 11:00",
+    duration: "约2小时",
+    train_number: "",
+    departure_location: "威尼斯圣露西亚站",
+    departure_location_en: "Venezia Santa Lucia Station",
+    arrival_location: "佛罗伦萨新圣母玛利亚站",
+    arrival_location_en: "Firenze Santa Maria Novella Station"
+  },
+  {
+    id: 10,
+    transport_type: "火车",
+    from_city_id: 9,
+    to_city_id: 13,
+    departure_time: "2026-02-21 09:00",
+    arrival_time: "2026-02-21 10:00",
+    duration: "约1小时",
+    train_number: "",
+    departure_location: "佛罗伦萨新圣母玛利亚站",
+    departure_location_en: "Firenze Santa Maria Novella Station",
+    arrival_location: "比萨中央车站",
+    arrival_location_en: "Pisa Centrale Station"
+  },
+  {
+    id: 11,
+    transport_type: "火车",
+    from_city_id: 13,
+    to_city_id: 10,
+    departure_time: "2026-02-21 14:00",
+    arrival_time: "2026-02-21 17:00",
+    duration: "约3小时",
+    train_number: "",
+    departure_location: "比萨中央车站",
+    departure_location_en: "Pisa Centrale Station",
+    arrival_location: "罗马特米尼车站",
+    arrival_location_en: "Roma Termini Station"
+  },
+  {
+    id: 12,
+    transport_type: "地铁",
+    from_city_id: 10,
+    to_city_id: 11,
+    departure_time: "2026-02-21 下午",
+    arrival_time: "2026-02-21 下午",
+    duration: "约20分钟",
+    departure_location: "罗马市区",
+    departure_location_en: "Rome City Center",
+    arrival_location: "梵蒂冈",
+    arrival_location_en: "Vatican City"
+  },
+  {
+    id: 15,
+    transport_type: "火车",
+    from_city_id: 10,
+    to_city_id: 15,
+    departure_time: "2026-02-24 09:00",
+    arrival_time: "2026-02-24 10:10",
+    duration: "约1小时10分钟",
+    train_number: "",
+    departure_location: "罗马特米尼车站",
+    departure_location_en: "Roma Termini Station",
+    arrival_location: "那不勒斯中央车站",
+    arrival_location_en: "Napoli Centrale Station"
+  },
 
   // 返程航班
-  { id: 13, transport_type: "飞机", from_city_id: 15, to_city_id: 14, departure_time: "2026-02-25 21:40", arrival_time: "2026-02-26 00:10", duration: "2小时30分钟" },
-  { id: 14, transport_type: "飞机", from_city_id: 14, to_city_id: -1, departure_time: "2026-02-26 19:00", arrival_time: "2026-02-26 20:55", duration: "1小时55分钟" }
+  {
+    id: 13,
+    transport_type: "飞机",
+    from_city_id: 15,
+    to_city_id: 14,
+    departure_time: "2026-02-25 21:40",
+    arrival_time: "2026-02-26 00:10",
+    duration: "2小时30分钟",
+    flight_number: "",
+    departure_location: "那不勒斯国际机场",
+    departure_location_en: "Naples International Airport",
+    arrival_location: "阿姆斯特丹史基浦机场",
+    arrival_location_en: "Amsterdam Schiphol Airport"
+  },
+  {
+    id: 14,
+    transport_type: "飞机",
+    from_city_id: 14,
+    to_city_id: -1,
+    departure_time: "2026-02-26 19:00",
+    arrival_time: "2026-02-26 20:55",
+    duration: "1小时55分钟",
+    flight_number: "",
+    departure_location: "阿姆斯特丹史基浦机场",
+    departure_location_en: "Amsterdam Schiphol Airport",
+    arrival_location: "广州白云国际机场",
+    arrival_location_en: "Guangzhou Baiyun International Airport"
+  }
 ];
 
 // 组装完整数据

@@ -193,20 +193,7 @@ const VisaItinerary: React.FC = () => {
                     return (
                       <div key={cityIndex} className="city-section">
                         <div className="city-header">
-                          <h4>{city.name} / {city.name === '阿姆斯特丹' ? 'Amsterdam' :
-                            city.name === '巴黎' ? 'Paris' :
-                              city.name === '里昂' ? 'Lyon' :
-                                city.name === '马赛' ? 'Marseille' :
-                                  city.name === '尼斯' ? 'Nice' :
-                                    city.name === '摩纳哥' ? 'Monaco' :
-                                      city.name === '米兰' ? 'Milan' :
-                                        city.name === '维罗纳' ? 'Verona' :
-                                          city.name === '威尼斯' ? 'Venice' :
-                                            city.name === '佛罗伦萨' ? 'Florence' :
-                                              city.name === '比萨' ? 'Pisa' :
-                                                city.name === '罗马' ? 'Rome' :
-                                                  city.name === '梵蒂冈' ? 'Vatican City' :
-                                                    city.name === '那不勒斯' ? 'Naples' : city.name}</h4>
+                          <h4>{city.name}{city.name_en ? ` / ${city.name_en}` : ''}</h4>
                           <span className="country-tag">{city.country}</span>
                         </div>
 
@@ -223,10 +210,34 @@ const VisaItinerary: React.FC = () => {
                           </div>
                         )}
 
-                        <div className="accommodation">
-                          <strong>住宿 / Accommodation:</strong>
-                          <span className="editable">_________________ (待填写酒店名称)</span>
-                        </div>
+                        {city.accommodation && (
+                          <div className="accommodation">
+                            <strong>住宿 / Accommodation:</strong>
+                            <div className="accommodation-details">
+                              <div className="detail-row">
+                                <span className="label">酒店名称 / Hotel:</span>
+                                <span className="value">
+                                  {city.accommodation.hotel_name || '_________________'}
+                                  {city.accommodation.hotel_name && city.accommodation.hotel_name_en && ` / ${city.accommodation.hotel_name_en}`}
+                                </span>
+                              </div>
+                              <div className="detail-row">
+                                <span className="label">地址 / Address:</span>
+                                <span className="value">{city.accommodation.address || '_________________'}</span>
+                              </div>
+                              <div className="detail-row">
+                                <span className="label">电话 / Phone:</span>
+                                <span className="value">{city.accommodation.phone || '_________________'}</span>
+                              </div>
+                              <div className="detail-row">
+                                <span className="label">入住 / Check-in:</span>
+                                <span className="value">{city.accommodation.check_in || '_______'}</span>
+                                <span className="label" style={{ marginLeft: '20px' }}>退房 / Check-out:</span>
+                                <span className="value">{city.accommodation.check_out || '_______'}</span>
+                              </div>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     );
                   })}
@@ -234,7 +245,48 @@ const VisaItinerary: React.FC = () => {
                   {transportation && (
                     <div className="transportation">
                       <strong>交通 / Transportation:</strong>
-                      <span>{transportation.transport_type} - {transportation.duration}</span>
+                      <div className="transportation-details">
+                        <div className="detail-row">
+                          <span className="label">交通方式 / Type:</span>
+                          <span className="value">{transportation.transport_type}</span>
+                        </div>
+                        {transportation.flight_number !== undefined && (
+                          <div className="detail-row">
+                            <span className="label">航班号 / Flight:</span>
+                            <span className="value">{transportation.flight_number || '_________________'}</span>
+                          </div>
+                        )}
+                        {transportation.train_number !== undefined && (
+                          <div className="detail-row">
+                            <span className="label">车次 / Train:</span>
+                            <span className="value">{transportation.train_number || '_________________'}</span>
+                          </div>
+                        )}
+                        <div className="detail-row">
+                          <span className="label">出发地 / From:</span>
+                          <span className="value">
+                            {transportation.departure_location || '_________________'}
+                            {transportation.departure_location && transportation.departure_location_en && ` / ${transportation.departure_location_en}`}
+                          </span>
+                        </div>
+                        <div className="detail-row">
+                          <span className="label">到达地 / To:</span>
+                          <span className="value">
+                            {transportation.arrival_location || '_________________'}
+                            {transportation.arrival_location && transportation.arrival_location_en && ` / ${transportation.arrival_location_en}`}
+                          </span>
+                        </div>
+                        <div className="detail-row">
+                          <span className="label">出发时间 / Departure:</span>
+                          <span className="value">{transportation.departure_time}</span>
+                          <span className="label" style={{ marginLeft: '20px' }}>到达时间 / Arrival:</span>
+                          <span className="value">{transportation.arrival_time}</span>
+                        </div>
+                        <div className="detail-row">
+                          <span className="label">时长 / Duration:</span>
+                          <span className="value">{transportation.duration}</span>
+                        </div>
+                      </div>
                     </div>
                   )}
                 </div>

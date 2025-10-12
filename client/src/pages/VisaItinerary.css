@@ -243,23 +243,48 @@
 
 .accommodation {
   margin-bottom: 12px;
-  padding: 10px;
+  padding: 15px;
   background: #fff3cd;
   border-radius: 5px;
 }
 
 .accommodation strong {
   color: #856404;
-  margin-right: 10px;
+  display: block;
+  margin-bottom: 10px;
 }
 
-.accommodation .editable {
-  border-bottom: 1px dashed #856404;
-  padding: 0 5px;
+.accommodation-details {
+  margin-top: 8px;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.detail-row:last-child {
+  margin-bottom: 0;
+}
+
+.detail-row .label {
+  font-weight: 600;
+  color: #856404;
+  min-width: 140px;
+  font-size: 13px;
+}
+
+.detail-row .value {
+  color: #333;
+  flex: 1;
+  border-bottom: 1px dashed #c9a35c;
+  padding: 2px 5px;
 }
 
 .transportation {
-  padding: 10px;
+  padding: 15px;
   background: #d1ecf1;
   border-radius: 5px;
   margin-top: 12px;
@@ -267,7 +292,20 @@
 
 .transportation strong {
   color: #0c5460;
-  margin-right: 10px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.transportation-details {
+  margin-top: 8px;
+}
+
+.transportation-details .detail-row .label {
+  color: #0c5460;
+}
+
+.transportation-details .detail-row .value {
+  border-bottom-color: #7bc8d8;
 }
 
 .visa-footer {
