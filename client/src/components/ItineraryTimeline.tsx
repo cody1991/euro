@@ -17,10 +17,10 @@ const ItineraryTimeline: React.FC = () => {
 
   const getTransportationIcon = (transportType: string) => {
     switch (transportType) {
-      case '飞机': return '✈️';
-      case '火车': return '🚄';
-      case '汽车': return '🚗';
-      case '巴士': return '🚌';
+      case 'Flight': return '✈️';
+      case 'Train': return '🚄';
+      case 'Car': return '🚗';
+      case 'Bus': return '🚌';
       default: return '🚌';
     }
   };

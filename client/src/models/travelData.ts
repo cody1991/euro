@@ -16,6 +16,7 @@ export const citiesData: City[] = [
   {
     id: 0,
     name: "武汉",
+    name_en: "Wuhan",
     country: "中国",
     latitude: 30.5928,
     longitude: 114.3055,
@@ -25,6 +26,7 @@ export const citiesData: City[] = [
   {
     id: -1,
     name: "广州",
+    name_en: "Guangzhou",
     country: "中国",
     latitude: 23.1291,
     longitude: 113.2644,
@@ -369,7 +371,7 @@ export const transportationData: Transportation[] = [
   // 往返航班（地图上显示）
   {
     id: 0,
-    transport_type: "飞机",
+    transport_type: "Flight",
     from_city_id: 0,
     to_city_id: -1,
     departure_time: "2026-02-07 09:30",
@@ -383,7 +385,7 @@ export const transportationData: Transportation[] = [
   },
   {
     id: -1,
-    transport_type: "飞机",
+    transport_type: "Flight",
     from_city_id: -1,
     to_city_id: 1,
     departure_time: "2026-02-07 13:35",
@@ -399,7 +401,7 @@ export const transportationData: Transportation[] = [
   // 欧洲段交通
   {
     id: 1,
-    transport_type: "火车",
+    transport_type: "Train",
     from_city_id: 1,
     to_city_id: 2,
     departure_time: "2026-02-09 09:00",
@@ -413,7 +415,7 @@ export const transportationData: Transportation[] = [
   },
   {
     id: 2,
-    transport_type: "火车",
+    transport_type: "Train",
     from_city_id: 2,
     to_city_id: 3,
     departure_time: "2026-02-12 08:30",
@@ -427,7 +429,7 @@ export const transportationData: Transportation[] = [
   },
   {
     id: 3,
-    transport_type: "火车",
+    transport_type: "Train",
     from_city_id: 3,
     to_city_id: 4,
     departure_time: "2026-02-13 09:00",
@@ -441,7 +443,7 @@ export const transportationData: Transportation[] = [
   },
   {
     id: 4,
-    transport_type: "火车",
+    transport_type: "Train",
     from_city_id: 4,
     to_city_id: 5,
     departure_time: "2026-02-14 09:00",
@@ -455,7 +457,7 @@ export const transportationData: Transportation[] = [
   },
   {
     id: 5,
-    transport_type: "巴士",
+    transport_type: "Bus",
     from_city_id: 5,
     to_city_id: 6,
     departure_time: "2026-02-15 09:00",
@@ -468,7 +470,7 @@ export const transportationData: Transportation[] = [
   },
   {
     id: 6,
-    transport_type: "飞机",
+    transport_type: "Flight",
     from_city_id: 6,
     to_city_id: 7,
     departure_time: "2026-02-16 10:00",
@@ -482,7 +484,7 @@ export const transportationData: Transportation[] = [
   },
   {
     id: 7,
-    transport_type: "火车",
+    transport_type: "Train",
     from_city_id: 7,
     to_city_id: 12,
     departure_time: "2026-02-17 14:00",
@@ -496,7 +498,7 @@ export const transportationData: Transportation[] = [
   },
   {
     id: 8,
-    transport_type: "火车",
+    transport_type: "Train",
     from_city_id: 12,
     to_city_id: 8,
     departure_time: "2026-02-18 09:00",
@@ -510,7 +512,7 @@ export const transportationData: Transportation[] = [
   },
   {
     id: 9,
-    transport_type: "火车",
+    transport_type: "Train",
     from_city_id: 8,
     to_city_id: 9,
     departure_time: "2026-02-20 09:00",
@@ -524,7 +526,7 @@ export const transportationData: Transportation[] = [
   },
   {
     id: 10,
-    transport_type: "火车",
+    transport_type: "Train",
     from_city_id: 9,
     to_city_id: 13,
     departure_time: "2026-02-21 09:00",
@@ -538,7 +540,7 @@ export const transportationData: Transportation[] = [
   },
   {
     id: 11,
-    transport_type: "火车",
+    transport_type: "Train",
     from_city_id: 13,
     to_city_id: 10,
     departure_time: "2026-02-21 14:00",
@@ -565,7 +567,7 @@ export const transportationData: Transportation[] = [
   },
   {
     id: 15,
-    transport_type: "火车",
+    transport_type: "Train",
     from_city_id: 10,
     to_city_id: 15,
     departure_time: "2026-02-24 09:00",
@@ -581,7 +583,7 @@ export const transportationData: Transportation[] = [
   // 返程航班
   {
     id: 13,
-    transport_type: "飞机",
+    transport_type: "Flight",
     from_city_id: 15,
     to_city_id: 14,
     departure_time: "2026-02-25 21:40",
@@ -595,7 +597,7 @@ export const transportationData: Transportation[] = [
   },
   {
     id: 14,
-    transport_type: "飞机",
+    transport_type: "Flight",
     from_city_id: 14,
     to_city_id: -1,
     departure_time: "2026-02-26 19:00",
