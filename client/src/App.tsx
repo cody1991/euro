@@ -1,11 +1,12 @@
 import React from 'react';
 import { HashRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { Map, FileText, ClipboardList, Route as RouteIcon } from 'lucide-react';
+import { Map, FileText, ClipboardList, Route as RouteIcon, BookOpen } from 'lucide-react';
 import './App.css';
 import MapPage from './pages/MapPage';
 import ItineraryOverview from './pages/ItineraryOverview';
 import VisaItinerary from './pages/VisaItinerary';
 import ItineraryTimeline from './components/ItineraryTimeline';
+import VisaGuide from './pages/VisaGuide';
 
 function Navigation() {
   const location = useLocation();
@@ -90,6 +91,24 @@ function Navigation() {
         <ClipboardList size={20} />
         签证行程单
       </Link>
+      <Link
+        to="/guide"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          padding: '10px 20px',
+          borderRadius: '25px',
+          textDecoration: 'none',
+          color: 'white',
+          fontWeight: 'bold',
+          background: location.pathname === '/guide' ? 'rgba(255,255,255,0.25)' : 'transparent',
+          transition: 'all 0.3s'
+        }}
+      >
+        <BookOpen size={20} />
+        签证指南
+      </Link>
     </nav>
   );
 }
@@ -104,6 +123,7 @@ function App() {
           <Route path="/overview" element={<ItineraryOverview />} />
           <Route path="/timeline" element={<ItineraryTimeline />} />
           <Route path="/visa" element={<VisaItinerary />} />
+          <Route path="/guide" element={<VisaGuide />} />
         </Routes>
       </div>
     </Router>
