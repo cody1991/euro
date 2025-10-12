@@ -25,6 +25,18 @@ const ItineraryTimeline: React.FC = () => {
     }
   };
 
+  const getCountryFlag = (country: string) => {
+    switch (country) {
+      case '中国': return '🇨🇳';
+      case '荷兰': return '🇳🇱';
+      case '法国': return '🇫🇷';
+      case '摩纳哥': return '🇲🇨';
+      case '意大利': return '🇮🇹';
+      case '梵蒂冈': return '🇻🇦';
+      default: return '🏳️';
+    }
+  };
+
   return (
     <div className="timeline-container">
       <div className="timeline-header">
@@ -65,7 +77,7 @@ const ItineraryTimeline: React.FC = () => {
                   </div>
 
                   <div className="city-country">
-                    <span className="country-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>
+                    <span className="country-flag">{getCountryFlag(city.country)}</span>
                     <span className="country-name">{city.country}</span>
                   </div>
 
