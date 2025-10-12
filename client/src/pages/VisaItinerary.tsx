@@ -198,10 +198,11 @@ const VisaItinerary: React.FC = () => {
     };
 
     const getTouringSpots = (city: any) => {
-      if (!city.attractions || city.attractions.length === 0) {
+      const cityAttractions = attractionsData.filter(attr => attr.city_id === city.id);
+      if (!cityAttractions || cityAttractions.length === 0) {
         return '_______________';
       }
-      return city.attractions.map((attr: any, idx: number) =>
+      return cityAttractions.map((attr: any, idx: number) => 
         `${idx + 1}. ${attr.name_en || attr.name}`
       ).join('<br/>');
     };
