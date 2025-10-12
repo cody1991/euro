@@ -62,7 +62,7 @@ const VisaItinerary: React.FC = () => {
 
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
-    return date.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' });
+    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   };
 
   const saveAsImage = async () => {
@@ -177,7 +177,7 @@ const VisaItinerary: React.FC = () => {
         // 获取交通信息
         let transportation = "Public transport";
         const transportParts = [];
-        
+
         // 处理到达日的交通信息
         if (dayOffset === 0 && index > 0) {
           const arrivalTransport = transportationData.find(t => t.to_city_id === city.id);
@@ -187,7 +187,7 @@ const VisaItinerary: React.FC = () => {
             transportParts.push(`${arrivalTransport.transport_type} ${fromLocation}→${toLocation}<br/>${arrivalTransport.departure_time}→${arrivalTransport.arrival_time}`);
           }
         }
-        
+
         // 处理离开日的交通信息
         if (dayOffset === daysInCity - 1) {
           if (index < sortedCities.length - 1) {
@@ -209,7 +209,7 @@ const VisaItinerary: React.FC = () => {
             }
           }
         }
-        
+
         // 如果有交通信息，则使用；否则使用默认值
         if (transportParts.length > 0) {
           transportation = transportParts.join('<br/><br/>');
