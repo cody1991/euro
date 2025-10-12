@@ -175,131 +175,155 @@ const VisaItinerary: React.FC = () => {
 
   const createFormContent = () => {
     return `
-      <div style="width: 100%; font-family: 'Arial', sans-serif; font-size: 12px; line-height: 1.3; color: #333;">
-        <!-- 表头 -->
-        <div style="text-align: center; margin-bottom: 20px; border-bottom: 2px solid #000; padding-bottom: 10px;">
-          <h1 style="font-size: 18px; margin: 0; font-weight: bold;">申根签证申请表</h1>
-          <h2 style="font-size: 14px; margin: 5px 0 0 0; color: #666;">Schengen Visa Application Form</h2>
+      <div style="width: 100%; font-family: 'Arial', sans-serif; font-size: 14px; color: #333;">
+        <!-- 标题 -->
+        <div style="text-align: center; margin-bottom: 30px;">
+          <h1 style="font-size: 24px; margin: 0; font-weight: bold;">Trip Itinerary</h1>
         </div>
 
-        <!-- 个人信息 -->
-        <div style="margin-bottom: 15px;">
-          <h3 style="font-size: 14px; margin-bottom: 8px; font-weight: bold; border-bottom: 1px solid #ccc;">1. 个人信息 / Personal Information</h3>
-          <table style="width: 100%; border-collapse: collapse; font-size: 11px;">
+        <!-- 行程表格 -->
+        <table style="width: 100%; border-collapse: collapse; border: 2px solid #000;">
+          <thead>
+            <tr style="background: #f0f0f0;">
+              <th style="border: 1px solid #000; padding: 8px; text-align: center; font-weight: bold;">Day</th>
+              <th style="border: 1px solid #000; padding: 8px; text-align: center; font-weight: bold;">Date</th>
+              <th style="border: 1px solid #000; padding: 8px; text-align: center; font-weight: bold;">City</th>
+              <th style="border: 1px solid #000; padding: 8px; text-align: center; font-weight: bold;">Touring Spots</th>
+              <th style="border: 1px solid #000; padding: 8px; text-align: center; font-weight: bold;">Accommodation</th>
+              <th style="border: 1px solid #000; padding: 8px; text-align: center; font-weight: bold;">Transportation</th>
+            </tr>
+          </thead>
+          <tbody>
             <tr>
-              <td style="border: 1px solid #000; padding: 4px; width: 20%; background: #f0f0f0; font-weight: bold;">姓名 / Name:</td>
-              <td style="border: 1px solid #000; padding: 4px; width: 30%;">_______________</td>
-              <td style="border: 1px solid #000; padding: 4px; width: 20%; background: #f0f0f0; font-weight: bold;">护照号 / Passport:</td>
-              <td style="border: 1px solid #000; padding: 4px; width: 30%;">_______________</td>
+              <td style="border: 1px solid #000; padding: 8px; text-align: center;">1</td>
+              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2026/02/07 (Fri)</td>
+              <td style="border: 1px solid #000; padding: 8px;">武汉→广州</td>
+              <td style="border: 1px solid #000; padding: 8px;">1.出发前往机场<br/>2.办理登机手续</td>
+              <td style="border: 1px solid #000; padding: 8px;">_______________</td>
+              <td style="border: 1px solid #000; padding: 8px;">Flight 武汉→广州<br/>09:30->11:30</td>
             </tr>
             <tr>
-              <td style="border: 1px solid #000; padding: 4px; background: #f0f0f0; font-weight: bold;">出生日期 / DOB:</td>
-              <td style="border: 1px solid #000; padding: 4px;">_______________</td>
-              <td style="border: 1px solid #000; padding: 4px; background: #f0f0f0; font-weight: bold;">国籍 / Nationality:</td>
-              <td style="border: 1px solid #000; padding: 4px;">_______________</td>
+              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2</td>
+              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2026/02/08 (Sat)</td>
+              <td style="border: 1px solid #000; padding: 8px;">广州→阿姆斯特丹</td>
+              <td style="border: 1px solid #000; padding: 8px;">1.梵高博物馆<br/>2.运河区游览<br/>3.安妮之家</td>
+              <td style="border: 1px solid #000; padding: 8px;">_______________</td>
+              <td style="border: 1px solid #000; padding: 8px;">Flight 广州→阿姆斯特丹<br/>13:00->18:00</td>
             </tr>
             <tr>
-              <td style="border: 1px solid #000; padding: 4px; background: #f0f0f0; font-weight: bold;">电话 / Phone:</td>
-              <td style="border: 1px solid #000; padding: 4px;">_______________</td>
-              <td style="border: 1px solid #000; padding: 4px; background: #f0f0f0; font-weight: bold;">邮箱 / Email:</td>
-              <td style="border: 1px solid #000; padding: 4px;">_______________</td>
-            </tr>
-          </table>
-        </div>
-
-        <!-- 旅行信息 -->
-        <div style="margin-bottom: 15px;">
-          <h3 style="font-size: 14px; margin-bottom: 8px; font-weight: bold; border-bottom: 1px solid #ccc;">2. 旅行信息 / Travel Information</h3>
-          <table style="width: 100%; border-collapse: collapse; font-size: 11px;">
-            <tr>
-              <td style="border: 1px solid #000; padding: 4px; width: 20%; background: #f0f0f0; font-weight: bold;">旅行目的 / Purpose:</td>
-              <td style="border: 1px solid #000; padding: 4px;">☐ 旅游 Tourism ☐ 商务 Business ☐ 其他 Other</td>
+              <td style="border: 1px solid #000; padding: 8px; text-align: center;">3</td>
+              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2026/02/09 (Sun)</td>
+              <td style="border: 1px solid #000; padding: 8px;">阿姆斯特丹→巴黎</td>
+              <td style="border: 1px solid #000; padding: 8px;">1.埃菲尔铁塔<br/>2.卢浮宫<br/>3.香榭丽舍大街</td>
+              <td style="border: 1px solid #000; padding: 8px;">_______________</td>
+              <td style="border: 1px solid #000; padding: 8px;">Train 阿姆斯特丹→巴黎<br/>09:00->12:00</td>
             </tr>
             <tr>
-              <td style="border: 1px solid #000; padding: 4px; background: #f0f0f0; font-weight: bold;">入境日期 / Entry:</td>
-              <td style="border: 1px solid #000; padding: 4px; width: 25%;">2026年2月8日</td>
-              <td style="border: 1px solid #000; padding: 4px; background: #f0f0f0; font-weight: bold;">离境日期 / Exit:</td>
-              <td style="border: 1px solid #000; padding: 4px; width: 25%;">2026年2月26日</td>
+              <td style="border: 1px solid #000; padding: 8px; text-align: center;">4</td>
+              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2026/02/10 (Mon)</td>
+              <td style="border: 1px solid #000; padding: 8px;">巴黎</td>
+              <td style="border: 1px solid #000; padding: 8px;">1.巴黎圣母院<br/>2.凯旋门<br/>3.塞纳河游船</td>
+              <td style="border: 1px solid #000; padding: 8px;">_______________</td>
+              <td style="border: 1px solid #000; padding: 8px;">Public transport</td>
             </tr>
             <tr>
-              <td style="border: 1px solid #000; padding: 4px; background: #f0f0f0; font-weight: bold;">主要目的地 / Main Destination:</td>
-              <td colspan="3" style="border: 1px solid #000; padding: 4px;">意大利 Italy (9天)</td>
-            </tr>
-          </table>
-        </div>
-
-        <!-- 详细行程表 -->
-        <div style="margin-bottom: 15px;">
-          <h3 style="font-size: 14px; margin-bottom: 8px; font-weight: bold; border-bottom: 1px solid #ccc;">3. 详细行程 / Detailed Itinerary</h3>
-          <table style="width: 100%; border-collapse: collapse; font-size: 10px;">
-            <thead>
-              <tr style="background: #e0e0e0;">
-                <th style="border: 1px solid #000; padding: 3px; text-align: center; font-weight: bold; width: 8%;">Day</th>
-                <th style="border: 1px solid #000; padding: 3px; text-align: center; font-weight: bold; width: 10%;">Date</th>
-                <th style="border: 1px solid #000; padding: 3px; text-align: center; font-weight: bold; width: 15%;">City</th>
-                <th style="border: 1px solid #000; padding: 3px; text-align: center; font-weight: bold; width: 15%;">Country</th>
-                <th style="border: 1px solid #000; padding: 3px; text-align: center; font-weight: bold; width: 25%;">Touring</th>
-                <th style="border: 1px solid #000; padding: 3px; text-align: center; font-weight: bold; width: 27%;">Accommodation</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td style="border: 1px solid #000; padding: 3px; text-align: center;">1</td><td style="border: 1px solid #000; padding: 3px; text-align: center;">2/7</td><td style="border: 1px solid #000; padding: 3px;">武汉</td><td style="border: 1px solid #000; padding: 3px;">中国</td><td style="border: 1px solid #000; padding: 3px;">出发</td><td style="border: 1px solid #000; padding: 3px;">_______________</td></tr>
-              <tr><td style="border: 1px solid #000; padding: 3px; text-align: center;">2</td><td style="border: 1px solid #000; padding: 3px; text-align: center;">2/8</td><td style="border: 1px solid #000; padding: 3px;">阿姆斯特丹</td><td style="border: 1px solid #000; padding: 3px;">荷兰</td><td style="border: 1px solid #000; padding: 3px;">梵高博物馆、运河区</td><td style="border: 1px solid #000; padding: 3px;">_______________</td></tr>
-              <tr><td style="border: 1px solid #000; padding: 3px; text-align: center;">3</td><td style="border: 1px solid #000; padding: 3px; text-align: center;">2/9</td><td style="border: 1px solid #000; padding: 3px;">巴黎</td><td style="border: 1px solid #000; padding: 3px;">法国</td><td style="border: 1px solid #000; padding: 3px;">埃菲尔铁塔、卢浮宫</td><td style="border: 1px solid #000; padding: 3px;">_______________</td></tr>
-              <tr><td style="border: 1px solid #000; padding: 3px; text-align: center;">4</td><td style="border: 1px solid #000; padding: 3px; text-align: center;">2/10</td><td style="border: 1px solid #000; padding: 3px;">巴黎</td><td style="border: 1px solid #000; padding: 3px;">法国</td><td style="border: 1px solid #000; padding: 3px;">圣母院、凯旋门</td><td style="border: 1px solid #000; padding: 3px;">_______________</td></tr>
-              <tr><td style="border: 1px solid #000; padding: 3px; text-align: center;">5</td><td style="border: 1px solid #000; padding: 3px; text-align: center;">2/11</td><td style="border: 1px solid #000; padding: 3px;">巴黎</td><td style="border: 1px solid #000; padding: 3px;">法国</td><td style="border: 1px solid #000; padding: 3px;">凡尔赛宫</td><td style="border: 1px solid #000; padding: 3px;">_______________</td></tr>
-              <tr><td style="border: 1px solid #000; padding: 3px; text-align: center;">6</td><td style="border: 1px solid #000; padding: 3px; text-align: center;">2/12</td><td style="border: 1px solid #000; padding: 3px;">里昂</td><td style="border: 1px solid #000; padding: 3px;">法国</td><td style="border: 1px solid #000; padding: 3px;">富维耶圣母院、老城</td><td style="border: 1px solid #000; padding: 3px;">_______________</td></tr>
-              <tr><td style="border: 1px solid #000; padding: 3px; text-align: center;">7</td><td style="border: 1px solid #000; padding: 3px; text-align: center;">2/13</td><td style="border: 1px solid #000; padding: 3px;">马赛</td><td style="border: 1px solid #000; padding: 3px;">法国</td><td style="border: 1px solid #000; padding: 3px;">老港、守护圣母教堂</td><td style="border: 1px solid #000; padding: 3px;">_______________</td></tr>
-              <tr><td style="border: 1px solid #000; padding: 3px; text-align: center;">8</td><td style="border: 1px solid #000; padding: 3px; text-align: center;">2/14</td><td style="border: 1px solid #000; padding: 3px;">尼斯</td><td style="border: 1px solid #000; padding: 3px;">法国</td><td style="border: 1px solid #000; padding: 3px;">天使湾、尼斯老城</td><td style="border: 1px solid #000; padding: 3px;">_______________</td></tr>
-              <tr><td style="border: 1px solid #000; padding: 3px; text-align: center;">9</td><td style="border: 1px solid #000; padding: 3px; text-align: center;">2/15</td><td style="border: 1px solid #000; padding: 3px;">摩纳哥</td><td style="border: 1px solid #000; padding: 3px;">摩纳哥</td><td style="border: 1px solid #000; padding: 3px;">蒙特卡洛赌场、王宫</td><td style="border: 1px solid #000; padding: 3px;">_______________</td></tr>
-              <tr><td style="border: 1px solid #000; padding: 3px; text-align: center;">10</td><td style="border: 1px solid #000; padding: 3px; text-align: center;">2/16</td><td style="border: 1px solid #000; padding: 3px;">米兰</td><td style="border: 1px solid #000; padding: 3px;">意大利</td><td style="border: 1px solid #000; padding: 3px;">米兰大教堂、斯卡拉歌剧院</td><td style="border: 1px solid #000; padding: 3px;">_______________</td></tr>
-              <tr><td style="border: 1px solid #000; padding: 3px; text-align: center;">11</td><td style="border: 1px solid #000; padding: 3px; text-align: center;">2/17</td><td style="border: 1px solid #000; padding: 3px;">米兰</td><td style="border: 1px solid #000; padding: 3px;">意大利</td><td style="border: 1px solid #000; padding: 3px;">最后的晚餐、维罗纳</td><td style="border: 1px solid #000; padding: 3px;">_______________</td></tr>
-              <tr><td style="border: 1px solid #000; padding: 3px; text-align: center;">12</td><td style="border: 1px solid #000; padding: 3px; text-align: center;">2/18</td><td style="border: 1px solid #000; padding: 3px;">威尼斯</td><td style="border: 1px solid #000; padding: 3px;">意大利</td><td style="border: 1px solid #000; padding: 3px;">圣马可广场、大运河</td><td style="border: 1px solid #000; padding: 3px;">_______________</td></tr>
-              <tr><td style="border: 1px solid #000; padding: 3px; text-align: center;">13</td><td style="border: 1px solid #000; padding: 3px; text-align: center;">2/19</td><td style="border: 1px solid #000; padding: 3px;">威尼斯</td><td style="border: 1px solid #000; padding: 3px;">意大利</td><td style="border: 1px solid #000; padding: 3px;">里亚托桥、叹息桥</td><td style="border: 1px solid #000; padding: 3px;">_______________</td></tr>
-              <tr><td style="border: 1px solid #000; padding: 3px; text-align: center;">14</td><td style="border: 1px solid #000; padding: 3px; text-align: center;">2/20</td><td style="border: 1px solid #000; padding: 3px;">佛罗伦萨</td><td style="border: 1px solid #000; padding: 3px;">意大利</td><td style="border: 1px solid #000; padding: 3px;">圣母百花大教堂、乌菲兹</td><td style="border: 1px solid #000; padding: 3px;">_______________</td></tr>
-              <tr><td style="border: 1px solid #000; padding: 3px; text-align: center;">15</td><td style="border: 1px solid #000; padding: 3px; text-align: center;">2/21</td><td style="border: 1px solid #000; padding: 3px;">比萨→罗马</td><td style="border: 1px solid #000; padding: 3px;">意大利</td><td style="border: 1px solid #000; padding: 3px;">比萨斜塔、梵蒂冈</td><td style="border: 1px solid #000; padding: 3px;">_______________</td></tr>
-              <tr><td style="border: 1px solid #000; padding: 3px; text-align: center;">16</td><td style="border: 1px solid #000; padding: 3px; text-align: center;">2/22</td><td style="border: 1px solid #000; padding: 3px;">罗马</td><td style="border: 1px solid #000; padding: 3px;">意大利</td><td style="border: 1px solid #000; padding: 3px;">斗兽场、古罗马广场</td><td style="border: 1px solid #000; padding: 3px;">_______________</td></tr>
-              <tr><td style="border: 1px solid #000; padding: 3px; text-align: center;">17</td><td style="border: 1px solid #000; padding: 3px; text-align: center;">2/23</td><td style="border: 1px solid #000; padding: 3px;">罗马</td><td style="border: 1px solid #000; padding: 3px;">意大利</td><td style="border: 1px solid #000; padding: 3px;">特雷维喷泉、万神殿</td><td style="border: 1px solid #000; padding: 3px;">_______________</td></tr>
-              <tr><td style="border: 1px solid #000; padding: 3px; text-align: center;">18</td><td style="border: 1px solid #000; padding: 3px; text-align: center;">2/24</td><td style="border: 1px solid #000; padding: 3px;">那不勒斯</td><td style="border: 1px solid #000; padding: 3px;">意大利</td><td style="border: 1px solid #000; padding: 3px;">庞贝古城</td><td style="border: 1px solid #000; padding: 3px;">_______________</td></tr>
-              <tr><td style="border: 1px solid #000; padding: 3px; text-align: center;">19</td><td style="border: 1px solid #000; padding: 3px; text-align: center;">2/25</td><td style="border: 1px solid #000; padding: 3px;">返程</td><td style="border: 1px solid #000; padding: 3px;">-</td><td style="border: 1px solid #000; padding: 3px;">那不勒斯→阿姆斯特丹</td><td style="border: 1px solid #000; padding: 3px;">_______________</td></tr>
-              <tr><td style="border: 1px solid #000; padding: 3px; text-align: center;">20</td><td style="border: 1px solid #000; padding: 3px; text-align: center;">2/26</td><td style="border: 1px solid #000; padding: 3px;">回国</td><td style="border: 1px solid #000; padding: 3px;">-</td><td style="border: 1px solid #000; padding: 3px;">阿姆斯特丹→广州→武汉</td><td style="border: 1px solid #000; padding: 3px;">_______________</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- 资金证明 -->
-        <div style="margin-bottom: 15px;">
-          <h3 style="font-size: 14px; margin-bottom: 8px; font-weight: bold; border-bottom: 1px solid #ccc;">4. 资金证明 / Financial Support</h3>
-          <table style="width: 100%; border-collapse: collapse; font-size: 11px;">
-            <tr>
-              <td style="border: 1px solid #000; padding: 4px; width: 20%; background: #f0f0f0; font-weight: bold;">银行证明 / Bank Statement:</td>
-              <td style="border: 1px solid #000; padding: 4px;">☐ 已提供 Provided ☐ 待提供 To be provided</td>
+              <td style="border: 1px solid #000; padding: 8px; text-align: center;">5</td>
+              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2026/02/11 (Tue)</td>
+              <td style="border: 1px solid #000; padding: 8px;">巴黎→里昂</td>
+              <td style="border: 1px solid #000; padding: 8px;">1.凡尔赛宫<br/>2.富维耶圣母院<br/>3.里昂老城</td>
+              <td style="border: 1px solid #000; padding: 8px;">_______________</td>
+              <td style="border: 1px solid #000; padding: 8px;">Train 巴黎→里昂<br/>14:00->16:30</td>
             </tr>
             <tr>
-              <td style="border: 1px solid #000; padding: 4px; background: #f0f0f0; font-weight: bold;">旅行保险 / Travel Insurance:</td>
-              <td style="border: 1px solid #000; padding: 4px;">☐ 已购买 Purchased ☐ 待购买 To be purchased</td>
+              <td style="border: 1px solid #000; padding: 8px; text-align: center;">6</td>
+              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2026/02/12 (Wed)</td>
+              <td style="border: 1px solid #000; padding: 8px;">里昂→马赛</td>
+              <td style="border: 1px solid #000; padding: 8px;">1.老港<br/>2.守护圣母教堂<br/>3.马赛鱼市</td>
+              <td style="border: 1px solid #000; padding: 8px;">_______________</td>
+              <td style="border: 1px solid #000; padding: 8px;">Train 里昂→马赛<br/>10:00->12:00</td>
             </tr>
-          </table>
-        </div>
-
-        <!-- 申请人声明 -->
-        <div style="margin-bottom: 15px;">
-          <h3 style="font-size: 14px; margin-bottom: 8px; font-weight: bold; border-bottom: 1px solid #ccc;">5. 申请人声明 / Declaration</h3>
-          <p style="margin-bottom: 8px; font-size: 11px; line-height: 1.4;">
-            本人声明以上信息真实有效，将严格按照行程计划在申根区旅行，并在签证到期前离开申根区。
-          </p>
-          <p style="margin-bottom: 15px; font-size: 11px; line-height: 1.4;">
-            I declare that the above information is true and accurate. I will strictly follow this travel plan within the Schengen Area and leave before the visa expires.
-          </p>
-          <table style="width: 100%; border-collapse: collapse; font-size: 11px;">
             <tr>
-              <td style="border: 1px solid #000; padding: 4px; width: 30%; background: #f0f0f0; font-weight: bold;">申请人签名 / Signature:</td>
-              <td style="border: 1px solid #000; padding: 4px; height: 30px;">_______________</td>
-              <td style="border: 1px solid #000; padding: 4px; width: 20%; background: #f0f0f0; font-weight: bold;">日期 / Date:</td>
-              <td style="border: 1px solid #000; padding: 4px;">_______________</td>
+              <td style="border: 1px solid #000; padding: 8px; text-align: center;">7</td>
+              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2026/02/13 (Thu)</td>
+              <td style="border: 1px solid #000; padding: 8px;">马赛→尼斯</td>
+              <td style="border: 1px solid #000; padding: 8px;">1.天使湾<br/>2.尼斯老城<br/>3.英国人漫步大道</td>
+              <td style="border: 1px solid #000; padding: 8px;">_______________</td>
+              <td style="border: 1px solid #000; padding: 8px;">Train 马赛→尼斯<br/>11:00->13:30</td>
             </tr>
-          </table>
-        </div>
+            <tr>
+              <td style="border: 1px solid #000; padding: 8px; text-align: center;">8</td>
+              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2026/02/14 (Fri)</td>
+              <td style="border: 1px solid #000; padding: 8px;">尼斯→摩纳哥</td>
+              <td style="border: 1px solid #000; padding: 8px;">1.蒙特卡洛赌场<br/>2.摩纳哥王宫<br/>3.海洋博物馆</td>
+              <td style="border: 1px solid #000; padding: 8px;">_______________</td>
+              <td style="border: 1px solid #000; padding: 8px;">Bus 尼斯→摩纳哥<br/>09:00->09:30</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #000; padding: 8px; text-align: center;">9</td>
+              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2026/02/15 (Sat)</td>
+              <td style="border: 1px solid #000; padding: 8px;">摩纳哥→米兰</td>
+              <td style="border: 1px solid #000; padding: 8px;">1.米兰大教堂<br/>2.斯卡拉歌剧院<br/>3.斯福尔扎城堡</td>
+              <td style="border: 1px solid #000; padding: 8px;">_______________</td>
+              <td style="border: 1px solid #000; padding: 8px;">Flight 尼斯→米兰<br/>15:00->16:00</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #000; padding: 8px; text-align: center;">10</td>
+              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2026/02/16 (Sun)</td>
+              <td style="border: 1px solid #000; padding: 8px;">米兰→维罗纳→威尼斯</td>
+              <td style="border: 1px solid #000; padding: 8px;">1.最后的晚餐<br/>2.维罗纳圆形竞技场<br/>3.圣马可广场</td>
+              <td style="border: 1px solid #000; padding: 8px;">_______________</td>
+              <td style="border: 1px solid #000; padding: 8px;">Train 米兰→威尼斯<br/>10:00->13:00</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #000; padding: 8px; text-align: center;">11</td>
+              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2026/02/17 (Mon)</td>
+              <td style="border: 1px solid #000; padding: 8px;">威尼斯→佛罗伦萨</td>
+              <td style="border: 1px solid #000; padding: 8px;">1.里亚托桥<br/>2.叹息桥<br/>3.圣母百花大教堂</td>
+              <td style="border: 1px solid #000; padding: 8px;">_______________</td>
+              <td style="border: 1px solid #000; padding: 8px;">Train 威尼斯→佛罗伦萨<br/>11:00->14:00</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #000; padding: 8px; text-align: center;">12</td>
+              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2026/02/18 (Tue)</td>
+              <td style="border: 1px solid #000; padding: 8px;">佛罗伦萨→比萨→罗马</td>
+              <td style="border: 1px solid #000; padding: 8px;">1.乌菲兹美术馆<br/>2.比萨斜塔<br/>3.梵蒂冈城</td>
+              <td style="border: 1px solid #000; padding: 8px;">_______________</td>
+              <td style="border: 1px solid #000; padding: 8px;">Train 佛罗伦萨→罗马<br/>15:00->17:30</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #000; padding: 8px; text-align: center;">13</td>
+              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2026/02/19 (Wed)</td>
+              <td style="border: 1px solid #000; padding: 8px;">罗马</td>
+              <td style="border: 1px solid #000; padding: 8px;">1.斗兽场<br/>2.古罗马广场<br/>3.特雷维喷泉</td>
+              <td style="border: 1px solid #000; padding: 8px;">_______________</td>
+              <td style="border: 1px solid #000; padding: 8px;">Public transport</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #000; padding: 8px; text-align: center;">14</td>
+              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2026/02/20 (Thu)</td>
+              <td style="border: 1px solid #000; padding: 8px;">罗马→那不勒斯</td>
+              <td style="border: 1px solid #000; padding: 8px;">1.万神殿<br/>2.庞贝古城<br/>3.那不勒斯历史中心</td>
+              <td style="border: 1px solid #000; padding: 8px;">_______________</td>
+              <td style="border: 1px solid #000; padding: 8px;">Train 罗马→那不勒斯<br/>09:00->11:00</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #000; padding: 8px; text-align: center;">15</td>
+              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2026/02/21 (Fri)</td>
+              <td style="border: 1px solid #000; padding: 8px;">那不勒斯→阿姆斯特丹</td>
+              <td style="border: 1px solid #000; padding: 8px;">1.庞贝古城深度游<br/>2.维苏威火山</td>
+              <td style="border: 1px solid #000; padding: 8px;">_______________</td>
+              <td style="border: 1px solid #000; padding: 8px;">Flight 那不勒斯→阿姆斯特丹<br/>18:00->21:00</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #000; padding: 8px; text-align: center;">16</td>
+              <td style="border: 1px solid #000; padding: 8px; text-align: center;">2026/02/22 (Sat)</td>
+              <td style="border: 1px solid #000; padding: 8px;">阿姆斯特丹→广州→武汉</td>
+              <td style="border: 1px solid #000; padding: 8px;">1.返程航班<br/>2.转机广州</td>
+              <td style="border: 1px solid #000; padding: 8px;">_______________</td>
+              <td style="border: 1px solid #000; padding: 8px;">Flight 阿姆斯特丹→广州<br/>12:00->05:00+1</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     `;
   };
@@ -446,36 +470,36 @@ const VisaItinerary: React.FC = () => {
                     <div className="transportation">
                       <strong>交通 / Transportation:</strong>
                       <div className="transportation-details">
-                      <div className="visa-detail-row">
-                        <span className="visa-label">交通方式 / Type:</span>
-                        <span className="visa-value">{transportation.transport_type}</span>
-                      </div>
-                      {transportation.flight_number !== undefined && (
                         <div className="visa-detail-row">
-                          <span className="visa-label">航班号 / Flight:</span>
-                          <span className="visa-value">{transportation.flight_number || '_________________'}</span>
+                          <span className="visa-label">交通方式 / Type:</span>
+                          <span className="visa-value">{transportation.transport_type}</span>
                         </div>
-                      )}
-                      {transportation.train_number !== undefined && (
+                        {transportation.flight_number !== undefined && (
+                          <div className="visa-detail-row">
+                            <span className="visa-label">航班号 / Flight:</span>
+                            <span className="visa-value">{transportation.flight_number || '_________________'}</span>
+                          </div>
+                        )}
+                        {transportation.train_number !== undefined && (
+                          <div className="visa-detail-row">
+                            <span className="visa-label">车次 / Train:</span>
+                            <span className="visa-value">{transportation.train_number || '_________________'}</span>
+                          </div>
+                        )}
                         <div className="visa-detail-row">
-                          <span className="visa-label">车次 / Train:</span>
-                          <span className="visa-value">{transportation.train_number || '_________________'}</span>
+                          <span className="visa-label">出发地 / From:</span>
+                          <span className="visa-value">
+                            {transportation.departure_location || '_________________'}
+                            {transportation.departure_location && transportation.departure_location_en && ` / ${transportation.departure_location_en}`}
+                          </span>
                         </div>
-                      )}
-                      <div className="visa-detail-row">
-                        <span className="visa-label">出发地 / From:</span>
-                        <span className="visa-value">
-                          {transportation.departure_location || '_________________'}
-                          {transportation.departure_location && transportation.departure_location_en && ` / ${transportation.departure_location_en}`}
-                        </span>
-                      </div>
-                      <div className="visa-detail-row">
-                        <span className="visa-label">到达地 / To:</span>
-                        <span className="visa-value">
-                          {transportation.arrival_location || '_________________'}
-                          {transportation.arrival_location && transportation.arrival_location_en && ` / ${transportation.arrival_location_en}`}
-                        </span>
-                      </div>
+                        <div className="visa-detail-row">
+                          <span className="visa-label">到达地 / To:</span>
+                          <span className="visa-value">
+                            {transportation.arrival_location || '_________________'}
+                            {transportation.arrival_location && transportation.arrival_location_en && ` / ${transportation.arrival_location_en}`}
+                          </span>
+                        </div>
                         <div className="visa-detail-row">
                           <span className="visa-label">出发时间 / Departure:</span>
                           <span className="visa-value">{transportation.departure_time}</span>

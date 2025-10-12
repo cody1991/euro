@@ -139,9 +139,14 @@
 }
 
 .country-flag {
-  font-size: 0.8em;
-  color: #666;
-  font-weight: normal;
+  font-size: 1em;
+  color: #333;
+  font-weight: 600;
+  background: #fff;
+  padding: 4px 8px;
+  border: 2px solid #e74c3c;
+  border-radius: 4px;
+  margin-left: 8px;
 }
 
 .day-meta {
@@ -149,6 +154,15 @@
   gap: 20px;
   color: #666;
   font-size: 1.1em;
+}
+
+.day-date {
+  color: #333;
+  font-weight: 600;
+  background: #fff;
+  padding: 4px 8px;
+  border: 2px solid #e74c3c;
+  border-radius: 4px;
 }
 
 .day-duration {
