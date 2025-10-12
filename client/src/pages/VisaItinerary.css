@@ -1,0 +1,315 @@
+.visa-itinerary {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Arial', 'Microsoft YaHei', sans-serif;
+  background: #fff;
+}
+
+.visa-header {
+  text-align: center;
+  margin-bottom: 40px;
+  border-bottom: 3px solid #2c3e50;
+  padding-bottom: 20px;
+  position: relative;
+}
+
+.visa-header h1 {
+  font-size: 32px;
+  color: #2c3e50;
+  margin: 0 0 10px 0;
+}
+
+.visa-header h2 {
+  font-size: 20px;
+  color: #7f8c8d;
+  margin: 0;
+  font-weight: normal;
+}
+
+.print-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px 20px;
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.print-btn:hover {
+  background: #2980b9;
+}
+
+.visa-summary {
+  background: #ecf0f1;
+  padding: 25px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.summary-item {
+  display: flex;
+  margin-bottom: 15px;
+  align-items: center;
+  font-size: 15px;
+}
+
+.summary-item:last-child {
+  margin-bottom: 0;
+}
+
+.summary-item strong {
+  min-width: 280px;
+  color: #2c3e50;
+}
+
+.summary-item .editable {
+  border-bottom: 1px solid #95a5a6;
+  padding: 0 10px;
+  min-width: 200px;
+}
+
+.summary-item .highlight {
+  color: #e74c3c;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.country-breakdown {
+  margin-bottom: 40px;
+}
+
+.country-breakdown h3 {
+  font-size: 22px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  border-left: 4px solid #3498db;
+  padding-left: 15px;
+}
+
+.country-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 15px;
+}
+
+.country-table th,
+.country-table td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.country-table th {
+  background: #34495e;
+  color: white;
+  font-weight: bold;
+}
+
+.country-table tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+.country-table tr.main-destination {
+  background: #fff3cd;
+  font-weight: bold;
+}
+
+.country-table tr.main-destination td {
+  color: #856404;
+}
+
+.note {
+  font-size: 14px;
+  color: #7f8c8d;
+  font-style: italic;
+}
+
+.detailed-itinerary h3 {
+  font-size: 22px;
+  color: #2c3e50;
+  margin-bottom: 25px;
+  border-left: 4px solid #3498db;
+  padding-left: 15px;
+}
+
+.day-card {
+  margin-bottom: 25px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  break-inside: avoid;
+}
+
+.day-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.day-number {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.day-date {
+  text-align: right;
+}
+
+.day-of-week {
+  font-size: 14px;
+  opacity: 0.9;
+  margin-top: 3px;
+}
+
+.day-content {
+  padding: 20px;
+}
+
+.city-section {
+  margin-bottom: 20px;
+}
+
+.city-section:last-child {
+  margin-bottom: 0;
+}
+
+.city-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.city-header h4 {
+  margin: 0;
+  font-size: 18px;
+  color: #2c3e50;
+}
+
+.country-tag {
+  background: #3498db;
+  color: white;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.attractions {
+  margin-bottom: 15px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 5px;
+}
+
+.attractions strong {
+  display: block;
+  margin-bottom: 8px;
+  color: #34495e;
+}
+
+.attractions ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.attractions li {
+  margin-bottom: 5px;
+  line-height: 1.6;
+  color: #555;
+}
+
+.accommodation {
+  margin-bottom: 12px;
+  padding: 10px;
+  background: #fff3cd;
+  border-radius: 5px;
+}
+
+.accommodation strong {
+  color: #856404;
+  margin-right: 10px;
+}
+
+.accommodation .editable {
+  border-bottom: 1px dashed #856404;
+  padding: 0 5px;
+}
+
+.transportation {
+  padding: 10px;
+  background: #d1ecf1;
+  border-radius: 5px;
+  margin-top: 12px;
+}
+
+.transportation strong {
+  color: #0c5460;
+  margin-right: 10px;
+}
+
+.visa-footer {
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 2px solid #ddd;
+}
+
+.declaration h3 {
+  font-size: 20px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.declaration p {
+  line-height: 1.8;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.signature-area {
+  margin-top: 40px;
+  display: flex;
+  gap: 50px;
+}
+
+.signature-line {
+  flex: 1;
+}
+
+.signature-line span {
+  display: inline-block;
+  border-bottom: 1px solid #2c3e50;
+  padding: 5px 0;
+  min-width: 250px;
+}
+
+/* 打印样式 */
+@media print {
+  .visa-itinerary {
+    padding: 20px;
+  }
+
+  .print-btn {
+    display: none;
+  }
+
+  .day-card {
+    page-break-inside: avoid;
+  }
+
+  .visa-header {
+    page-break-after: avoid;
+  }
+
+  .country-breakdown {
+    page-break-after: avoid;
+  }
+}
