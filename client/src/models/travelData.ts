@@ -40,14 +40,14 @@ export const citiesData: City[] = [
     country: "荷兰",
     latitude: 52.3676,
     longitude: 4.9041,
-    arrival_date: "2026-02-08",
-    departure_date: "2026-02-08",
+    arrival_date: "2026-02-07",
+    departure_date: "2026-02-09",
     accommodation: {
       hotel_name: "",
       hotel_name_en: "",
       address: "",
       phone: "",
-      check_in: "2026-02-08",
+      check_in: "2026-02-07",
       check_out: "2026-02-09"
     }
   },
