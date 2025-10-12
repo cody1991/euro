@@ -37,6 +37,7 @@ const HotelGuide: React.FC = () => {
       city: '阿姆斯特丹',
       flag: '🇳🇱',
       nights: '2-3晚',
+      recommendedAreas: ['中央火车站（Centraal Station）周边', '博物馆区（Museumplein）', '约丹区（Jordaan）', '运河带（Canal Ring）'],
       hotels: [
         {
           name: 'citizenM Amsterdam South',
@@ -53,12 +54,14 @@ const HotelGuide: React.FC = () => {
           features: ['精品酒店', '荷兰特色', '位置绝佳']
         }
       ],
-      tips: ['确认有电梯（老建筑多）', '含早餐划算（€15-20）', '选中央火车站或博物馆区附近']
+      tips: ['确认有电梯（老建筑多）', '含早餐划算（€15-20）', '中央火车站最方便，博物馆区最文艺']
     },
     {
       city: '巴黎',
       flag: '🇫🇷',
       nights: '3-4晚',
+      recommendedAreas: ['拉丁区（第5区）', '圣日耳曼（第6区）', '埃菲尔铁塔区（第7区）', '玛黑区（第4区）'],
+      avoidAreas: ['第18、19、20区（较偏远不安全）'],
       hotels: [
         {
           name: 'Hotel du Danube Saint Germain',
@@ -75,12 +78,13 @@ const HotelGuide: React.FC = () => {
           features: ['位置绝佳', '走到卢浮宫15分钟', '地铁方便']
         }
       ],
-      tips: ['推荐第5、6、7区', '避开第18、19、20区', '必须靠近地铁站']
+      tips: ['第5、6、7区最安全便利', '必须靠近地铁站', '巴黎很大，位置很重要']
     },
     {
       city: '罗马',
       flag: '🇮🇹',
       nights: '2-3晚',
+      recommendedAreas: ['Termini火车站周边', 'Navona广场区', 'Trevi喷泉区', 'Trastevere区（河对岸，特色餐厅多）'],
       hotels: [
         {
           name: 'Hotel Artemide',
@@ -97,12 +101,13 @@ const HotelGuide: React.FC = () => {
           features: ['干净舒适', '交通便利', '性价比高']
         }
       ],
-      tips: ['选罗马中央火车站（Termini）附近', '地铁线路多，去景点方便', '注意查看是否含城市税']
+      tips: ['Termini火车站最方便', '地铁A/B线交汇', '城市税约€3-7/人/晚']
     },
     {
       city: '威尼斯',
       flag: '🇮🇹',
       nights: '2晚',
+      recommendedAreas: ['圣马可广场（San Marco）附近', 'Cannaregio区（安静）', 'Dorsoduro区（文艺）', 'Mestre大陆（经济实惠）'],
       hotels: [
         {
           name: 'Hotel Al Piave',
@@ -119,12 +124,13 @@ const HotelGuide: React.FC = () => {
           features: ['运河景观', '传统威尼斯建筑', '含早餐']
         }
       ],
-      tips: ['主岛酒店贵，可考虑Mestre（大陆）', '提前预订，威尼斯酒店紧俏', '确认是否包含水上巴士票']
+      tips: ['主岛贵，Mestre便宜一半', '提前3个月预订', '水上巴士票€7.5/次']
     },
     {
       city: '佛罗伦萨',
       flag: '🇮🇹',
       nights: '2晚',
+      recommendedAreas: ['圣母百花大教堂周边', '老桥（Ponte Vecchio）附近', '圣十字广场区', 'Oltrarno区（河对岸，安静）'],
       hotels: [
         {
           name: 'Hotel Cestelli',
@@ -141,12 +147,13 @@ const HotelGuide: React.FC = () => {
           features: ['历史建筑', '屋顶露台', '早餐丰富']
         }
       ],
-      tips: ['老城区ZTL限行，不要租车', '圣母百花大教堂附近最方便', '佛罗伦萨不大，步行即可']
+      tips: ['老城区ZTL限行（不能开车）', '佛罗伦萨小，哪里都能走到', '河对岸Oltrarno更安静便宜']
     },
     {
       city: '尼斯',
       flag: '🇫🇷',
       nights: '2晚',
+      recommendedAreas: ['尼斯火车站（Gare de Nice-Ville）', '天使湾（Promenade des Anglais）', '老城区（Vieux Nice）', '港口区（Port）'],
       hotels: [
         {
           name: 'Hotel Vendome',
@@ -163,7 +170,7 @@ const HotelGuide: React.FC = () => {
           features: ['海景房', '位置绝佳', '法式风情']
         }
       ],
-      tips: ['火车站或老城区都方便', '海边酒店景观好但贵', '蔚蓝海岸物价相对便宜']
+      tips: ['火车站去摩纳哥方便', '海边景观好但贵€20-30', '比巴黎便宜30%']
     }
   ];
 
@@ -308,7 +315,7 @@ const HotelGuide: React.FC = () => {
               <p className="subtitle">Booking.com 预订指南 - 省钱技巧 - 签证材料准备</p>
             </div>
           </div>
-          <button 
+          <button
             className="export-btn"
             onClick={handleExportImage}
             disabled={exporting}
@@ -354,35 +361,59 @@ const HotelGuide: React.FC = () => {
                 <h3>{city.city}</h3>
                 <span className="city-nights">建议停留：{city.nights}</span>
               </div>
-              
-              <div className="hotels-list">
-                {city.hotels.map((hotel, hIndex) => (
-                  <div key={hIndex} className="hotel-card">
-                    <div className="hotel-main">
-                      <h4>{hotel.name}</h4>
-                      <div className="hotel-info">
-                        <span className="hotel-rating">
-                          <Star size={16} fill="gold" stroke="gold" /> {hotel.rating}
-                        </span>
-                        <span className="hotel-price">{hotel.price}/晚</span>
-                      </div>
-                      <div className="hotel-location">
-                        <MapPin size={14} /> {hotel.location}
-                      </div>
-                      <div className="hotel-features">
-                        {hotel.features.map((feature, fIndex) => (
-                          <span key={fIndex} className="feature-tag">{feature}</span>
-                        ))}
+
+              {/* 推荐区域 */}
+              {city.recommendedAreas && (
+                <div className="recommended-areas">
+                  <h4>🗺️ 推荐住宿区域</h4>
+                  <div className="area-tags">
+                    {city.recommendedAreas.map((area, aIndex) => (
+                      <span key={aIndex} className="area-tag recommended">{area}</span>
+                    ))}
+                  </div>
+                  {city.avoidAreas && (
+                    <div className="avoid-areas">
+                      <strong>⚠️ 避开：</strong>
+                      {city.avoidAreas.map((area, aIndex) => (
+                        <span key={aIndex} className="area-tag avoid">{area}</span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* 具体酒店推荐 */}
+              <div className="hotels-section">
+                <h4>🏨 具体酒店推荐</h4>
+                <div className="hotels-list">
+                  {city.hotels.map((hotel, hIndex) => (
+                    <div key={hIndex} className="hotel-card">
+                      <div className="hotel-main">
+                        <h4>{hotel.name}</h4>
+                        <div className="hotel-info">
+                          <span className="hotel-rating">
+                            <Star size={16} fill="gold" stroke="gold" /> {hotel.rating}
+                          </span>
+                          <span className="hotel-price">{hotel.price}/晚</span>
+                        </div>
+                        <div className="hotel-location">
+                          <MapPin size={14} /> {hotel.location}
+                        </div>
+                        <div className="hotel-features">
+                          {hotel.features.map((feature, fIndex) => (
+                            <span key={fIndex} className="feature-tag">{feature}</span>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-              
+
               <div className="city-tips">
                 <Lightbulb size={18} />
                 <div className="tips-content">
-                  <strong>预订建议：</strong>
+                  <strong>💡 预订建议：</strong>
                   <ul>
                     {city.tips.map((tip, tIndex) => (
                       <li key={tIndex}>{tip}</li>
@@ -451,7 +482,7 @@ const HotelGuide: React.FC = () => {
               </div>
             ))}
           </div>
-          
+
           <div className="visa-warning">
             <AlertCircle size={24} />
             <div>
@@ -570,7 +601,7 @@ const HotelGuide: React.FC = () => {
               </div>
             </a>
             <a href="https://www.booking.com/apps.html" target="_blank" rel="noopener noreferrer" className="link-card">
-              <span style={{fontSize: '24px'}}>📱</span>
+              <span style={{ fontSize: '24px' }}>📱</span>
               <div>
                 <h3>Booking App 下载</h3>
                 <p>移动端专享优惠</p>

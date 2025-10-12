@@ -141,6 +141,81 @@ section h2 {
   margin-bottom: 30px;
 }
 
+/* 推荐区域 */
+.recommended-areas {
+  background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  border-left: 5px solid #667eea;
+}
+
+.recommended-areas h4 {
+  color: #667eea;
+  font-size: 1.2rem;
+  margin: 0 0 15px 0;
+}
+
+.area-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.area-tag {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.area-tag.recommended {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.area-tag.recommended:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.avoid-areas {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-top: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  margin-top: 15px;
+}
+
+.avoid-areas strong {
+  color: #d32f2f;
+  font-size: 0.95rem;
+}
+
+.area-tag.avoid {
+  background: #ffebee;
+  color: #c62828;
+  border: 1px solid #ef5350;
+}
+
+/* 具体酒店推荐部分 */
+.hotels-section {
+  margin-bottom: 25px;
+}
+
+.hotels-section h4 {
+  color: #2c3e50;
+  font-size: 1.2rem;
+  margin: 0 0 20px 0;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #ecf0f1;
+}
+
 .city-header {
   display: flex;
   align-items: center;
