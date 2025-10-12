@@ -1,27 +1,27 @@
 .visa-itinerary {
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 50px 40px;
   font-family: 'Arial', 'Microsoft YaHei', sans-serif;
   background: #fff;
 }
 
 .visa-header {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
   border-bottom: 3px solid #2c3e50;
-  padding-bottom: 20px;
+  padding-bottom: 30px;
   position: relative;
 }
 
 .visa-header h1 {
-  font-size: 32px;
+  font-size: 36px;
   color: #2c3e50;
-  margin: 0 0 10px 0;
+  margin: 0 0 15px 0;
 }
 
 .visa-header h2 {
-  font-size: 20px;
+  font-size: 22px;
   color: #7f8c8d;
   margin: 0;
   font-weight: normal;
@@ -32,18 +32,19 @@
   top: 0;
   right: 0;
   display: flex;
-  gap: 15px;
+  gap: 20px;
 }
 
 .save-btn, .form-btn, .excel-btn {
-  padding: 12px 24px;
+  padding: 14px 28px;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: bold;
   transition: all 0.3s ease;
+  min-width: 140px;
 }
 
 .save-btn {
@@ -88,14 +89,14 @@
 
 .visa-summary {
   background: #ecf0f1;
-  padding: 25px;
-  border-radius: 8px;
-  margin-bottom: 30px;
+  padding: 35px;
+  border-radius: 12px;
+  margin-bottom: 40px;
 }
 
 .summary-item {
   display: flex;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   align-items: center;
   font-size: 15px;
 }
@@ -111,8 +112,8 @@
 
 .summary-item .editable {
   border-bottom: 1px solid #95a5a6;
-  padding: 0 10px;
-  min-width: 200px;
+  padding: 0 15px;
+  min-width: 250px;
 }
 
 .summary-item .highlight {
@@ -136,12 +137,12 @@
 .country-table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
 
 .country-table th,
 .country-table td {
-  padding: 12px;
+  padding: 16px 20px;
   text-align: left;
   border: 1px solid #ddd;
 }
@@ -374,4 +375,78 @@
 .visa-content {
   /* 确保内容区域能被正确捕获 */
   background: #fff;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .visa-itinerary {
+    max-width: 100%;
+    padding: 30px 20px;
+  }
+  
+  .visa-header h1 {
+    font-size: 28px;
+  }
+  
+  .visa-header h2 {
+    font-size: 18px;
+  }
+  
+  .header-buttons {
+    position: static;
+    justify-content: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+  .save-btn, .form-btn, .excel-btn {
+    min-width: 120px;
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+  
+  .visa-summary {
+    padding: 25px;
+  }
+  
+  .summary-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .summary-item strong {
+    min-width: auto;
+  }
+  
+  .summary-item .editable {
+    min-width: auto;
+    width: 100%;
+  }
+  
+  .country-table th,
+  .country-table td {
+    padding: 12px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .visa-itinerary {
+    padding: 20px 15px;
+  }
+  
+  .visa-header h1 {
+    font-size: 24px;
+  }
+  
+  .header-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .save-btn, .form-btn, .excel-btn {
+    width: 100%;
+    max-width: 200px;
+  }
 }
