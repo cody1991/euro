@@ -40,10 +40,10 @@ const createTransportIcon = (transportType: string) => {
       border: 3px solid white;
       box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     ">
-      ${transportType === '飞机' ? '✈️' :
-      transportType === '火车' ? '🚂' :
-        transportType === '汽车' ? '🚗' :
-          transportType === '轮船' ? '🚢' : '🚌'}
+      ${transportType === 'Flight' ? '✈️' :
+      transportType === 'Train' ? '🚂' :
+        transportType === 'Car' ? '🚗' :
+          transportType === 'Ship' ? '🚢' : '🚌'}
     </div>
   `;
 
@@ -94,13 +94,13 @@ const createCityLabelIcon = (cityName: string, isMajor: boolean = false) => {
 // 获取交通工具图标
 const getTransportIcon = (transportType: string) => {
   switch (transportType) {
-    case '飞机':
+    case 'Flight':
       return <Plane className="transport-icon" />;
-    case '火车':
+    case 'Train':
       return <Train className="transport-icon" />;
-    case '汽车':
+    case 'Car':
       return <Car className="transport-icon" />;
-    case '轮船':
+    case 'Ship':
       return <Ship className="transport-icon" />;
     default:
       return <Train className="transport-icon" />;
@@ -110,13 +110,13 @@ const getTransportIcon = (transportType: string) => {
 // 获取交通路线颜色
 const getTransportColor = (transportType: string) => {
   switch (transportType) {
-    case '飞机':
+    case 'Flight':
       return '#e74c3c';
-    case '火车':
+    case 'Train':
       return '#3498db';
-    case '汽车':
+    case 'Car':
       return '#f39c12';
-    case '轮船':
+    case 'Ship':
       return '#9b59b6';
     default:
       return '#667eea';
