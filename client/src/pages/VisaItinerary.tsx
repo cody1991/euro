@@ -176,15 +176,9 @@ const VisaItinerary: React.FC = () => {
 
         // 获取交通信息
         let transportation = "Public transport";
-        if (dayOffset === 0 && index > 0) {
-          // 到达日显示交通信息
-          const transport = transportationData.find(t => t.to_city_id === city.id);
-          if (transport) {
-            const fromLocation = transport.departure_location_en || transport.departure_location || '';
-            const toLocation = transport.arrival_location_en || transport.arrival_location || '';
-            transportation = `${transport.transport_type} ${fromLocation}→${toLocation}<br/>${transport.departure_time}→${transport.arrival_time}`;
-          }
-        } else if (dayOffset === daysInCity - 1) {
+        
+        // 优先处理离开日的交通信息（特别是对于同一天到达和离开的情况）
+        if (dayOffset === daysInCity - 1) {
           // 离开日显示下一段交通信息
           if (index < sortedCities.length - 1) {
             // 前往下一个城市
@@ -203,6 +197,14 @@ const VisaItinerary: React.FC = () => {
               const toLocation = returnTransport.arrival_location_en || returnTransport.arrival_location || '';
               transportation = `${returnTransport.transport_type} ${fromLocation}→${toLocation}<br/>${returnTransport.departure_time}→${returnTransport.arrival_time}`;
             }
+          }
+        } else if (dayOffset === 0 && index > 0) {
+          // 到达日显示交通信息（只有在不是离开日的情况下）
+          const transport = transportationData.find(t => t.to_city_id === city.id);
+          if (transport) {
+            const fromLocation = transport.departure_location_en || transport.departure_location || '';
+            const toLocation = transport.arrival_location_en || transport.arrival_location || '';
+            transportation = `${transport.transport_type} ${fromLocation}→${toLocation}<br/>${transport.departure_time}→${transport.arrival_time}`;
           }
         }
 
