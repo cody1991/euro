@@ -174,7 +174,7 @@ const VisaItinerary: React.FC = () => {
   };
 
   const createFormContent = () => {
-    if (!itinerary) return '';
+    if (!citiesData || citiesData.length === 0) return '';
 
     const formatDate = (dateString: string) => {
       const date = new Date(dateString);
@@ -189,7 +189,7 @@ const VisaItinerary: React.FC = () => {
     const getCityDisplay = (city: any, index: number) => {
       if (index === 0) return `${city.name_en || city.name}→${citiesData[1]?.name_en || citiesData[1]?.name}`;
       if (index === citiesData.length - 1) return `${city.name_en || city.name}→${citiesData[0]?.name_en || citiesData[0]?.name}`;
-      
+
       const nextCity = citiesData[index + 1];
       if (nextCity) {
         return `${city.name_en || city.name}→${nextCity.name_en || nextCity.name}`;
@@ -201,7 +201,7 @@ const VisaItinerary: React.FC = () => {
       if (!city.attractions || city.attractions.length === 0) {
         return '_______________';
       }
-      return city.attractions.map((attr: any, idx: number) => 
+      return city.attractions.map((attr: any, idx: number) =>
         `${idx + 1}. ${attr.name_en || attr.name}`
       ).join('<br/>');
     };
@@ -219,20 +219,20 @@ const VisaItinerary: React.FC = () => {
     const getTransportation = (city: any, index: number) => {
       const transport = transportationData.find(t => t.from_city_id === city.id);
       if (!transport) return 'Public transport';
-      
-      const type = transport.transport_type === '飞机' ? 'Flight' : 
-                   transport.transport_type === '火车' ? 'Train' : 
-                   transport.transport_type === '汽车' ? 'Bus' : 'Transport';
-      
+
+      const type = transport.transport_type === '飞机' ? 'Flight' :
+        transport.transport_type === '火车' ? 'Train' :
+          transport.transport_type === '汽车' ? 'Bus' : 'Transport';
+
       const from = transport.departure_location_en || transport.departure_location;
       const to = transport.arrival_location_en || transport.arrival_location;
       const departure = transport.departure_time?.split(' ')[1] || '';
       const arrival = transport.arrival_time?.split(' ')[1] || '';
-      
+
       if (transport.flight_number) {
         return `${type} ${transport.flight_number}<br/>${from}→${to}<br/>${departure}→${arrival}`;
       }
-      
+
       return `${type} ${from}→${to}<br/>${departure}→${arrival}`;
     };
 
