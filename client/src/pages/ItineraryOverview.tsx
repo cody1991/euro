@@ -3,6 +3,7 @@ import { Calendar, MapPin, Star, Plane, Train, Car, Navigation, Download, FileTe
 import { getItineraryData } from '../models/travelData';
 import { Itinerary } from '../types';
 import html2canvas from 'html2canvas';
+import ScrollButtons from '../components/ScrollButtons';
 import './ItineraryOverview.css';
 
 const ItineraryOverview: React.FC = () => {
@@ -324,6 +325,9 @@ const ItineraryOverview: React.FC = () => {
           {exporting ? '导出中...' : '导出图片'}
         </button>
       </div>
+
+      {/* 滚动按钮 */}
+      <ScrollButtons />
     </div>
   );
 };

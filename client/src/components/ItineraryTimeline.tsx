@@ -1,10 +1,11 @@
 import React from 'react';
 import { citiesData, transportationData } from '../models/travelData';
+import ScrollButtons from './ScrollButtons';
 import './ItineraryTimeline.css';
 
 const ItineraryTimeline: React.FC = () => {
   // 按日期排序城市
-  const sortedCities = [...citiesData].sort((a, b) =>
+  const sortedCities = [...citiesData].sort((a, b) => 
     new Date(a.arrival_date).getTime() - new Date(b.arrival_date).getTime()
   );
 
@@ -108,6 +109,9 @@ const ItineraryTimeline: React.FC = () => {
           );
         })}
       </div>
+
+      {/* 滚动按钮 */}
+      <ScrollButtons />
     </div>
   );
 };

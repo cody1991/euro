@@ -28,7 +28,8 @@
 
 .timeline {
   position: relative;
-  max-width: 800px;
+  width: 100%;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
@@ -331,3 +332,4 @@
 .timeline-item:nth-child(15) {
   animation-delay: 1.5s;
 }
+

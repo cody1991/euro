@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup, Polyline, Tooltip } from 'react
 import { Star, Calendar, Plane, Train, Car, Ship } from 'lucide-react';
 import { getItineraryData } from '../models/travelData';
 import { Itinerary, Attraction } from '../types';
+import ScrollButtons from '../components/ScrollButtons';
 import 'leaflet/dist/leaflet.css';
 import './MapPage.css';
 
@@ -425,6 +426,9 @@ const MapPage: React.FC = () => {
           )}
         </MapContainer>
       </div>
+
+      {/* 滚动按钮 */}
+      <ScrollButtons />
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import html2canvas from 'html2canvas';
 import * as XLSX from 'xlsx';
 import { citiesData, transportationData, attractionsData } from '../models/travelData';
+import ScrollButtons from '../components/ScrollButtons';
 import './VisaItinerary.css';
 
 const VisaItinerary: React.FC = () => {
@@ -651,6 +652,9 @@ const VisaItinerary: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* 滚动按钮 */}
+      <ScrollButtons />
     </div>
   );
 };
