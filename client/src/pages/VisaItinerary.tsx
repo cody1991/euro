@@ -184,14 +184,25 @@ const VisaItinerary: React.FC = () => {
             const toLocation = transport.arrival_location_en || transport.arrival_location || '';
             transportation = `${transport.transport_type} ${fromLocation}→${toLocation}<br/>${transport.departure_time}→${transport.arrival_time}`;
           }
-        } else if (dayOffset === daysInCity - 1 && index < sortedCities.length - 1) {
+        } else if (dayOffset === daysInCity - 1) {
           // 离开日显示下一段交通信息
-          const nextCity = sortedCities[index + 1];
-          const transport = transportationData.find(t => t.from_city_id === city.id && t.to_city_id === nextCity.id);
-          if (transport) {
-            const fromLocation = transport.departure_location_en || transport.departure_location || '';
-            const toLocation = transport.arrival_location_en || transport.arrival_location || '';
-            transportation = `${transport.transport_type} ${fromLocation}→${toLocation}<br/>${transport.departure_time}→${transport.arrival_time}`;
+          if (index < sortedCities.length - 1) {
+            // 前往下一个城市
+            const nextCity = sortedCities[index + 1];
+            const transport = transportationData.find(t => t.from_city_id === city.id && t.to_city_id === nextCity.id);
+            if (transport) {
+              const fromLocation = transport.departure_location_en || transport.departure_location || '';
+              const toLocation = transport.arrival_location_en || transport.arrival_location || '';
+              transportation = `${transport.transport_type} ${fromLocation}→${toLocation}<br/>${transport.departure_time}→${transport.arrival_time}`;
+            }
+          } else {
+            // 最后一个城市，显示回国航班
+            const returnTransport = transportationData.find(t => t.from_city_id === city.id && t.to_city_id === -1);
+            if (returnTransport) {
+              const fromLocation = returnTransport.departure_location_en || returnTransport.departure_location || '';
+              const toLocation = returnTransport.arrival_location_en || returnTransport.arrival_location || '';
+              transportation = `${returnTransport.transport_type} ${fromLocation}→${toLocation}<br/>${returnTransport.departure_time}→${returnTransport.arrival_time}`;
+            }
           }
         }
 
