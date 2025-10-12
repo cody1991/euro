@@ -279,10 +279,10 @@ export const attractionsData: Attraction[] = [
   { id: 3, name: "运河区", name_en: "Canal Ring", description: "联合国教科文组织世界遗产", latitude: 52.3676, longitude: 4.9041, category: "风景", rating: 4.7, city_id: 1 },
   { id: 4, name: "国立博物馆", name_en: "Rijksmuseum", description: "荷兰国家博物馆", latitude: 52.3600, longitude: 4.8852, category: "博物馆", rating: 4.7, city_id: 1 },
   { id: 5, name: "水坝广场", name_en: "Dam Square", description: "阿姆斯特丹中心广场", latitude: 52.3730, longitude: 4.8936, category: "地标", rating: 4.5, city_id: 1 },
-  { id: 54, name: "桑斯安斯风车村", description: "荷兰传统风车村，体验经典荷兰风光", latitude: 52.4748, longitude: 4.8175, category: "风景", rating: 4.6, city_id: 14 },
-  { id: 55, name: "阿姆斯特丹花市", description: "世界唯一的水上花市", latitude: 52.3665, longitude: 4.8913, category: "市场", rating: 4.4, city_id: 14 },
-  { id: 56, name: "喜力啤酒体验馆", description: "了解喜力啤酒历史与酿造过程", latitude: 52.3578, longitude: 4.8917, category: "娱乐", rating: 4.3, city_id: 14 },
-  { id: 57, name: "运河游船", description: "乘船游览阿姆斯特丹运河，欣赏城市美景", latitude: 52.3702, longitude: 4.8952, category: "活动", rating: 4.7, city_id: 14 },
+  { id: 54, name: "桑斯安斯风车村", name_en: "Zaanse Schans", description: "荷兰传统风车村，体验经典荷兰风光", latitude: 52.4748, longitude: 4.8175, category: "风景", rating: 4.6, city_id: 14 },
+  { id: 55, name: "阿姆斯特丹花市", name_en: "Amsterdam Flower Market", description: "世界唯一的水上花市", latitude: 52.3665, longitude: 4.8913, category: "市场", rating: 4.4, city_id: 14 },
+  { id: 56, name: "喜力啤酒体验馆", name_en: "Heineken Experience", description: "了解喜力啤酒历史与酿造过程", latitude: 52.3578, longitude: 4.8917, category: "娱乐", rating: 4.3, city_id: 14 },
+  { id: 57, name: "运河游船", name_en: "Canal Cruise", description: "乘船游览阿姆斯特丹运河，欣赏城市美景", latitude: 52.3702, longitude: 4.8952, category: "活动", rating: 4.7, city_id: 14 },
 
   // 巴黎
   { id: 6, name: "埃菲尔铁塔", name_en: "Eiffel Tower", description: "巴黎地标建筑", latitude: 48.8584, longitude: 2.2945, category: "地标", rating: 4.9, city_id: 2 },
