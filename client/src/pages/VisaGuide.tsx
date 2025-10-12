@@ -1,9 +1,52 @@
-import React from 'react';
-import { Calendar, MapPin, FileText, CreditCard, Clock, CheckCircle, AlertCircle, ExternalLink } from 'lucide-react';
+import React, { useRef, useState } from 'react';
+import { Calendar, MapPin, FileText, CreditCard, Clock, CheckCircle, AlertCircle, ExternalLink, Download } from 'lucide-react';
+import html2canvas from 'html2canvas';
 import ScrollButtons from '../components/ScrollButtons';
 import './VisaGuide.css';
 
 const VisaGuide: React.FC = () => {
+  const guideRef = useRef<HTMLDivElement>(null);
+  const [exporting, setExporting] = useState(false);
+
+  // 导出图片功能
+  const handleExportImage = async () => {
+    if (!guideRef.current) return;
+
+    setExporting(true);
+    try {
+      // 滚动到顶部
+      window.scrollTo(0, 0);
+      await new Promise(resolve => setTimeout(resolve, 300));
+
+      const canvas = await html2canvas(guideRef.current, {
+        backgroundColor: '#f5f7fa',
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+        scrollX: 0,
+        scrollY: 0,
+        width: guideRef.current.scrollWidth,
+        height: guideRef.current.scrollHeight
+      });
+
+      // 创建下载链接
+      const link = document.createElement('a');
+      link.download = `武汉DIY意大利签证指南_${new Date().toISOString().split('T')[0]}.png`;
+      link.href = canvas.toDataURL('image/png');
+      
+      // 触发下载
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+    } catch (error) {
+      console.error('导出图片失败:', error);
+      alert('导出图片失败，请重试');
+    } finally {
+      setExporting(false);
+    }
+  };
+
   const steps = [
     {
       id: 1,
@@ -82,9 +125,10 @@ const VisaGuide: React.FC = () => {
           subtitle: "武汉签证中心信息",
           items: [
             "地址：武汉市江汉区建设大道568号新世界国贸大厦I座37层",
-            "工作时间：周一至周五 8:00-15:00",
+            "工作时间：周一至周五 8:00-15:00（节假日除外）",
             "咨询电话：400-625-6622",
-            "地铁：2号线中山公园站A出口"
+            "地铁：2号线中山公园站A出口，步行5分钟",
+            "注意：具体地址和时间请以官网最新信息为准"
           ]
         },
         {
@@ -208,24 +252,41 @@ const VisaGuide: React.FC = () => {
       description: "在线预约、下载表格、查询状态"
     },
     {
-      name: "申根签证申请表",
-      url: "https://www.vfsglobal.com/italy/china/pdf/schengen-visa-application-form.pdf",
-      description: "最新版申请表下载"
+      name: "申根签证申请表下载",
+      url: "https://www.vfsglobal.com/italy/china/visa-application-forms.html",
+      description: "最新版申请表和材料清单"
     },
     {
-      name: "武汉领事馆信息",
-      url: "https://consmilano.esteri.it/consolato_milano/zh/",
-      description: "领事馆联系方式和服务时间"
+      name: "意大利驻华使馆官网",
+      url: "https://ambpechino.esteri.it/ambasciata_pechino/zh/",
+      description: "使馆官方信息和联系方式"
+    },
+    {
+      name: "申根签证信息查询",
+      url: "https://www.schengenvisainfo.com/",
+      description: "申根签证政策、要求和流程"
     }
   ];
 
   return (
     <div className="visa-guide">
-      <div className="guide-container">
+      <div className="guide-container" ref={guideRef}>
         {/* 页面标题 */}
         <div className="guide-header">
           <h1>武汉DIY意大利签证全流程指南</h1>
           <p className="guide-subtitle">详细步骤说明，助您成功申请申根签证</p>
+          
+          {/* 导出按钮 */}
+          <div className="export-section">
+            <button
+              className="export-button"
+              onClick={handleExportImage}
+              disabled={exporting}
+            >
+              <Download size={20} />
+              {exporting ? '导出中...' : '导出图片'}
+            </button>
+          </div>
         </div>
 
         {/* 快速概览 */}
@@ -424,6 +485,20 @@ const VisaGuide: React.FC = () => {
               <h4>Q: 可以代他人申请签证吗？</h4>
               <p>A: 必须本人亲自提交申请，但可以委托他人代领护照。</p>
             </div>
+          </div>
+        </div>
+
+        {/* 免责声明 */}
+        <div className="disclaimer-section">
+          <div className="disclaimer-card">
+            <h3>⚠️ 重要声明</h3>
+            <p>
+              本指南仅供参考，签证政策和要求可能会发生变化。请务必以意大利签证申请中心官网和意大利驻华使馆的
+              <strong>最新官方信息</strong>为准。建议在申请前再次确认所有要求、费用和流程。
+            </p>
+            <p>
+              <strong>免责声明：</strong>本网站不对因使用本指南而产生的任何损失或问题承担责任。
+            </p>
           </div>
         </div>
       </div>
