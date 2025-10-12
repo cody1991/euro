@@ -2,11 +2,30 @@ import React, { useState, useRef } from 'react';
 import html2canvas from 'html2canvas';
 import { Hotel, MapPin, Star, DollarSign, Calendar, Shield, Lightbulb, CheckCircle, AlertCircle } from 'lucide-react';
 import ScrollButtons from '../components/ScrollButtons';
+import { citiesData } from '../models/travelData';
 import './HotelGuide.css';
 
 const HotelGuide: React.FC = () => {
   const [exporting, setExporting] = useState(false);
   const guideRef = useRef<HTMLDivElement>(null);
+
+  // 从行程数据中获取城市信息
+  const getCityItinerary = (cityName: string) => {
+    const city = citiesData.find(c => c.name_en === cityName || c.name === cityName);
+    if (!city || !city.accommodation || !city.accommodation.check_in || !city.accommodation.check_out) return null;
+    
+    const checkIn = new Date(city.accommodation.check_in);
+    const checkOut = new Date(city.accommodation.check_out);
+    const nights = Math.ceil((checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60 * 24));
+    
+    return {
+      checkIn: city.accommodation.check_in,
+      checkOut: city.accommodation.check_out,
+      nights,
+      formattedCheckIn: checkIn.toLocaleDateString('zh-CN', { month: '2-digit', day: '2-digit' }),
+      formattedCheckOut: checkOut.toLocaleDateString('zh-CN', { month: '2-digit', day: '2-digit' })
+    };
+  };
 
   const handleExportImage = async () => {
     if (!guideRef.current) return;
@@ -354,12 +373,27 @@ const HotelGuide: React.FC = () => {
         {/* 各城市酒店推荐 */}
         <section className="hotel-recommendations">
           <h2>🏨 各城市具体酒店推荐</h2>
-          {hotelRecommendations.map((city, index) => (
+          {hotelRecommendations.map((city, index) => {
+            const itinerary = getCityItinerary(city.city);
+            return (
             <div key={index} className="city-section">
               <div className="city-header">
                 <span className="city-flag">{city.flag}</span>
-                <h3>{city.city}</h3>
-                <span className="city-nights">建议停留：{city.nights}</span>
+                <div className="city-info">
+                  <h3>{city.city}</h3>
+                  {itinerary && (
+                    <div className="city-dates">
+                      <Calendar size={16} />
+                      <span className="date-range">
+                        {itinerary.formattedCheckIn} - {itinerary.formattedCheckOut}
+                      </span>
+                      <span className="nights-badge">{itinerary.nights}晚</span>
+                    </div>
+                  )}
+                  {!itinerary && (
+                    <span className="city-nights-fallback">建议停留：{city.nights}</span>
+                  )}
+                </div>
               </div>
 
               {/* 推荐区域 */}
@@ -422,7 +456,8 @@ const HotelGuide: React.FC = () => {
                 </div>
               </div>
             </div>
-          ))}
+            );
+          })}
         </section>
 
         {/* 省钱技巧 */}

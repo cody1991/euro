@@ -218,28 +218,65 @@ section h2 {
 
 .city-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 15px;
   margin-bottom: 25px;
 }
 
 .city-flag {
   font-size: 2.5rem;
+  line-height: 1;
+}
+
+.city-info {
+  flex: 1;
 }
 
 .city-header h3 {
   font-size: 1.8rem;
   color: #2c3e50;
-  margin: 0;
+  margin: 0 0 10px 0;
 }
 
-.city-nights {
+.city-dates {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+  padding: 10px 15px;
+  border-radius: 10px;
+  border-left: 3px solid #667eea;
+}
+
+.city-dates svg {
+  color: #667eea;
+  flex-shrink: 0;
+}
+
+.date-range {
+  color: #2c3e50;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.nights-badge {
+  background: #667eea;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-left: auto;
+}
+
+.city-nights-fallback {
   background: #667eea;
   color: white;
   padding: 5px 15px;
   border-radius: 20px;
   font-size: 0.9rem;
   font-weight: 600;
+  display: inline-block;
 }
 
 .hotels-list {
