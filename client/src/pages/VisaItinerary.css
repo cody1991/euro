@@ -27,21 +27,35 @@
   font-weight: normal;
 }
 
-.print-btn {
+.save-btn {
   position: absolute;
   top: 0;
   right: 0;
-  padding: 10px 20px;
-  background: #3498db;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  transition: all 0.3s ease;
 }
 
-.print-btn:hover {
-  background: #2980b9;
+.save-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.6);
+}
+
+.save-btn:active {
+  transform: translateY(0);
+}
+
+.save-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .visa-summary {
@@ -291,25 +305,7 @@
   min-width: 250px;
 }
 
-/* 打印样式 */
-@media print {
-  .visa-itinerary {
-    padding: 20px;
-  }
-
-  .print-btn {
-    display: none;
-  }
-
-  .day-card {
-    page-break-inside: avoid;
-  }
-
-  .visa-header {
-    page-break-after: avoid;
-  }
-
-  .country-breakdown {
-    page-break-after: avoid;
-  }
+.visa-content {
+  /* 确保内容区域能被正确捕获 */
+  background: #fff;
 }
