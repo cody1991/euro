@@ -78,26 +78,92 @@ const HotelGuide: React.FC = () => {
       tips: ['推荐第5、6、7区', '避开第18、19、20区', '必须靠近地铁站']
     },
     {
-      city: '苏黎世',
-      flag: '🇨🇭',
+      city: '罗马',
+      flag: '🇮🇹',
       nights: '2-3晚',
       hotels: [
         {
-          name: 'ibis Zurich City West',
-          rating: 8.0,
-          price: 'CHF 100-150',
-          location: '近西火车站，Tram直达市中心',
-          features: ['连锁品牌', '瑞士已算便宜', '交通便利']
+          name: 'Hotel Artemide',
+          rating: 8.6,
+          price: '€90-140',
+          location: '中央火车站步行5分钟',
+          features: ['位置优越', '屋顶露台', '含早餐']
         },
         {
-          name: '25hours Hotel Zurich West',
-          rating: 8.7,
-          price: 'CHF 150-220',
-          location: 'Zurich West（年轻潮流区）',
-          features: ['设计酒店', '有特色', '现代化设施']
+          name: 'Hotel Raffaello',
+          rating: 8.4,
+          price: '€110-180',
+          location: '共和广场附近，近地铁',
+          features: ['干净舒适', '交通便利', '性价比高']
         }
       ],
-      tips: ['一定选含早餐（€20+）', '住火车站附近最方便', '瑞士酒店普遍贵']
+      tips: ['选罗马中央火车站（Termini）附近', '地铁线路多，去景点方便', '注意查看是否含城市税']
+    },
+    {
+      city: '威尼斯',
+      flag: '🇮🇹',
+      nights: '2晚',
+      hotels: [
+        {
+          name: 'Hotel Al Piave',
+          rating: 8.7,
+          price: '€80-130',
+          location: '圣马可广场步行10分钟',
+          features: ['家庭经营', '安静舒适', '性价比高']
+        },
+        {
+          name: 'Ca\' Alvise',
+          rating: 8.5,
+          price: '€120-200',
+          location: 'Cannaregio区，近火车站',
+          features: ['运河景观', '传统威尼斯建筑', '含早餐']
+        }
+      ],
+      tips: ['主岛酒店贵，可考虑Mestre（大陆）', '提前预订，威尼斯酒店紧俏', '确认是否包含水上巴士票']
+    },
+    {
+      city: '佛罗伦萨',
+      flag: '🇮🇹',
+      nights: '2晚',
+      hotels: [
+        {
+          name: 'Hotel Cestelli',
+          rating: 8.6,
+          price: '€70-120',
+          location: '老城区，步行到所有景点',
+          features: ['位置完美', '家庭旅馆', '性价比极高']
+        },
+        {
+          name: 'Hotel Davanzati',
+          rating: 8.4,
+          price: '€100-170',
+          location: '圣母百花大教堂步行5分钟',
+          features: ['历史建筑', '屋顶露台', '早餐丰富']
+        }
+      ],
+      tips: ['老城区ZTL限行，不要租车', '圣母百花大教堂附近最方便', '佛罗伦萨不大，步行即可']
+    },
+    {
+      city: '尼斯',
+      flag: '🇫🇷',
+      nights: '2晚',
+      hotels: [
+        {
+          name: 'Hotel Vendome',
+          rating: 8.3,
+          price: '€60-100',
+          location: '尼斯火车站步行5分钟',
+          features: ['经济实惠', '交通便利', '干净整洁']
+        },
+        {
+          name: 'Hotel de la Mer',
+          rating: 8.5,
+          price: '€90-150',
+          location: '天使湾海滩旁',
+          features: ['海景房', '位置绝佳', '法式风情']
+        }
+      ],
+      tips: ['火车站或老城区都方便', '海边酒店景观好但贵', '蔚蓝海岸物价相对便宜']
     }
   ];
 
@@ -224,7 +290,10 @@ const HotelGuide: React.FC = () => {
   const budgetTable = [
     { city: '阿姆斯特丹', nights: '2晚', budget: '€140-200', midRange: '€200-300', note: '酒店较贵' },
     { city: '巴黎', nights: '3晚', budget: '€240-360', midRange: '€360-540', note: '看区域' },
-    { city: '苏黎世', nights: '2晚', budget: 'CHF200-300', midRange: 'CHF300-440', note: '最贵城市' }
+    { city: '罗马', nights: '2-3晚', budget: '€180-280', midRange: '€220-360', note: '火车站附近性价比高' },
+    { city: '威尼斯', nights: '2晚', budget: '€160-240', midRange: '€240-400', note: '岛上酒店贵' },
+    { city: '佛罗伦萨', nights: '2晚', budget: '€140-200', midRange: '€200-320', note: '老城区贵' },
+    { city: '尼斯', nights: '2晚', budget: '€120-180', midRange: '€180-280', note: '海边酒店贵' }
   ];
 
   return (
@@ -418,14 +487,14 @@ const HotelGuide: React.FC = () => {
                 ))}
                 <tr className="total-row">
                   <td><strong>总计</strong></td>
-                  <td><strong>7晚</strong></td>
-                  <td><strong>€580-860</strong></td>
-                  <td><strong>€860-1280</strong></td>
-                  <td>约¥4500-10000</td>
+                  <td><strong>12-14晚</strong></td>
+                  <td><strong>€1080-1580</strong></td>
+                  <td><strong>€1460-2200</strong></td>
+                  <td>约¥8500-17000</td>
                 </tr>
               </tbody>
             </table>
-            <p className="budget-note">💡 建议：预算€800-1000（¥6000-8000）可以住得很舒服</p>
+            <p className="budget-note">💡 建议：预算€1300-1800（¥10000-14000）可以住得很舒服，平均每晚约€100-130</p>
           </div>
         </section>
 
