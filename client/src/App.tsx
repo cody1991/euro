@@ -1,10 +1,11 @@
 import React from 'react';
 import { HashRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { Map, FileText, ClipboardList } from 'lucide-react';
+import { Map, FileText, ClipboardList, Route as RouteIcon } from 'lucide-react';
 import './App.css';
 import MapPage from './pages/MapPage';
 import ItineraryOverview from './pages/ItineraryOverview';
 import VisaItinerary from './pages/VisaItinerary';
+import ItineraryTimeline from './components/ItineraryTimeline';
 
 function Navigation() {
   const location = useLocation();
@@ -54,6 +55,24 @@ function Navigation() {
         行程总览
       </Link>
       <Link
+        to="/timeline"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          padding: '10px 20px',
+          borderRadius: '25px',
+          textDecoration: 'none',
+          color: 'white',
+          fontWeight: 'bold',
+          background: location.pathname === '/timeline' ? 'rgba(255,255,255,0.25)' : 'transparent',
+          transition: 'all 0.3s'
+        }}
+      >
+        <RouteIcon size={20} />
+        行程路线
+      </Link>
+      <Link
         to="/visa"
         style={{
           display: 'flex',
@@ -83,6 +102,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MapPage />} />
           <Route path="/overview" element={<ItineraryOverview />} />
+          <Route path="/timeline" element={<ItineraryTimeline />} />
           <Route path="/visa" element={<VisaItinerary />} />
         </Routes>
       </div>
