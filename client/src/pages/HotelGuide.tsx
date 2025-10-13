@@ -78,7 +78,7 @@ const HotelGuide: React.FC = () => {
     {
       city: '巴黎',
       flag: '🇫🇷',
-      nights: '2晚',
+      nights: '3晚',
       recommendedAreas: ['拉丁区（第5区）', '圣日耳曼（第6区）', '埃菲尔铁塔区（第7区）', '玛黑区（第4区）'],
       avoidAreas: ['第18、19、20区（较偏远不安全）'],
       hotels: [
@@ -217,7 +217,7 @@ const HotelGuide: React.FC = () => {
     {
       city: '维罗纳',
       flag: '🇮🇹',
-      nights: '0晚（一日游）',
+      nights: '1晚',
       recommendedAreas: ['维罗纳门户新站（Porta Nuova）周边', '朱丽叶故居附近', '布拉广场（Piazza Bra）', '老城区（Centro Storico）'],
       hotels: [
         {
@@ -235,7 +235,7 @@ const HotelGuide: React.FC = () => {
           features: ['豪华装修', '历史建筑', '服务优质']
         }
       ],
-      tips: ['维罗纳很小，步行即可', '朱丽叶故居必去', '可以当天往返米兰']
+      tips: ['维罗纳很小，步行即可', '朱丽叶故居必去', '从米兰过来需要住一晚，第二天去威尼斯']
     },
     {
       city: '威尼斯',
@@ -304,7 +304,7 @@ const HotelGuide: React.FC = () => {
           features: ['交通便利', '经济实惠', '干净整洁']
         }
       ],
-      tips: ['比萨很小，步行即可', '奇迹广场必去', '可以当天往返佛罗伦萨']
+      tips: ['比萨很小，步行即可', '奇迹广场必去', '从佛罗伦萨当天往返（09:00-14:00），下午去罗马']
     },
     {
       city: '梵蒂冈',
@@ -355,7 +355,7 @@ const HotelGuide: React.FC = () => {
     {
       city: '那不勒斯',
       flag: '🇮🇹',
-      nights: '1晚',
+      nights: '2晚',
       recommendedAreas: ['那不勒斯中央车站（Centrale）周边', '历史中心（Centro Storico）', '港口区（Porto）', '沃梅罗区（Vomero）'],
       hotels: [
         {
@@ -373,7 +373,30 @@ const HotelGuide: React.FC = () => {
           features: ['海景房', '位置优越', '性价比高']
         }
       ],
-      tips: ['中央车站最方便', '历史中心有特色但治安一般', '那不勒斯是披萨发源地']
+      tips: ['中央车站最方便', '历史中心有特色但治安一般', '那不勒斯是披萨发源地', '可以参观庞贝古城']
+    },
+    {
+      city: '阿姆斯特丹（返程）',
+      flag: '🇳🇱',
+      nights: '1晚',
+      recommendedAreas: ['史基浦机场附近', '中央火车站（Centraal Station）周边', '机场酒店区'],
+      hotels: [
+        {
+          name: 'citizenM Amsterdam Airport',
+          rating: 8.6,
+          price: '€80-120',
+          location: '史基浦机场内，步行5分钟到登机口',
+          features: ['机场内酒店', '转机方便', '现代设计']
+        },
+        {
+          name: 'Holiday Inn Express Amsterdam Airport',
+          rating: 8.3,
+          price: '€70-100',
+          location: '机场附近，免费班车',
+          features: ['免费班车', '含早餐', '性价比高']
+        }
+      ],
+      tips: ['返程前一晚住机场附近最方便', '可以寄存行李', '第二天早上直接登机']
     }
   ];
 
@@ -497,22 +520,116 @@ const HotelGuide: React.FC = () => {
     }
   ];
 
-  const budgetTable = [
-    { city: '阿姆斯特丹', nights: '2晚', budget: '€140-200', midRange: '€200-300', note: '酒店较贵' },
-    { city: '巴黎', nights: '2晚', budget: '€160-240', midRange: '€240-360', note: '看区域' },
-    { city: '里昂', nights: '1晚', budget: '€60-90', midRange: '€80-120', note: '美食之都' },
-    { city: '马赛', nights: '1晚', budget: '€55-85', midRange: '€75-110', note: '治安一般' },
-    { city: '尼斯', nights: '1晚', budget: '€60-100', midRange: '€90-150', note: '海边酒店贵' },
-    { city: '摩纳哥', nights: '1晚', budget: '€120-180', midRange: '€150-250', note: '最昂贵' },
-    { city: '米兰', nights: '1晚', budget: '€80-120', midRange: '€120-180', note: '购物天堂' },
-    { city: '维罗纳', nights: '0晚', budget: '€0', midRange: '€0', note: '一日游' },
-    { city: '威尼斯', nights: '1晚', budget: '€80-130', midRange: '€120-200', note: '岛上酒店贵' },
-    { city: '佛罗伦萨', nights: '1晚', budget: '€70-120', midRange: '€100-170', note: '老城区贵' },
-    { city: '比萨', nights: '0晚', budget: '€0', midRange: '€0', note: '一日游' },
-    { city: '梵蒂冈', nights: '0晚', budget: '€0', midRange: '€0', note: '一日游' },
-    { city: '罗马', nights: '2晚', budget: '€180-280', midRange: '€220-360', note: '火车站附近性价比高' },
-    { city: '那不勒斯', nights: '1晚', budget: '€50-80', midRange: '€80-130', note: '披萨发源地' }
-  ];
+  // 从 citiesData 动态生成预算表
+  const generateBudgetTable = () => {
+    const budgetConfig: { [key: string]: { budget: string; midRange: string; note: string } } = {
+      '阿姆斯特丹': { budget: '€70-100', midRange: '€100-150', note: '酒店较贵' },
+      '巴黎': { budget: '€80-120', midRange: '€120-180', note: '看区域' },
+      '里昂': { budget: '€60-90', midRange: '€80-120', note: '美食之都' },
+      '马赛': { budget: '€55-85', midRange: '€75-110', note: '治安一般' },
+      '尼斯': { budget: '€60-100', midRange: '€90-150', note: '海边酒店贵' },
+      '摩纳哥': { budget: '€120-180', midRange: '€150-250', note: '最昂贵' },
+      '米兰': { budget: '€80-120', midRange: '€120-180', note: '购物天堂' },
+      '维罗纳': { budget: '€70-110', midRange: '€120-200', note: '浪漫之城' },
+      '威尼斯': { budget: '€80-130', midRange: '€120-200', note: '岛上酒店贵' },
+      '佛罗伦萨': { budget: '€70-120', midRange: '€100-170', note: '老城区贵' },
+      '罗马': { budget: '€90-140', midRange: '€110-180', note: '火车站附近性价比高' },
+      '那不勒斯': { budget: '€50-80', midRange: '€80-130', note: '披萨发源地' }
+    };
+
+    const budgetTable = [];
+
+    // 处理有住宿的城市，按 check_in 日期排序
+    const citiesWithAccommodation = citiesData
+      .filter(city => city.accommodation && city.accommodation.check_in && city.accommodation.check_out)
+      .sort((a, b) => new Date(a.accommodation!.check_in!).getTime() - new Date(b.accommodation!.check_in!).getTime());
+
+    citiesWithAccommodation.forEach(city => {
+      const checkIn = new Date(city.accommodation!.check_in!);
+      const checkOut = new Date(city.accommodation!.check_out!);
+      const nights = Math.ceil((checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60 * 24));
+
+      const config = budgetConfig[city.name] || { budget: '€60-100', midRange: '€80-150', note: '标准价格' };
+      const budgetPerNight = config.budget;
+      const midRangePerNight = config.midRange;
+
+      // 计算总预算
+      const budgetTotal = nights > 0 ? `€${parseInt(budgetPerNight.split('-')[0].replace('€', '')) * nights}-${parseInt(budgetPerNight.split('-')[1]) * nights}` : '€0';
+      const midRangeTotal = nights > 0 ? `€${parseInt(midRangePerNight.split('-')[0].replace('€', '')) * nights}-${parseInt(midRangePerNight.split('-')[1]) * nights}` : '€0';
+
+      budgetTable.push({
+        city: city.name,
+        nights: `${nights}晚`,
+        dates: formatDateRange(checkIn, checkOut),
+        budget: budgetTotal,
+        midRange: midRangeTotal,
+        note: config.note,
+        accommodation: city.name,
+        sortDate: checkIn // 添加排序用的日期
+      });
+    });
+
+    // 添加一日游城市
+    const dayTripCities = [
+      { name: '比萨', date: '2026-02-21', accommodation: '住佛罗伦萨' },
+      { name: '梵蒂冈', date: '2026-02-21', accommodation: '住罗马' }
+    ];
+
+    dayTripCities.forEach(trip => {
+      const date = new Date(trip.date);
+      budgetTable.push({
+        city: trip.name,
+        nights: '0晚',
+        dates: formatSingleDate(date),
+        budget: '€0',
+        midRange: '€0',
+        note: '一日游',
+        accommodation: trip.accommodation,
+        sortDate: date
+      });
+    });
+
+    // 添加返程住宿
+    const returnDate = new Date('2026-02-26');
+    budgetTable.push({
+      city: '阿姆斯特丹（返程）',
+      nights: '1晚',
+      dates: formatSingleDate(returnDate),
+      budget: '€70-100',
+      midRange: '€80-120',
+      note: '机场酒店',
+      accommodation: '阿姆斯特丹机场',
+      sortDate: returnDate
+    });
+
+    return budgetTable.sort((a, b) => {
+      // 直接使用 sortDate 进行排序
+      return a.sortDate.getTime() - b.sortDate.getTime();
+    });
+  };
+
+  // 辅助函数：格式化日期范围
+  const formatDateRange = (startDate: Date, endDate: Date) => {
+    const startMonth = startDate.getMonth() + 1;
+    const startDay = startDate.getDate();
+    const endMonth = endDate.getMonth() + 1;
+    const endDay = endDate.getDate();
+
+    if (startMonth === endMonth) {
+      return `${startMonth}月${startDay}-${endDay}日`;
+    } else {
+      return `${startMonth}月${startDay}日-${endMonth}月${endDay}日`;
+    }
+  };
+
+  // 辅助函数：格式化单个日期
+  const formatSingleDate = (date: Date) => {
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    return `${month}月${day}日`;
+  };
+
+  const budgetTable = generateBudgetTable();
 
   return (
     <div className="hotel-guide">
@@ -728,6 +845,8 @@ const HotelGuide: React.FC = () => {
                 <tr>
                   <th>城市</th>
                   <th>天数</th>
+                  <th>日期</th>
+                  <th>住宿地点</th>
                   <th>经济型</th>
                   <th>中档型</th>
                   <th>备注</th>
@@ -738,6 +857,8 @@ const HotelGuide: React.FC = () => {
                   <tr key={index}>
                     <td><strong>{row.city}</strong></td>
                     <td>{row.nights}</td>
+                    <td>{row.dates}</td>
+                    <td>{row.accommodation}</td>
                     <td>{row.budget}</td>
                     <td>{row.midRange}</td>
                     <td>{row.note}</td>
@@ -745,14 +866,16 @@ const HotelGuide: React.FC = () => {
                 ))}
                 <tr className="total-row">
                   <td><strong>总计</strong></td>
-                  <td><strong>14晚</strong></td>
-                  <td><strong>€1205-1805</strong></td>
-                  <td><strong>€1805-2705</strong></td>
-                  <td>约¥9500-21000</td>
+                  <td><strong>18晚</strong></td>
+                  <td><strong>2月7-26日</strong></td>
+                  <td><strong>-</strong></td>
+                  <td><strong>€1445-2175</strong></td>
+                  <td><strong>€2185-3285</strong></td>
+                  <td>约¥11000-26000</td>
                 </tr>
               </tbody>
             </table>
-            <p className="budget-note">💡 建议：预算€1500-2200（¥12000-17000）可以住得很舒服，平均每晚约€110-160</p>
+            <p className="budget-note">💡 建议：预算€1800-2700（¥14000-21000）可以住得很舒服，平均每晚约€100-150</p>
           </div>
         </section>
 
