@@ -637,6 +637,22 @@ section h2 {
   padding: 20px 15px;
 }
 
+/* 日期列样式 */
+.date-cell {
+  font-family: 'Courier New', monospace;
+  background: #f8f9fa;
+  font-weight: 600;
+  color: #2c3e50;
+  cursor: pointer;
+  user-select: all;
+  border: 1px solid #e9ecef;
+}
+
+.date-cell:hover {
+  background: #e9ecef;
+  color: #667eea;
+}
+
 .budget-note {
   margin-top: 20px;
   padding: 15px;

@@ -561,6 +561,8 @@ const HotelGuide: React.FC = () => {
         city: city.name,
         nights: `${nights}晚`,
         dates: formatDateRange(checkIn, checkOut),
+        checkIn: formatDateForBooking(checkIn),
+        checkOut: formatDateForBooking(checkOut),
         budget: budgetTotal,
         midRange: midRangeTotal,
         note: config.note,
@@ -571,19 +573,24 @@ const HotelGuide: React.FC = () => {
 
     // 添加一日游城市
     const dayTripCities = [
-      { name: '比萨', date: '2026-02-21', accommodation: '住佛罗伦萨' },
-      { name: '梵蒂冈', date: '2026-02-21', accommodation: '住罗马' }
+      { name: '比萨', date: '2026-02-21', accommodation: '比萨' },
+      { name: '梵蒂冈', date: '2026-02-21', accommodation: '罗马' }
     ];
 
     dayTripCities.forEach(trip => {
       const date = new Date(trip.date);
+      const nextDay = new Date(date);
+      nextDay.setDate(nextDay.getDate() + 1);
+
       budgetTable.push({
         city: trip.name,
-        nights: '0晚',
+        nights: '1晚',
         dates: formatSingleDate(date),
-        budget: '€0',
-        midRange: '€0',
-        note: '一日游',
+        checkIn: formatDateForBooking(date),
+        checkOut: formatDateForBooking(nextDay),
+        budget: trip.name === '比萨' ? '€80-130' : '€0',
+        midRange: trip.name === '比萨' ? '€120-200' : '€0',
+        note: trip.name === '比萨' ? '可选择住宿' : '一日游',
         accommodation: trip.accommodation,
         sortDate: date
       });
@@ -591,10 +598,13 @@ const HotelGuide: React.FC = () => {
 
     // 添加返程住宿
     const returnDate = new Date('2026-02-26');
+    const returnCheckOut = new Date('2026-02-27'); // 返程第二天
     budgetTable.push({
       city: '阿姆斯特丹（返程）',
       nights: '1晚',
       dates: formatSingleDate(returnDate),
+      checkIn: formatDateForBooking(returnDate),
+      checkOut: formatDateForBooking(returnCheckOut),
       budget: '€70-100',
       midRange: '€80-120',
       note: '机场酒店',
@@ -627,6 +637,14 @@ const HotelGuide: React.FC = () => {
     const month = date.getMonth() + 1;
     const day = date.getDate();
     return `${month}月${day}日`;
+  };
+
+  // 辅助函数：格式化日期用于Booking.com（YYYY-MM-DD格式）
+  const formatDateForBooking = (date: Date) => {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
   };
 
   const budgetTable = generateBudgetTable();
@@ -846,6 +864,8 @@ const HotelGuide: React.FC = () => {
                   <th>城市</th>
                   <th>天数</th>
                   <th>日期</th>
+                  <th>Check-in</th>
+                  <th>Check-out</th>
                   <th>住宿地点</th>
                   <th>经济型</th>
                   <th>中档型</th>
@@ -858,6 +878,8 @@ const HotelGuide: React.FC = () => {
                     <td><strong>{row.city}</strong></td>
                     <td>{row.nights}</td>
                     <td>{row.dates}</td>
+                    <td className="date-cell">{row.checkIn}</td>
+                    <td className="date-cell">{row.checkOut}</td>
                     <td>{row.accommodation}</td>
                     <td>{row.budget}</td>
                     <td>{row.midRange}</td>
@@ -866,16 +888,18 @@ const HotelGuide: React.FC = () => {
                 ))}
                 <tr className="total-row">
                   <td><strong>总计</strong></td>
-                  <td><strong>18晚</strong></td>
+                  <td><strong>19晚</strong></td>
                   <td><strong>2月7-26日</strong></td>
                   <td><strong>-</strong></td>
-                  <td><strong>€1445-2175</strong></td>
-                  <td><strong>€2185-3285</strong></td>
-                  <td>约¥11000-26000</td>
+                  <td><strong>-</strong></td>
+                  <td><strong>-</strong></td>
+                  <td><strong>€1525-2305</strong></td>
+                  <td><strong>€2305-3485</strong></td>
+                  <td>约¥12000-27000</td>
                 </tr>
               </tbody>
             </table>
-            <p className="budget-note">💡 建议：预算€1800-2700（¥14000-21000）可以住得很舒服，平均每晚约€100-150</p>
+            <p className="budget-note">💡 建议：预算€1900-2800（¥15000-22000）可以住得很舒服，平均每晚约€100-150</p>
           </div>
         </section>
 
