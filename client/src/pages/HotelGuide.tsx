@@ -13,11 +13,11 @@ const HotelGuide: React.FC = () => {
   const getCityItinerary = (cityName: string) => {
     const city = citiesData.find(c => c.name_en === cityName || c.name === cityName);
     if (!city || !city.accommodation || !city.accommodation.check_in || !city.accommodation.check_out) return null;
-    
+
     const checkIn = new Date(city.accommodation.check_in);
     const checkOut = new Date(city.accommodation.check_out);
     const nights = Math.ceil((checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60 * 24));
-    
+
     return {
       checkIn: city.accommodation.check_in,
       checkOut: city.accommodation.check_out,
@@ -55,7 +55,7 @@ const HotelGuide: React.FC = () => {
     {
       city: '阿姆斯特丹',
       flag: '🇳🇱',
-      nights: '2-3晚',
+      nights: '2晚',
       recommendedAreas: ['中央火车站（Centraal Station）周边', '博物馆区（Museumplein）', '约丹区（Jordaan）', '运河带（Canal Ring）'],
       hotels: [
         {
@@ -78,7 +78,7 @@ const HotelGuide: React.FC = () => {
     {
       city: '巴黎',
       flag: '🇫🇷',
-      nights: '3-4晚',
+      nights: '2晚',
       recommendedAreas: ['拉丁区（第5区）', '圣日耳曼（第6区）', '埃菲尔铁塔区（第7区）', '玛黑区（第4区）'],
       avoidAreas: ['第18、19、20区（较偏远不安全）'],
       hotels: [
@@ -100,32 +100,147 @@ const HotelGuide: React.FC = () => {
       tips: ['第5、6、7区最安全便利', '必须靠近地铁站', '巴黎很大，位置很重要']
     },
     {
-      city: '罗马',
-      flag: '🇮🇹',
-      nights: '2-3晚',
-      recommendedAreas: ['Termini火车站周边', 'Navona广场区', 'Trevi喷泉区', 'Trastevere区（河对岸，特色餐厅多）'],
+      city: '里昂',
+      flag: '🇫🇷',
+      nights: '1晚',
+      recommendedAreas: ['里昂帕尔迪厄站（Part-Dieu）周边', '老城区（Vieux Lyon）', '白莱果广场（Place Bellecour）', '半岛区（Presqu\'île）'],
       hotels: [
         {
-          name: 'Hotel Artemide',
-          rating: 8.6,
-          price: '€90-140',
-          location: '中央火车站步行5分钟',
-          features: ['位置优越', '屋顶露台', '含早餐']
+          name: 'Hotel des Artistes',
+          rating: 8.3,
+          price: '€60-90',
+          location: '帕尔迪厄站步行3分钟',
+          features: ['交通便利', '现代装修', '性价比高']
         },
         {
-          name: 'Hotel Raffaello',
-          rating: 8.4,
-          price: '€110-180',
-          location: '共和广场附近，近地铁',
-          features: ['干净舒适', '交通便利', '性价比高']
+          name: 'Hotel des Celestins',
+          rating: 8.5,
+          price: '€80-120',
+          location: '老城区，近富维耶圣母院',
+          features: ['历史建筑', '位置绝佳', '法式风情']
         }
       ],
-      tips: ['Termini火车站最方便', '地铁A/B线交汇', '城市税约€3-7/人/晚']
+      tips: ['帕尔迪厄站最方便转车', '老城区很有特色但贵', '里昂是美食之都，酒店含早餐划算']
+    },
+    {
+      city: '马赛',
+      flag: '🇫🇷',
+      nights: '1晚',
+      recommendedAreas: ['马赛圣夏勒站（Saint-Charles）周边', '老港（Vieux Port）', '卡纳比耶区（Canebière）', '新港区（Port Moderne）'],
+      hotels: [
+        {
+          name: 'Hotel Saint Charles',
+          rating: 8.2,
+          price: '€55-85',
+          location: '圣夏勒站步行2分钟',
+          features: ['交通便利', '经济实惠', '干净整洁']
+        },
+        {
+          name: 'Hotel Bellevue',
+          rating: 8.4,
+          price: '€75-110',
+          location: '老港附近，步行5分钟',
+          features: ['海港景观', '位置优越', '地中海风情']
+        }
+      ],
+      tips: ['圣夏勒站最方便', '老港区安全但贵', '马赛治安一般，选择酒店要谨慎']
+    },
+    {
+      city: '尼斯',
+      flag: '🇫🇷',
+      nights: '1晚',
+      recommendedAreas: ['尼斯火车站（Gare de Nice-Ville）', '天使湾（Promenade des Anglais）', '老城区（Vieux Nice）', '港口区（Port）'],
+      hotels: [
+        {
+          name: 'Hotel Vendome',
+          rating: 8.3,
+          price: '€60-100',
+          location: '尼斯火车站步行5分钟',
+          features: ['经济实惠', '交通便利', '干净整洁']
+        },
+        {
+          name: 'Hotel de la Mer',
+          rating: 8.5,
+          price: '€90-150',
+          location: '天使湾海滩旁',
+          features: ['海景房', '位置绝佳', '法式风情']
+        }
+      ],
+      tips: ['火车站去摩纳哥方便', '海边景观好但贵€20-30', '比巴黎便宜30%']
+    },
+    {
+      city: '摩纳哥',
+      flag: '🇲🇨',
+      nights: '1晚',
+      recommendedAreas: ['蒙特卡洛（Monte Carlo）', '拉孔达米讷（La Condamine）', '摩纳哥城（Monaco-Ville）', '丰维耶（Fontvieille）'],
+      hotels: [
+        {
+          name: 'Hotel Ambassador Monaco',
+          rating: 8.4,
+          price: '€120-180',
+          location: '蒙特卡洛，近赌场',
+          features: ['位置绝佳', '豪华装修', '服务优质']
+        },
+        {
+          name: 'Hotel de France',
+          rating: 8.2,
+          price: '€100-150',
+          location: '拉孔达米讷，近港口',
+          features: ['性价比高', '港口景观', '交通便利']
+        }
+      ],
+      tips: ['摩纳哥酒店普遍昂贵', '可以考虑住尼斯当天往返', '蒙特卡洛最豪华但也最贵']
+    },
+    {
+      city: '米兰',
+      flag: '🇮🇹',
+      nights: '1晚',
+      recommendedAreas: ['米兰中央车站（Centrale）周边', '大教堂广场（Duomo）', '布雷拉区（Brera）', '纳维利区（Navigli）'],
+      hotels: [
+        {
+          name: 'Hotel Berna',
+          rating: 8.5,
+          price: '€80-120',
+          location: '中央车站步行3分钟',
+          features: ['交通便利', '现代装修', '含早餐']
+        },
+        {
+          name: 'Hotel Spadari al Duomo',
+          rating: 8.6,
+          price: '€120-180',
+          location: '大教堂广场步行2分钟',
+          features: ['位置绝佳', '设计酒店', '艺术装饰']
+        }
+      ],
+      tips: ['中央车站最方便', '大教堂区最贵但最方便', '米兰是购物天堂，酒店含早餐划算']
+    },
+    {
+      city: '维罗纳',
+      flag: '🇮🇹',
+      nights: '0晚（一日游）',
+      recommendedAreas: ['维罗纳门户新站（Porta Nuova）周边', '朱丽叶故居附近', '布拉广场（Piazza Bra）', '老城区（Centro Storico）'],
+      hotels: [
+        {
+          name: 'Hotel Giulietta e Romeo',
+          rating: 8.4,
+          price: '€70-110',
+          location: '朱丽叶故居步行5分钟',
+          features: ['浪漫主题', '位置优越', '性价比高']
+        },
+        {
+          name: 'Hotel Gabbia d\'Oro',
+          rating: 8.7,
+          price: '€120-200',
+          location: '老城区中心',
+          features: ['豪华装修', '历史建筑', '服务优质']
+        }
+      ],
+      tips: ['维罗纳很小，步行即可', '朱丽叶故居必去', '可以当天往返米兰']
     },
     {
       city: '威尼斯',
       flag: '🇮🇹',
-      nights: '2晚',
+      nights: '1晚',
       recommendedAreas: ['圣马可广场（San Marco）附近', 'Cannaregio区（安静）', 'Dorsoduro区（文艺）', 'Mestre大陆（经济实惠）'],
       hotels: [
         {
@@ -148,7 +263,7 @@ const HotelGuide: React.FC = () => {
     {
       city: '佛罗伦萨',
       flag: '🇮🇹',
-      nights: '2晚',
+      nights: '1晚',
       recommendedAreas: ['圣母百花大教堂周边', '老桥（Ponte Vecchio）附近', '圣十字广场区', 'Oltrarno区（河对岸，安静）'],
       hotels: [
         {
@@ -169,27 +284,96 @@ const HotelGuide: React.FC = () => {
       tips: ['老城区ZTL限行（不能开车）', '佛罗伦萨小，哪里都能走到', '河对岸Oltrarno更安静便宜']
     },
     {
-      city: '尼斯',
-      flag: '🇫🇷',
-      nights: '2晚',
-      recommendedAreas: ['尼斯火车站（Gare de Nice-Ville）', '天使湾（Promenade des Anglais）', '老城区（Vieux Nice）', '港口区（Port）'],
+      city: '比萨',
+      flag: '🇮🇹',
+      nights: '0晚（一日游）',
+      recommendedAreas: ['比萨中央车站（Centrale）周边', '奇迹广场（Piazza dei Miracoli）附近', '比萨大学区', '老城区（Centro Storico）'],
       hotels: [
         {
-          name: 'Hotel Vendome',
-          rating: 8.3,
-          price: '€60-100',
-          location: '尼斯火车站步行5分钟',
-          features: ['经济实惠', '交通便利', '干净整洁']
+          name: 'Hotel Relais dell\'Orologio',
+          rating: 8.5,
+          price: '€80-130',
+          location: '奇迹广场步行5分钟',
+          features: ['位置绝佳', '历史建筑', '性价比高']
         },
         {
-          name: 'Hotel de la Mer',
-          rating: 8.5,
-          price: '€90-150',
-          location: '天使湾海滩旁',
-          features: ['海景房', '位置绝佳', '法式风情']
+          name: 'Hotel di Stefano',
+          rating: 8.3,
+          price: '€60-100',
+          location: '中央车站步行8分钟',
+          features: ['交通便利', '经济实惠', '干净整洁']
         }
       ],
-      tips: ['火车站去摩纳哥方便', '海边景观好但贵€20-30', '比巴黎便宜30%']
+      tips: ['比萨很小，步行即可', '奇迹广场必去', '可以当天往返佛罗伦萨']
+    },
+    {
+      city: '梵蒂冈',
+      flag: '🇻🇦',
+      nights: '0晚（一日游）',
+      recommendedAreas: ['罗马特米尼站（Termini）周边', '梵蒂冈附近', '纳沃纳广场（Navona）', '特雷维喷泉（Trevi）'],
+      hotels: [
+        {
+          name: 'Hotel Artemide',
+          rating: 8.6,
+          price: '€90-140',
+          location: '中央火车站步行5分钟',
+          features: ['位置优越', '屋顶露台', '含早餐']
+        },
+        {
+          name: 'Hotel Raffaello',
+          rating: 8.4,
+          price: '€110-180',
+          location: '共和广场附近，近地铁',
+          features: ['干净舒适', '交通便利', '性价比高']
+        }
+      ],
+      tips: ['梵蒂冈在罗马市内', '建议住罗马，当天参观', '提前预订梵蒂冈博物馆门票']
+    },
+    {
+      city: '罗马',
+      flag: '🇮🇹',
+      nights: '2晚',
+      recommendedAreas: ['Termini火车站周边', 'Navona广场区', 'Trevi喷泉区', 'Trastevere区（河对岸，特色餐厅多）'],
+      hotels: [
+        {
+          name: 'Hotel Artemide',
+          rating: 8.6,
+          price: '€90-140',
+          location: '中央火车站步行5分钟',
+          features: ['位置优越', '屋顶露台', '含早餐']
+        },
+        {
+          name: 'Hotel Raffaello',
+          rating: 8.4,
+          price: '€110-180',
+          location: '共和广场附近，近地铁',
+          features: ['干净舒适', '交通便利', '性价比高']
+        }
+      ],
+      tips: ['Termini火车站最方便', '地铁A/B线交汇', '城市税约€3-7/人/晚']
+    },
+    {
+      city: '那不勒斯',
+      flag: '🇮🇹',
+      nights: '1晚',
+      recommendedAreas: ['那不勒斯中央车站（Centrale）周边', '历史中心（Centro Storico）', '港口区（Porto）', '沃梅罗区（Vomero）'],
+      hotels: [
+        {
+          name: 'Hotel Garibaldi',
+          rating: 8.2,
+          price: '€50-80',
+          location: '中央车站步行3分钟',
+          features: ['交通便利', '经济实惠', '干净整洁']
+        },
+        {
+          name: 'Hotel Excelsior',
+          rating: 8.5,
+          price: '€80-130',
+          location: '港口区，海景房',
+          features: ['海景房', '位置优越', '性价比高']
+        }
+      ],
+      tips: ['中央车站最方便', '历史中心有特色但治安一般', '那不勒斯是披萨发源地']
     }
   ];
 
@@ -315,11 +499,19 @@ const HotelGuide: React.FC = () => {
 
   const budgetTable = [
     { city: '阿姆斯特丹', nights: '2晚', budget: '€140-200', midRange: '€200-300', note: '酒店较贵' },
-    { city: '巴黎', nights: '3晚', budget: '€240-360', midRange: '€360-540', note: '看区域' },
-    { city: '罗马', nights: '2-3晚', budget: '€180-280', midRange: '€220-360', note: '火车站附近性价比高' },
-    { city: '威尼斯', nights: '2晚', budget: '€160-240', midRange: '€240-400', note: '岛上酒店贵' },
-    { city: '佛罗伦萨', nights: '2晚', budget: '€140-200', midRange: '€200-320', note: '老城区贵' },
-    { city: '尼斯', nights: '2晚', budget: '€120-180', midRange: '€180-280', note: '海边酒店贵' }
+    { city: '巴黎', nights: '2晚', budget: '€160-240', midRange: '€240-360', note: '看区域' },
+    { city: '里昂', nights: '1晚', budget: '€60-90', midRange: '€80-120', note: '美食之都' },
+    { city: '马赛', nights: '1晚', budget: '€55-85', midRange: '€75-110', note: '治安一般' },
+    { city: '尼斯', nights: '1晚', budget: '€60-100', midRange: '€90-150', note: '海边酒店贵' },
+    { city: '摩纳哥', nights: '1晚', budget: '€120-180', midRange: '€150-250', note: '最昂贵' },
+    { city: '米兰', nights: '1晚', budget: '€80-120', midRange: '€120-180', note: '购物天堂' },
+    { city: '维罗纳', nights: '0晚', budget: '€0', midRange: '€0', note: '一日游' },
+    { city: '威尼斯', nights: '1晚', budget: '€80-130', midRange: '€120-200', note: '岛上酒店贵' },
+    { city: '佛罗伦萨', nights: '1晚', budget: '€70-120', midRange: '€100-170', note: '老城区贵' },
+    { city: '比萨', nights: '0晚', budget: '€0', midRange: '€0', note: '一日游' },
+    { city: '梵蒂冈', nights: '0晚', budget: '€0', midRange: '€0', note: '一日游' },
+    { city: '罗马', nights: '2晚', budget: '€180-280', midRange: '€220-360', note: '火车站附近性价比高' },
+    { city: '那不勒斯', nights: '1晚', budget: '€50-80', midRange: '€80-130', note: '披萨发源地' }
   ];
 
   return (
@@ -376,86 +568,86 @@ const HotelGuide: React.FC = () => {
           {hotelRecommendations.map((city, index) => {
             const itinerary = getCityItinerary(city.city);
             return (
-            <div key={index} className="city-section">
-              <div className="city-header">
-                <span className="city-flag">{city.flag}</span>
-                <div className="city-info">
-                  <h3>{city.city}</h3>
-                  {itinerary && (
-                    <div className="city-dates">
-                      <Calendar size={16} />
-                      <span className="date-range">
-                        {itinerary.formattedCheckIn} - {itinerary.formattedCheckOut}
-                      </span>
-                      <span className="nights-badge">{itinerary.nights}晚</span>
-                    </div>
-                  )}
-                  {!itinerary && (
-                    <span className="city-nights-fallback">建议停留：{city.nights}</span>
-                  )}
-                </div>
-              </div>
-
-              {/* 推荐区域 */}
-              {city.recommendedAreas && (
-                <div className="recommended-areas">
-                  <h4>🗺️ 推荐住宿区域</h4>
-                  <div className="area-tags">
-                    {city.recommendedAreas.map((area, aIndex) => (
-                      <span key={aIndex} className="area-tag recommended">{area}</span>
-                    ))}
+              <div key={index} className="city-section">
+                <div className="city-header">
+                  <span className="city-flag">{city.flag}</span>
+                  <div className="city-info">
+                    <h3>{city.city}</h3>
+                    {itinerary && (
+                      <div className="city-dates">
+                        <Calendar size={16} />
+                        <span className="date-range">
+                          {itinerary.formattedCheckIn} - {itinerary.formattedCheckOut}
+                        </span>
+                        <span className="nights-badge">{itinerary.nights}晚</span>
+                      </div>
+                    )}
+                    {!itinerary && (
+                      <span className="city-nights-fallback">建议停留：{city.nights}</span>
+                    )}
                   </div>
-                  {city.avoidAreas && (
-                    <div className="avoid-areas">
-                      <strong>⚠️ 避开：</strong>
-                      {city.avoidAreas.map((area, aIndex) => (
-                        <span key={aIndex} className="area-tag avoid">{area}</span>
+                </div>
+
+                {/* 推荐区域 */}
+                {city.recommendedAreas && (
+                  <div className="recommended-areas">
+                    <h4>🗺️ 推荐住宿区域</h4>
+                    <div className="area-tags">
+                      {city.recommendedAreas.map((area, aIndex) => (
+                        <span key={aIndex} className="area-tag recommended">{area}</span>
                       ))}
                     </div>
-                  )}
-                </div>
-              )}
+                    {city.avoidAreas && (
+                      <div className="avoid-areas">
+                        <strong>⚠️ 避开：</strong>
+                        {city.avoidAreas.map((area, aIndex) => (
+                          <span key={aIndex} className="area-tag avoid">{area}</span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
 
-              {/* 具体酒店推荐 */}
-              <div className="hotels-section">
-                <h4>🏨 具体酒店推荐</h4>
-                <div className="hotels-list">
-                  {city.hotels.map((hotel, hIndex) => (
-                    <div key={hIndex} className="hotel-card">
-                      <div className="hotel-main">
-                        <h4>{hotel.name}</h4>
-                        <div className="hotel-info">
-                          <span className="hotel-rating">
-                            <Star size={16} fill="gold" stroke="gold" /> {hotel.rating}
-                          </span>
-                          <span className="hotel-price">{hotel.price}/晚</span>
-                        </div>
-                        <div className="hotel-location">
-                          <MapPin size={14} /> {hotel.location}
-                        </div>
-                        <div className="hotel-features">
-                          {hotel.features.map((feature, fIndex) => (
-                            <span key={fIndex} className="feature-tag">{feature}</span>
-                          ))}
+                {/* 具体酒店推荐 */}
+                <div className="hotels-section">
+                  <h4>🏨 具体酒店推荐</h4>
+                  <div className="hotels-list">
+                    {city.hotels.map((hotel, hIndex) => (
+                      <div key={hIndex} className="hotel-card">
+                        <div className="hotel-main">
+                          <h4>{hotel.name}</h4>
+                          <div className="hotel-info">
+                            <span className="hotel-rating">
+                              <Star size={16} fill="gold" stroke="gold" /> {hotel.rating}
+                            </span>
+                            <span className="hotel-price">{hotel.price}/晚</span>
+                          </div>
+                          <div className="hotel-location">
+                            <MapPin size={14} /> {hotel.location}
+                          </div>
+                          <div className="hotel-features">
+                            {hotel.features.map((feature, fIndex) => (
+                              <span key={fIndex} className="feature-tag">{feature}</span>
+                            ))}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="city-tips">
-                <Lightbulb size={18} />
-                <div className="tips-content">
-                  <strong>💡 预订建议：</strong>
-                  <ul>
-                    {city.tips.map((tip, tIndex) => (
-                      <li key={tIndex}>{tip}</li>
                     ))}
-                  </ul>
+                  </div>
+                </div>
+
+                <div className="city-tips">
+                  <Lightbulb size={18} />
+                  <div className="tips-content">
+                    <strong>💡 预订建议：</strong>
+                    <ul>
+                      {city.tips.map((tip, tIndex) => (
+                        <li key={tIndex}>{tip}</li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </div>
-            </div>
             );
           })}
         </section>
@@ -553,14 +745,14 @@ const HotelGuide: React.FC = () => {
                 ))}
                 <tr className="total-row">
                   <td><strong>总计</strong></td>
-                  <td><strong>12-14晚</strong></td>
-                  <td><strong>€1080-1580</strong></td>
-                  <td><strong>€1460-2200</strong></td>
-                  <td>约¥8500-17000</td>
+                  <td><strong>14晚</strong></td>
+                  <td><strong>€1205-1805</strong></td>
+                  <td><strong>€1805-2705</strong></td>
+                  <td>约¥9500-21000</td>
                 </tr>
               </tbody>
             </table>
-            <p className="budget-note">💡 建议：预算€1300-1800（¥10000-14000）可以住得很舒服，平均每晚约€100-130</p>
+            <p className="budget-note">💡 建议：预算€1500-2200（¥12000-17000）可以住得很舒服，平均每晚约€110-160</p>
           </div>
         </section>
 
