@@ -216,16 +216,6 @@ export const citiesData: City[] = [
     departure_date: "2026-02-21"
   },
   {
-    id: 11,
-    name: "梵蒂冈",
-    name_en: "Vatican City",
-    country: "梵蒂冈",
-    latitude: 41.9029,
-    longitude: 12.4534,
-    arrival_date: "2026-02-21",
-    departure_date: "2026-02-21"
-  },
-  {
     id: 10,
     name: "罗马",
     name_en: "Rome",
@@ -242,6 +232,16 @@ export const citiesData: City[] = [
       check_in: "2026-02-21",
       check_out: "2026-02-24"
     }
+  },
+  {
+    id: 11,
+    name: "梵蒂冈",
+    name_en: "Vatican City",
+    country: "梵蒂冈",
+    latitude: 41.9029,
+    longitude: 12.4534,
+    arrival_date: "2026-02-21",
+    departure_date: "2026-02-21"
   },
   {
     id: 15,
@@ -543,8 +543,8 @@ export const transportationData: Transportation[] = [
     transport_type: "Train",
     from_city_id: 13,
     to_city_id: 10,
-    departure_time: "2026-02-21 14:00",
-    arrival_time: "2026-02-21 17:00",
+    departure_time: "2026-02-21 15:00",
+    arrival_time: "2026-02-21 18:00",
     duration: "约3小时",
     train_number: "",
     departure_location: "比萨中央车站",
@@ -613,8 +613,32 @@ export const transportationData: Transportation[] = [
 
 // 组装完整数据
 export const getItineraryData = (): Itinerary => {
+  // 按日期和到达时间排序城市
+  const sortedCities = [...citiesData].sort((a, b) => {
+    const dateA = new Date(a.arrival_date).getTime();
+    const dateB = new Date(b.arrival_date).getTime();
+
+    // 如果日期不同，按日期排序
+    if (dateA !== dateB) {
+      return dateA - dateB;
+    }
+
+    // 如果日期相同，按到达时间排序
+    const transportA = transportationData.find(t => t.to_city_id === a.id);
+    const transportB = transportationData.find(t => t.to_city_id === b.id);
+
+    if (transportA && transportB) {
+      const timeA = new Date(transportA.arrival_time).getTime();
+      const timeB = new Date(transportB.arrival_time).getTime();
+      return timeA - timeB;
+    }
+
+    // 如果没有交通信息，保持原顺序
+    return 0;
+  });
+
   // 为每个城市添加景点
-  const citiesWithAttractions = citiesData.map(city => ({
+  const citiesWithAttractions = sortedCities.map(city => ({
     ...city,
     attractions: attractionsData.filter(attr => attr.city_id === city.id)
   }));

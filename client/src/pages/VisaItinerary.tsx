@@ -144,10 +144,29 @@ const VisaItinerary: React.FC = () => {
     }> = [];
     let dayCounter = 1;
 
-    // 按日期排序城市
-    const sortedCities = [...citiesData].sort((a, b) =>
-      new Date(a.arrival_date).getTime() - new Date(b.arrival_date).getTime()
-    );
+    // 按日期和到达时间排序城市
+    const sortedCities = [...citiesData].sort((a, b) => {
+      const dateA = new Date(a.arrival_date).getTime();
+      const dateB = new Date(b.arrival_date).getTime();
+
+      // 如果日期不同，按日期排序
+      if (dateA !== dateB) {
+        return dateA - dateB;
+      }
+
+      // 如果日期相同，按到达时间排序
+      const transportA = transportationData.find(t => t.to_city_id === a.id);
+      const transportB = transportationData.find(t => t.to_city_id === b.id);
+
+      if (transportA && transportB) {
+        const timeA = new Date(transportA.arrival_time).getTime();
+        const timeB = new Date(transportB.arrival_time).getTime();
+        return timeA - timeB;
+      }
+
+      // 如果没有交通信息，保持原顺序
+      return 0;
+    });
 
     // 为每个城市生成行程
     sortedCities.forEach((city, index) => {
