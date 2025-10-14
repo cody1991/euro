@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import html2canvas from 'html2canvas';
 import { Hotel, MapPin, Star, DollarSign, Calendar, Shield, Lightbulb, CheckCircle, AlertCircle } from 'lucide-react';
 import ScrollButtons from '../components/ScrollButtons';
-import { citiesData } from '../models/travelData';
+import { citiesData, cityArrivalTimes } from '../models/travelData';
 import './HotelGuide.css';
 
 const HotelGuide: React.FC = () => {
@@ -613,8 +613,20 @@ const HotelGuide: React.FC = () => {
     });
 
     return budgetTable.sort((a, b) => {
-      // 直接使用 sortDate 进行排序
-      return a.sortDate.getTime() - b.sortDate.getTime();
+      const dateA = a.sortDate.getTime();
+      const dateB = b.sortDate.getTime();
+
+      // 如果日期不同，按日期排序
+      if (dateA !== dateB) {
+        return dateA - dateB;
+      }
+
+      // 如果日期相同，按实际到达时间排序
+      const getArrivalTime = (city: string) => {
+        return cityArrivalTimes[city] || 12; // 默认中午12点
+      };
+
+      return getArrivalTime(a.city) - getArrivalTime(b.city);
     });
   };
 

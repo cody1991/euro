@@ -1,5 +1,5 @@
 import React from 'react';
-import { citiesData, transportationData } from '../models/travelData';
+import { citiesData, transportationData, cityArrivalTimes } from '../models/travelData';
 import ScrollButtons from './ScrollButtons';
 import './ItineraryTimeline.css';
 
@@ -24,8 +24,10 @@ const ItineraryTimeline: React.FC = () => {
       return timeA - timeB;
     }
 
-    // 如果没有交通信息，保持原顺序
-    return 0;
+    // 如果没有交通信息，使用城市到达时间配置
+    const timeA = cityArrivalTimes[a.name] || 12;
+    const timeB = cityArrivalTimes[b.name] || 12;
+    return timeA - timeB;
   });
 
   const formatDate = (dateString: string) => {

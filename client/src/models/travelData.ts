@@ -1,6 +1,13 @@
 // 欧洲旅游行程数据
 import { Itinerary, City, Attraction, Transportation, Accommodation } from '../types';
 
+// 城市到达时间配置（用于同一天城市的排序）
+export const cityArrivalTimes: { [key: string]: number } = {
+  '比萨': 10,    // 10:00 到达
+  '罗马': 18,    // 18:00 到达
+  '梵蒂冈': 19,  // 下午，晚于罗马
+};
+
 // 行程基本信息
 export const itineraryData: Itinerary = {
   id: 1,
@@ -633,8 +640,10 @@ export const getItineraryData = (): Itinerary => {
       return timeA - timeB;
     }
 
-    // 如果没有交通信息，保持原顺序
-    return 0;
+    // 如果没有交通信息，使用城市到达时间配置
+    const timeA = cityArrivalTimes[a.name] || 12;
+    const timeB = cityArrivalTimes[b.name] || 12;
+    return timeA - timeB;
   });
 
   // 为每个城市添加景点
