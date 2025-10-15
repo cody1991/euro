@@ -230,13 +230,13 @@ export const citiesData: City[] = [
     latitude: 41.9028,
     longitude: 12.4964,
     arrival_date: "2026-02-21",
-    departure_date: "2026-02-23",
+    departure_date: "2026-02-24",
     accommodation: {
       hotel_name: "",
       hotel_name_en: "",
       address: "",
       phone: "",
-      check_in: "2026-02-21",
+      check_in: "2026-02-22",
       check_out: "2026-02-24"
     }
   },
@@ -258,7 +258,7 @@ export const citiesData: City[] = [
     latitude: 40.8518,
     longitude: 14.2681,
     arrival_date: "2026-02-24",
-    departure_date: "2026-02-24",
+    departure_date: "2026-02-25",
     accommodation: {
       hotel_name: "",
       hotel_name_en: "",
@@ -275,8 +275,8 @@ export const citiesData: City[] = [
     country: "荷兰",
     latitude: 52.3676,
     longitude: 4.9041,
-    arrival_date: "2026-02-26",
-    departure_date: "2026-02-26"
+    arrival_date: "2026-02-25",
+    departure_date: "2026-02-25"
   }
 ];
 
@@ -607,9 +607,9 @@ export const transportationData: Transportation[] = [
     transport_type: "Flight",
     from_city_id: 14,
     to_city_id: -1,
-    departure_time: "2026-02-26 19:00",
-    arrival_time: "2026-02-26 20:55",
-    duration: "1小时55分钟",
+    departure_time: "2026-02-25 21:00",
+    arrival_time: "2026-02-26 14:30",
+    duration: "11小时30分钟",
     flight_number: "",
     departure_location: "阿姆斯特丹史基浦机场",
     departure_location_en: "Amsterdam Schiphol Airport",

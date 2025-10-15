@@ -537,7 +537,18 @@ const HotelGuide: React.FC = () => {
       '那不勒斯': { budget: '€50-80', midRange: '€80-130', note: '披萨发源地' }
     };
 
-    const budgetTable = [];
+    const budgetTable: Array<{
+      city: string;
+      nights: string;
+      dates: string;
+      checkIn: string;
+      checkOut: string;
+      budget: string;
+      midRange: string;
+      note: string;
+      accommodation: string;
+      sortDate: Date;
+    }> = [];
 
     // 处理有住宿的城市，按 check_in 日期排序
     const citiesWithAccommodation = citiesData
@@ -596,21 +607,7 @@ const HotelGuide: React.FC = () => {
       });
     });
 
-    // 添加返程住宿
-    const returnDate = new Date('2026-02-26');
-    const returnCheckOut = new Date('2026-02-27'); // 返程第二天
-    budgetTable.push({
-      city: '阿姆斯特丹（返程）',
-      nights: '1晚',
-      dates: formatSingleDate(returnDate),
-      checkIn: formatDateForBooking(returnDate),
-      checkOut: formatDateForBooking(returnCheckOut),
-      budget: '€70-100',
-      midRange: '€80-120',
-      note: '机场酒店',
-      accommodation: '阿姆斯特丹机场',
-      sortDate: returnDate
-    });
+    // 返程不需要住宿（2月25日晚上21:00直接飞回国）
 
     return budgetTable.sort((a, b) => {
       const dateA = a.sortDate.getTime();
