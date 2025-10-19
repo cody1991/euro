@@ -42,8 +42,8 @@ const VisaItinerary: React.FC = () => {
 
     dailyItinerary.forEach(day => {
       day.cities.forEach(city => {
-        // 排除中转城市
-        if (city.id >= 1 && city.id !== 14) {
+        // 排除中转城市和Verona
+        if (city.id >= 1 && city.id !== 14 && city.id !== 12) {
           const country = city.country;
           if (!countryDays[country]) {
             countryDays[country] = 0;
@@ -144,8 +144,12 @@ const VisaItinerary: React.FC = () => {
     }> = [];
     let dayCounter = 1;
 
+    // 使用与申根申请表页面显示相同的过滤逻辑，确保数据一致性
+    // 排除中转城市（id=14）和Verona（id=12）
+    const filteredCities = citiesData.filter(city => city.id >= 1 && city.id !== 14 && city.id !== 12);
+
     // 按日期和到达时间排序城市
-    const sortedCities = [...citiesData].sort((a, b) => {
+    const sortedCities = [...filteredCities].sort((a, b) => {
       const dateA = new Date(a.arrival_date).getTime();
       const dateB = new Date(b.arrival_date).getTime();
 
@@ -170,7 +174,7 @@ const VisaItinerary: React.FC = () => {
       return timeA - timeB;
     });
 
-    // 为每个城市生成行程
+    // 为每个城市生成行程，但避免重复的景点信息
     sortedCities.forEach((city, index) => {
       const arrivalDate = new Date(city.arrival_date);
       const departureDate = new Date(city.departure_date);
@@ -236,11 +240,24 @@ const VisaItinerary: React.FC = () => {
           transportation = transportParts.join('<br/><br/>');
         }
 
+        // 获取景点信息 - 只在第一天显示完整景点列表，其他天显示简化信息
+        let touring = '';
+        if (dayOffset === 0) {
+          // 第一天显示完整景点列表
+          touring = getTouringSpots(city);
+        } else if (dayOffset === daysInCity - 1) {
+          // 最后一天显示"继续游览"或"自由活动"
+          touring = 'Continue sightseeing / Free time';
+        } else {
+          // 中间天显示"继续游览"
+          touring = 'Continue sightseeing';
+        }
+
         itinerary.push({
           day: dayCounter++,
           date: dateStr,
           city: cityDisplay,
-          touring: getTouringSpots(city),
+          touring: touring,
           accommodation: getAccommodation(city),
           transportation: transportation
         });
@@ -563,7 +580,7 @@ const VisaItinerary: React.FC = () => {
                 <div className="day-content">
                   {day.cities.map((city, cityIndex) => {
                     const attractions = attractionsData.filter(attr => attr.city_id === city.id);
-                    const isMainCity = city.id >= 1 && city.id !== 14;
+                    const isMainCity = city.id >= 1 && city.id !== 14 && city.id !== 12;
 
                     if (!isMainCity) return null;
 
