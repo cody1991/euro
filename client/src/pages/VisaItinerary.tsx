@@ -117,9 +117,18 @@ const VisaItinerary: React.FC = () => {
     if (!cityAttractions || cityAttractions.length === 0) {
       return '_______________';
     }
-    return cityAttractions.map((attr: any, idx: number) =>
-      `${idx + 1}. ${attr.name_en || attr.name}`
-    ).join('<br/>');
+    return cityAttractions.map((attr: any, idx: number) => {
+      // 按照"英文名称 + 中文名称"的格式显示
+      const englishName = attr.name_en || attr.name;
+      const chineseName = attr.name;
+
+      // 如果英文名称和中文名称相同，只显示一个
+      if (englishName === chineseName) {
+        return `${idx + 1}. ${englishName}`;
+      } else {
+        return `${idx + 1}. ${englishName}${chineseName}`;
+      }
+    }).join('<br/>');
   };
 
   const getAccommodation = (city: any) => {
