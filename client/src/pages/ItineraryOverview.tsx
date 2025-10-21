@@ -95,9 +95,18 @@ const ItineraryOverview: React.FC = () => {
       if (city.attractions && city.attractions.length > 0) {
         md += `**🏛️ 推荐景点** (${city.attractions.length}个)：\n\n`;
         city.attractions.forEach((attr, i) => {
-          md += `${i + 1}. **${attr.name}** ⭐${attr.rating}\n`;
+          md += `${i + 1}. **${attr.name}** ⭐${attr.rating}`;
+          if (attr.booking_required) {
+            md += ` 🎫 **需预约**`;
+          }
+          md += `\n`;
           md += `   - ${attr.description}\n`;
-          md += `   - 类型：${attr.category}\n\n`;
+          md += `   - 类型：${attr.category}\n`;
+          if (attr.booking_required) {
+            md += `   - ⏰ **提前预订时间**：${attr.booking_advance}\n`;
+            md += `   - 💡 **预订提示**：${attr.booking_notes}\n`;
+          }
+          md += `\n`;
         });
       }
 
@@ -235,8 +244,21 @@ const ItineraryOverview: React.FC = () => {
                           <div className="attraction-header">
                             <span className="attraction-number">{idx + 1}</span>
                             <span className="attraction-name">{attraction.name}</span>
+                            {attraction.booking_required && (
+                              <span className="booking-badge">🎫 需预约</span>
+                            )}
                           </div>
                           <p className="attraction-desc">{attraction.description}</p>
+                          {attraction.booking_required && (
+                            <div className="booking-info">
+                              <div className="booking-advance">
+                                ⏰ <strong>{attraction.booking_advance}</strong>
+                              </div>
+                              <div className="booking-notes">
+                                💡 {attraction.booking_notes}
+                              </div>
+                            </div>
+                          )}
                           <div className="attraction-meta">
                             <span className="attraction-category">{attraction.category}</span>
                             <div className="attraction-rating">
@@ -277,6 +299,52 @@ const ItineraryOverview: React.FC = () => {
               </div>
             );
           })}
+        </section>
+
+        {/* 需要提前购票的景点汇总 */}
+        <section className="booking-summary">
+          <h2>🎫 需要提前购票的景点汇总</h2>
+          <p className="booking-summary-intro">
+            以下景点强烈建议或必须提前购票，请尽早安排预订以避免无法参观或长时间排队。
+          </p>
+          <div className="booking-attractions-list">
+            {itinerary.cities?.map((city) => {
+              const bookingRequired = city.attractions?.filter(attr => attr.booking_required) || [];
+              if (bookingRequired.length === 0) return null;
+
+              return (
+                <div key={city.id} className="booking-city-section">
+                  <h3 className="booking-city-name">
+                    📍 {city.name} ({bookingRequired.length}个景点需预约)
+                  </h3>
+                  <div className="booking-attractions">
+                    {bookingRequired.map((attraction, idx) => (
+                      <div key={attraction.id} className="booking-attraction-item">
+                        <div className="booking-attraction-header">
+                          <span className="booking-attraction-number">{idx + 1}</span>
+                          <span className="booking-attraction-name">{attraction.name}</span>
+                          <span className="booking-advance-badge">{attraction.booking_advance}</span>
+                        </div>
+                        <div className="booking-attraction-notes">
+                          {attraction.booking_notes}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div className="booking-tips">
+            <h4>💡 预订小贴士：</h4>
+            <ul>
+              <li>建议在出发前就完成所有需要提前预约的景点门票购买</li>
+              <li>部分景点（如最后的晚餐、安妮之家）名额非常紧张，越早预订越好</li>
+              <li>购买时注意确认参观日期和时间段，避免与行程冲突</li>
+              <li>保存好预订确认邮件和电子票据，参观时可能需要出示</li>
+              <li>部分景点提供组合票或城市通票，可以考虑购买以节省费用</li>
+            </ul>
+          </div>
         </section>
 
         {/* 统计信息 */}

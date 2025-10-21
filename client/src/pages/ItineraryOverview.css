@@ -109,7 +109,11 @@
 .day-section {
   margin-bottom: 40px;
   padding: 25px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 249, 250, 0.8) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(248, 249, 250, 0.8) 100%
+  );
   border-radius: 16px;
   border: 1px solid rgba(102, 126, 234, 0.1);
   box-shadow: 0 4px 20px rgba(102, 126, 234, 0.1);
@@ -218,6 +222,7 @@
   align-items: center;
   gap: 10px;
   margin-bottom: 10px;
+  flex-wrap: wrap;
 }
 
 .attraction-number {
@@ -238,6 +243,18 @@
   font-weight: bold;
   color: #333;
   font-size: 1.1em;
+  flex: 1;
+}
+
+.booking-badge {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.85em;
+  font-weight: bold;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
 }
 
 .attraction-desc {
@@ -245,6 +262,31 @@
   font-size: 1em;
   margin: 8px 0;
   line-height: 1.6;
+}
+
+.booking-info {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 243, 224, 0.8) 0%,
+    rgba(255, 237, 213, 0.8) 100%
+  );
+  border-left: 4px solid #ff9800;
+  padding: 12px;
+  margin: 12px 0;
+  border-radius: 8px;
+  font-size: 0.95em;
+}
+
+.booking-advance {
+  color: #e65100;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.booking-notes {
+  color: #f57c00;
+  line-height: 1.5;
+  font-size: 0.95em;
 }
 
 .attraction-meta {
@@ -334,6 +376,154 @@
 .duration {
   color: #667eea;
   font-weight: bold;
+}
+
+/* 购票汇总 */
+.booking-summary {
+  margin-top: 40px;
+  padding: 30px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 152, 0, 0.05) 0%,
+    rgba(255, 193, 7, 0.05) 100%
+  );
+  border-radius: 16px;
+  border: 2px solid #ff9800;
+}
+
+.booking-summary h2 {
+  font-size: 1.8em;
+  margin-bottom: 15px;
+  color: #e65100;
+  font-weight: 600;
+}
+
+.booking-summary-intro {
+  color: #f57c00;
+  font-size: 1.1em;
+  margin-bottom: 25px;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.booking-attractions-list {
+  margin-bottom: 30px;
+}
+
+.booking-city-section {
+  margin-bottom: 25px;
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(255, 152, 0, 0.1);
+}
+
+.booking-city-name {
+  font-size: 1.4em;
+  color: #e65100;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.booking-attractions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.booking-attraction-item {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 243, 224, 0.5) 0%,
+    rgba(255, 237, 213, 0.5) 100%
+  );
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 4px solid #ff9800;
+}
+
+.booking-attraction-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.booking-attraction-number {
+  background: #ff9800;
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9em;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.booking-attraction-name {
+  font-weight: bold;
+  color: #333;
+  font-size: 1.15em;
+  flex: 1;
+}
+
+.booking-advance-badge {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.9em;
+  font-weight: bold;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+}
+
+.booking-attraction-notes {
+  color: #f57c00;
+  line-height: 1.6;
+  font-size: 1em;
+  padding-left: 40px;
+}
+
+.booking-tips {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  border: 2px dashed #ff9800;
+}
+
+.booking-tips h4 {
+  color: #e65100;
+  margin-bottom: 15px;
+  font-size: 1.3em;
+  font-weight: 600;
+}
+
+.booking-tips ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.booking-tips li {
+  color: #f57c00;
+  margin-bottom: 10px;
+  padding-left: 25px;
+  position: relative;
+  line-height: 1.6;
+}
+
+.booking-tips li:before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #ff9800;
+  font-weight: bold;
+  font-size: 1.2em;
 }
 
 /* 统计信息 */
@@ -503,7 +693,7 @@
   .itinerary-overview {
     min-width: 100%;
   }
-  
+
   .overview-header h1 {
     font-size: 1.8em;
   }

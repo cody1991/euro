@@ -39,6 +39,9 @@ export interface Attraction {
   longitude: number;
   category: string;
   rating: number;
+  booking_required?: boolean;
+  booking_advance?: string;
+  booking_notes?: string;
 }
 
 export interface Transportation {
