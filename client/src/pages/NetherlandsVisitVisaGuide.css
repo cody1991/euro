@@ -116,6 +116,203 @@
   opacity: 0.9;
 }
 
+/* 对比部分 */
+.comparison-section {
+  margin-bottom: 40px;
+  padding: 30px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.comparison-section h2 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.section-intro {
+  text-align: center;
+  color: #7f8c8d;
+  font-size: 1.05rem;
+  margin-bottom: 30px;
+}
+
+.comparison-table {
+  background: #f8f9fa;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+.comparison-header {
+  display: grid;
+  grid-template-columns: 1.2fr 2fr 2fr;
+  gap: 2px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: bold;
+  padding: 20px 15px;
+}
+
+.comparison-category {
+  padding: 12px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  color: #2c3e50;
+}
+
+.comparison-column {
+  padding: 12px;
+  text-align: center;
+  font-size: 1.05rem;
+}
+
+.comparison-row {
+  display: grid;
+  grid-template-columns: 1.2fr 2fr 2fr;
+  gap: 2px;
+  background: white;
+  border-bottom: 2px solid #ecf0f1;
+}
+
+.comparison-row:last-child {
+  border-bottom: none;
+}
+
+.comparison-cell {
+  padding: 15px;
+  background: #f8f9fa;
+  display: flex;
+  align-items: center;
+  color: #34495e;
+  line-height: 1.6;
+}
+
+.comparison-cell.highlight {
+  background: #e8f4f8;
+  border-left: 4px solid #667eea;
+}
+
+.comparison-tips {
+  margin-bottom: 30px;
+}
+
+.comparison-tips h3 {
+  font-size: 1.4rem;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.tip-card {
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.tip-card h4 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+.tip-card.success {
+  background: linear-gradient(135deg, #d4f1d4 0%, #b5e7b5 100%);
+  border-left: 5px solid #28a745;
+}
+
+.tip-card.success h4 {
+  color: #155724;
+}
+
+.tip-card.success ul {
+  list-style: none;
+  padding: 0;
+}
+
+.tip-card.success li {
+  padding: 8px 0;
+  padding-left: 25px;
+  position: relative;
+  color: #155724;
+  line-height: 1.6;
+}
+
+.tip-card.success li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #28a745;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.tip-card.warning {
+  background: linear-gradient(135deg, #ffe8d4 0%, #ffd4b5 100%);
+  border-left: 5px solid #ff6b6b;
+}
+
+.tip-card.warning h4 {
+  color: #721c24;
+}
+
+.tip-card.warning ul {
+  list-style: none;
+  padding: 0;
+}
+
+.tip-card.warning li {
+  padding: 8px 0;
+  padding-left: 25px;
+  position: relative;
+  color: #721c24;
+  line-height: 1.6;
+}
+
+.tip-card.warning li::before {
+  content: '✗';
+  position: absolute;
+  left: 0;
+  color: #ff6b6b;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.comparison-note {
+  padding: 20px;
+  background: #fff3cd;
+  border-radius: 10px;
+  border-left: 5px solid #ffc107;
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  color: #856404;
+}
+
+.comparison-note svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.comparison-note strong {
+  display: block;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+.comparison-note p {
+  margin: 0;
+  line-height: 1.7;
+}
+
 /* 特点部分 */
 .features-section {
   margin-bottom: 40px;
@@ -259,7 +456,7 @@
 }
 
 .detail-section li::before {
-  content: "✓";
+  content: '✓';
   position: absolute;
   left: 0;
   color: #667eea;
@@ -280,7 +477,7 @@
 }
 
 .tips-section li::before {
-  content: "💡";
+  content: '💡';
   position: absolute;
   left: 0;
 }
@@ -394,7 +591,7 @@
 }
 
 .note-card li::before {
-  content: "▸";
+  content: '▸';
   position: absolute;
   left: 0;
   color: #667eea;
@@ -694,7 +891,8 @@
   .features-grid,
   .notes-grid,
   .links-grid,
-  .faq-grid {
+  .faq-grid,
+  .tips-grid {
     grid-template-columns: 1fr;
   }
 
@@ -702,6 +900,54 @@
   .fees-row {
     grid-template-columns: 1.5fr 1fr 1fr;
     font-size: 0.9rem;
+  }
+
+  /* 对比表格移动端优化 */
+  .comparison-header,
+  .comparison-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .comparison-header {
+    padding: 15px;
+  }
+
+  .comparison-column {
+    text-align: left;
+    padding: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .comparison-column:first-child {
+    border-top: none;
+  }
+
+  .comparison-row {
+    margin-bottom: 15px;
+    border-radius: 8px;
+    overflow: hidden;
+    border-bottom: none;
+  }
+
+  .comparison-category {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 12px;
+    margin-bottom: 5px;
+  }
+
+  .comparison-cell {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+
+  .comparison-cell::before {
+    content: attr(data-label);
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: #667eea;
   }
 
   .step-header {
@@ -717,4 +963,3 @@
     padding-left: 30px;
   }
 }
-

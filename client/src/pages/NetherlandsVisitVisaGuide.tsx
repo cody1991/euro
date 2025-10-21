@@ -450,26 +450,253 @@ const NetherlandsVisitVisaGuide: React.FC = () => {
           </div>
         </div>
 
+        {/* 访友签 vs 旅游签对比 */}
+        <div className="comparison-section">
+          <h2>🎯 访友签证 VS 旅游签证详细对比</h2>
+          <p className="section-intro">了解两种签证的区别，选择最适合你的签证类型</p>
+
+          <div className="comparison-table">
+            <div className="comparison-header">
+              <div className="comparison-category">对比项目</div>
+              <div className="comparison-column">访友签证（Visit Visa）</div>
+              <div className="comparison-column">旅游签证（Tourist Visa）</div>
+            </div>
+
+            <div className="comparison-row">
+              <div className="comparison-category">
+                <strong>申请目的</strong>
+              </div>
+              <div className="comparison-cell">
+                探访在荷兰的朋友、亲属或进行商务访问
+              </div>
+              <div className="comparison-cell">
+                纯粹旅游观光、度假
+              </div>
+            </div>
+
+            <div className="comparison-row">
+              <div className="comparison-category">
+                <strong>邀请函要求</strong>
+              </div>
+              <div className="comparison-cell highlight">
+                <strong>✅ 必须提供</strong><br />
+                需要荷兰一方出具正式邀请函及相关证明材料
+              </div>
+              <div className="comparison-cell">
+                <strong>❌ 不需要</strong><br />
+                无需邀请函，自己安排行程即可
+              </div>
+            </div>
+
+            <div className="comparison-row">
+              <div className="comparison-category">
+                <strong>关系证明</strong>
+              </div>
+              <div className="comparison-cell highlight">
+                <strong>✅ 必须提供</strong><br />
+                需要证明与邀请人的真实关系（照片、聊天记录、往来证明等）
+              </div>
+              <div className="comparison-cell">
+                <strong>❌ 不需要</strong><br />
+                无需证明任何人际关系
+              </div>
+            </div>
+
+            <div className="comparison-row">
+              <div className="comparison-category">
+                <strong>住宿安排</strong>
+              </div>
+              <div className="comparison-cell">
+                可住在邀请人家中（需提供住址证明）或酒店
+              </div>
+              <div className="comparison-cell">
+                必须预订酒店，提供酒店预订单
+              </div>
+            </div>
+
+            <div className="comparison-row">
+              <div className="comparison-category">
+                <strong>行程计划</strong>
+              </div>
+              <div className="comparison-cell">
+                可以较为灵活，主要由邀请人协助安排
+              </div>
+              <div className="comparison-cell">
+                需要详细的旅游行程计划，包括每日安排
+              </div>
+            </div>
+
+            <div className="comparison-row">
+              <div className="comparison-category">
+                <strong>经济担保</strong>
+              </div>
+              <div className="comparison-cell">
+                邀请人可以提供部分经济担保，申请人自己也需要资金证明
+              </div>
+              <div className="comparison-cell">
+                完全由申请人自己提供，需要充足的银行流水
+              </div>
+            </div>
+
+            <div className="comparison-row">
+              <div className="comparison-category">
+                <strong>材料准备难度</strong>
+              </div>
+              <div className="comparison-cell">
+                <strong>中等-较难</strong><br />
+                需要协调荷兰一方准备邀请函和证明材料，涉及双方文件
+              </div>
+              <div className="comparison-cell">
+                <strong>相对简单</strong><br />
+                主要是申请人自己准备材料，不涉及第三方
+              </div>
+            </div>
+
+            <div className="comparison-row">
+              <div className="comparison-category">
+                <strong>审核重点</strong>
+              </div>
+              <div className="comparison-cell">
+                关系真实性、邀请人资质、住宿条件、回国意愿
+              </div>
+              <div className="comparison-cell">
+                经济能力、行程合理性、回国意愿
+              </div>
+            </div>
+
+            <div className="comparison-row">
+              <div className="comparison-category">
+                <strong>签证费用</strong>
+              </div>
+              <div className="comparison-cell">
+                €80（成人）+ 服务费约¥200-250
+              </div>
+              <div className="comparison-cell">
+                €80（成人）+ 服务费约¥200-250
+              </div>
+            </div>
+
+            <div className="comparison-row">
+              <div className="comparison-category">
+                <strong>审核时间</strong>
+              </div>
+              <div className="comparison-cell">
+                15-30个工作日（可能会核实邀请人信息）
+              </div>
+              <div className="comparison-cell">
+                15-30个工作日
+              </div>
+            </div>
+
+            <div className="comparison-row">
+              <div className="comparison-category">
+                <strong>获签难度</strong>
+              </div>
+              <div className="comparison-cell">
+                <strong>有真实关系较容易</strong><br />
+                如果关系证明充分、邀请人资质好，成功率较高；但关系虚假容易被拒
+              </div>
+              <div className="comparison-cell">
+                <strong>材料齐全即可</strong><br />
+                主要看申请人自身条件和材料完整性
+              </div>
+            </div>
+
+            <div className="comparison-row">
+              <div className="comparison-category">
+                <strong>旅行自由度</strong>
+              </div>
+              <div className="comparison-cell">
+                可以自由旅行，不限制只能在邀请人处
+              </div>
+              <div className="comparison-cell">
+                完全自由安排旅行路线
+              </div>
+            </div>
+
+            <div className="comparison-row">
+              <div className="comparison-category">
+                <strong>适合人群</strong>
+              </div>
+              <div className="comparison-cell highlight">
+                ✅ 在荷兰有朋友、亲属或商务伙伴<br />
+                ✅ 希望节省住宿成本<br />
+                ✅ 需要当地人协助安排行程<br />
+                ✅ 有明确的访问对象和理由
+              </div>
+              <div className="comparison-cell highlight">
+                ✅ 纯粹想去荷兰旅游<br />
+                ✅ 在荷兰没有熟人<br />
+                ✅ 喜欢自由安排行程<br />
+                ✅ 不想麻烦他人准备材料
+              </div>
+            </div>
+          </div>
+
+          <div className="comparison-tips">
+            <h3>💡 选择建议</h3>
+            <div className="tips-grid">
+              <div className="tip-card success">
+                <h4>✅ 选择访友签证，如果：</h4>
+                <ul>
+                  <li>你在荷兰确实有朋友或亲属，并且关系真实可证明</li>
+                  <li>邀请人有稳定工作和收入，愿意提供邀请函</li>
+                  <li>你可以住在邀请人家中，节省住宿费用</li>
+                  <li>邀请人可以协助安排行程，提供当地帮助</li>
+                  <li>你们的关系有充分的证明材料（照片、聊天记录等）</li>
+                </ul>
+              </div>
+              <div className="tip-card warning">
+                <h4>⚠️ 不建议访友签证，如果：</h4>
+                <ul>
+                  <li>你和邀请人的关系不够真实或无法充分证明</li>
+                  <li>邀请人的经济条件或居住条件不理想</li>
+                  <li>为了申请而临时找人充当"邀请人"</li>
+                  <li>你实际上是想纯旅游，没有真正的访友计划</li>
+                  <li>邀请人不愿意或无法提供完整的证明材料</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div className="comparison-note">
+            <AlertCircle size={20} />
+            <div>
+              <strong>重要提醒：</strong>
+              <p>访友签证和旅游签证都属于申根C类短期签证，签证贴纸和权限完全相同，都可以在申根区自由旅行。区别仅在于申请材料和审核重点。<strong>千万不要为了申请而伪造邀请关系</strong>，一旦被发现作假，不仅会被拒签，还可能影响未来的申根签证申请。如果没有真实的朋友或亲属在荷兰，老老实实申请旅游签证反而更安全。</p>
+            </div>
+          </div>
+        </div>
+
         {/* 访友签特点 */}
         <div className="features-section">
-          <h2>🎯 访友签证特点</h2>
+          <h2>🎁 访友签证的优势</h2>
           <div className="features-grid">
             <div className="feature-card">
-              <h3>与旅游签的区别</h3>
+              <h3>经济优势</h3>
               <ul>
-                <li><strong>必须有邀请人：</strong>需要荷兰朋友或亲属提供邀请函</li>
-                <li><strong>访问目的明确：</strong>主要是探访朋友或亲属</li>
-                <li><strong>住宿有保障：</strong>通常由邀请人提供住宿</li>
-                <li><strong>关系证明重要：</strong>需要证明与邀请人的真实关系</li>
+                <li><strong>住宿成本低：</strong>可以住在朋友家，节省酒店费用（每晚可省€80-150）</li>
+                <li><strong>餐饮成本低：</strong>可以在朋友家吃饭，减少外出就餐开支</li>
+                <li><strong>交通方便：</strong>朋友可能提供接送，节省交通费</li>
+                <li><strong>总体费用：</strong>访友签可以比纯旅游节省30-50%的费用</li>
               </ul>
             </div>
             <div className="feature-card">
-              <h3>访友签的优势</h3>
+              <h3>体验优势</h3>
               <ul>
-                <li><strong>住宿成本低：</strong>可以住在朋友家，节省酒店费用</li>
-                <li><strong>有人接待：</strong>邀请人可以帮助安排行程</li>
-                <li><strong>更真实：</strong>有明确的访问对象和理由</li>
-                <li><strong>材料可靠：</strong>邀请人提供的材料增加可信度</li>
+                <li><strong>深度体验：</strong>朋友可以带你去当地人才知道的特色地点</li>
+                <li><strong>文化交流：</strong>更好地了解荷兰本地文化和生活方式</li>
+                <li><strong>语言帮助：</strong>朋友可以帮助解决语言障碍</li>
+                <li><strong>安全保障：</strong>有当地人照应，遇到问题可以及时解决</li>
+              </ul>
+            </div>
+            <div className="feature-card">
+              <h3>申请优势</h3>
+              <ul>
+                <li><strong>目的明确：</strong>有具体的访问对象和理由，更有说服力</li>
+                <li><strong>材料可靠：</strong>邀请人提供的材料增加申请可信度</li>
+                <li><strong>住宿保障：</strong>明确的住宿安排让签证官更放心</li>
+                <li><strong>支持系统：</strong>如果审核有疑问，邀请人可以配合说明</li>
               </ul>
             </div>
           </div>
