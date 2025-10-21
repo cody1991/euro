@@ -1,6 +1,6 @@
 import React from 'react';
 import { HashRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { Map, FileText, ClipboardList, Route as RouteIcon, BookOpen, Hotel } from 'lucide-react';
+import { Map, FileText, ClipboardList, Route as RouteIcon, BookOpen, Hotel, UserCheck } from 'lucide-react';
 import './App.css';
 import MapPage from './pages/MapPage';
 import ItineraryOverview from './pages/ItineraryOverview';
@@ -8,6 +8,7 @@ import VisaItinerary from './pages/VisaItinerary';
 import ItineraryTimeline from './components/ItineraryTimeline';
 import VisaGuide from './pages/VisaGuide';
 import HotelGuide from './pages/HotelGuide';
+import NetherlandsVisitVisaGuide from './pages/NetherlandsVisitVisaGuide';
 
 function Navigation() {
   const location = useLocation();
@@ -128,6 +129,24 @@ function Navigation() {
         <Hotel size={20} />
         酒店攻略
       </Link>
+      <Link
+        to="/netherlands-visit-visa"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          padding: '10px 20px',
+          borderRadius: '25px',
+          textDecoration: 'none',
+          color: 'white',
+          fontWeight: 'bold',
+          background: location.pathname === '/netherlands-visit-visa' ? 'rgba(255,255,255,0.25)' : 'transparent',
+          transition: 'all 0.3s'
+        }}
+      >
+        <UserCheck size={20} />
+        荷兰访友签
+      </Link>
     </nav>
   );
 }
@@ -144,6 +163,7 @@ function App() {
           <Route path="/visa" element={<VisaItinerary />} />
           <Route path="/guide" element={<VisaGuide />} />
           <Route path="/hotel" element={<HotelGuide />} />
+          <Route path="/netherlands-visit-visa" element={<NetherlandsVisitVisaGuide />} />
         </Routes>
       </div>
     </Router>

@@ -1,0 +1,720 @@
+.netherlands-visa-guide {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.guide-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: #f5f7fa;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* 页面标题 */
+.guide-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding-bottom: 30px;
+  border-bottom: 3px solid #667eea;
+}
+
+.guide-header h1 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 15px;
+  font-weight: 800;
+}
+
+.guide-subtitle {
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  margin-bottom: 20px;
+}
+
+/* 导出按钮 */
+.export-section {
+  margin-top: 20px;
+}
+
+.export-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.export-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.export-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* 快速概览 */
+.overview-section {
+  margin-bottom: 40px;
+  padding: 30px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.overview-section h2 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.overview-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  color: white;
+  transition: transform 0.3s ease;
+}
+
+.overview-item:hover {
+  transform: translateY(-5px);
+}
+
+.overview-item svg {
+  flex-shrink: 0;
+}
+
+.overview-item h3 {
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+.overview-item p {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+/* 特点部分 */
+.features-section {
+  margin-bottom: 40px;
+  padding: 30px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.features-section h2 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.feature-card {
+  padding: 25px;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  border-radius: 12px;
+  color: white;
+}
+
+.feature-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.feature-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.feature-card li {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.feature-card li:last-child {
+  border-bottom: none;
+}
+
+/* 详细步骤 */
+.steps-section {
+  margin-bottom: 40px;
+}
+
+.steps-section > h2 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin-bottom: 25px;
+  text-align: center;
+  padding: 20px;
+  background: white;
+  border-radius: 15px;
+}
+
+.step-card {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.step-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #ecf0f1;
+}
+
+.step-number {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.step-icon {
+  color: #667eea;
+}
+
+.step-header h3 {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.step-content {
+  color: #34495e;
+}
+
+.detail-section {
+  margin-bottom: 25px;
+}
+
+.detail-section h4 {
+  font-size: 1.2rem;
+  color: #2c3e50;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.detail-section ul,
+.tips-section ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.detail-section li,
+.tips-section li {
+  padding: 8px 0;
+  padding-left: 25px;
+  position: relative;
+  line-height: 1.6;
+}
+
+.detail-section li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #667eea;
+  font-weight: bold;
+}
+
+.tips-section {
+  background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.tips-section h4 {
+  font-size: 1.1rem;
+  color: #2c3e50;
+  margin-bottom: 12px;
+}
+
+.tips-section li::before {
+  content: "💡";
+  position: absolute;
+  left: 0;
+}
+
+/* 费用明细 */
+.fees-section {
+  margin-bottom: 40px;
+  padding: 30px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.fees-section h2 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.fees-table {
+  background: #f8f9fa;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.fees-header,
+.fees-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 15px;
+  padding: 15px 20px;
+}
+
+.fees-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: bold;
+}
+
+.fees-row {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.fees-row:last-child {
+  border-bottom: none;
+}
+
+.total-cost {
+  margin-top: 20px;
+  padding: 15px;
+  background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+  border-radius: 10px;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+/* 重要提醒 */
+.notes-section {
+  margin-bottom: 40px;
+  padding: 30px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.notes-section h2 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.note-card {
+  padding: 25px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border-left: 5px solid #667eea;
+}
+
+.note-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  color: #667eea;
+}
+
+.note-header h3 {
+  font-size: 1.2rem;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.note-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.note-card li {
+  padding: 8px 0;
+  padding-left: 20px;
+  position: relative;
+  line-height: 1.6;
+}
+
+.note-card li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: #667eea;
+  font-weight: bold;
+}
+
+/* 模板部分 */
+.template-section {
+  margin-bottom: 40px;
+  padding: 30px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.template-section h2 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.template-card {
+  background: #f8f9fa;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.template-content {
+  padding: 20px;
+  background: #2c3e50;
+  overflow-x: auto;
+}
+
+.template-content pre {
+  color: #ecf0f1;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.template-note {
+  padding: 20px;
+  background: #fff3cd;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: #856404;
+}
+
+.template-note svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.template-note p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* 链接部分 */
+.links-section {
+  margin-bottom: 40px;
+  padding: 30px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.links-section h2 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.link-card {
+  padding: 25px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.link-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.link-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  color: #667eea;
+}
+
+.link-header h3 {
+  font-size: 1.1rem;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.link-card p {
+  color: #7f8c8d;
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+.link-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 20px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.link-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* 常见问题 */
+.faq-section {
+  margin-bottom: 40px;
+  padding: 30px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.faq-section h2 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.faq-item {
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  border-left: 4px solid #667eea;
+}
+
+.faq-item h4 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+  font-size: 1.05rem;
+}
+
+.faq-item p {
+  color: #34495e;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* 时间线 */
+.timeline-section {
+  margin-bottom: 40px;
+  padding: 30px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.timeline-section h2 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 40px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 15px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 30px;
+  padding-left: 25px;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -29px;
+  top: 5px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: white;
+  border: 4px solid #667eea;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);
+}
+
+.timeline-date {
+  display: inline-block;
+  padding: 5px 15px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.timeline-content {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.timeline-content h4 {
+  color: #2c3e50;
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+}
+
+.timeline-content p {
+  color: #7f8c8d;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* 免责声明 */
+.disclaimer-section {
+  margin-top: 40px;
+  padding: 30px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.disclaimer-card {
+  padding: 25px;
+  background: #fff3cd;
+  border-radius: 12px;
+  border-left: 5px solid #ffc107;
+}
+
+.disclaimer-card h3 {
+  color: #856404;
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
+.disclaimer-card p {
+  color: #856404;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+.disclaimer-card p:last-child {
+  margin-bottom: 0;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .guide-container {
+    padding: 20px;
+  }
+
+  .guide-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .overview-grid,
+  .features-grid,
+  .notes-grid,
+  .links-grid,
+  .faq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fees-header,
+  .fees-row {
+    grid-template-columns: 1.5fr 1fr 1fr;
+    font-size: 0.9rem;
+  }
+
+  .step-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .template-content pre {
+    font-size: 0.8rem;
+  }
+
+  .timeline {
+    padding-left: 30px;
+  }
+}
+
